@@ -21,7 +21,7 @@ import lc
 import requests
 
 
-version = "0.1"
+version = "0.2"
 
 pygame.init()  # initialize pygame
 mainClock = pygame.time.Clock()

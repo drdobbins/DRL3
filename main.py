@@ -21,7 +21,7 @@ import lc
 import requests
 
 
-version = "0.2"
+version = "0.3"
 
 pygame.init()  # initialize pygame
 mainClock = pygame.time.Clock()
@@ -2307,6 +2307,7 @@ while True:
                     clock_event()
                 chiefSync = True
                 chief_currently_desync = False
+                pygame.time.set_timer(watchdog_event, 5000)
                 
             #-----------IPF & USPA CHIEF RED BUTTON---------------------
             if event.key == pygame.K_f and not input_blocked:

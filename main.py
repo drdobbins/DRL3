@@ -21,7 +21,7 @@ import lc
 import requests
 
 
-version = "0.3"
+version = "0.4"
 
 pygame.init()  # initialize pygame
 mainClock = pygame.time.Clock()
@@ -37,7 +37,7 @@ dim_w = dimensions.current_w  # the screens width in pixels
 dim_h = dimensions.current_h  # the screens height in pixels.
 
 
-with open('config.json') as f:
+with open('/home/pi/Desktop/DRL3/config.json') as f:
     config_data = json.load(f)
 
 leftMac = config_data["left_mac_address"]
@@ -671,7 +671,7 @@ class clock:
         self.running = False
 
     def reset(self):
-        # reset the clock to 2 minutes
+        # reset the clock to 1 minute
         if self ==main_timer:
             capsLockOn = get_caps_lock()
             if not capsLockOn: #if the LED is off
@@ -684,6 +684,7 @@ class clock:
         self.running = False
         self.empty = False
         self.currently_reset = True
+        reset_main_liftingcast_clock()
 
     def reset_status(self):
         return self.currently_reset
@@ -741,6 +742,20 @@ class clock:
             if self.minutes == 0 and self.seconds == 0 and self.hours == 0:
                 self.running = False
                 self.empty = True
+
+
+def reset_main_liftingcast_clock():
+    global lc, good_sync_image, no_sync_image
+    if lc.configured: #if liftingcast is configured
+        try: 
+            total_time = 60 #60 seconds 
+            t2 = Thread(target=lc.set_liftingcast_clock, args=[total_time])
+            t2.daemon = True
+            t2.start()
+            place_image(good_sync_image, True) #draw the green sync logo
+        except:
+            place_image(no_sync_image, True) #draw the red sync logo
+
 
 
 def start_attempt_timer1():
@@ -1504,34 +1519,34 @@ breakMode = False
 attempt_change_mode = False
 
 # Load in All the Images used in the display.
-drlCorner = format_image("DRLimages/DRLcorner.png", 15, 10, 93)
+drlCorner = format_image("/home/pi/Desktop/DRL3/DRLimages/DRLcorner.png", 15, 10, 93)
 
 leftbatt100_image = format_image(
-    "DRLimages/battery100.png", 3, 8, 97.5)  # left referee
+    "/home/pi/Desktop/DRL3/DRLimages/battery100.png", 3, 8, 97.5)  # left referee
 leftbatt75_image = format_image(
-    "DRLimages/battery75.png", 3, 8, 97.5)  # left referee
+    "/home/pi/Desktop/DRL3/DRLimages/battery75.png", 3, 8, 97.5)  # left referee
 leftbatt50_image = format_image(
-    "DRLimages/battery50.png", 3, 8, 97.5)  # left referee
+    "/home/pi/Desktop/DRL3/DRLimages/battery50.png", 3, 8, 97.5)  # left referee
 leftbatt25_image = format_image(
-    "DRLimages/battery25.png", 3, 8, 97.5)  # left referee
+    "/home/pi/Desktop/DRL3/DRLimages/battery25.png", 3, 8, 97.5)  # left referee
 
 chiefbatt100_image = format_image(
-    "DRLimages/battery100.png", 3, 12, 97.5)  # chief referee
+    "/home/pi/Desktop/DRL3/DRLimages/battery100.png", 3, 12, 97.5)  # chief referee
 chiefbatt75_image = format_image(
-    "DRLimages/battery75.png", 3, 12, 97.5)  # chief referee
+    "/home/pi/Desktop/DRL3/DRLimages/battery75.png", 3, 12, 97.5)  # chief referee
 chiefbatt50_image = format_image(
-    "DRLimages/battery50.png", 3, 12, 97.5)  # chief referee
+    "/home/pi/Desktop/DRL3/DRLimages/battery50.png", 3, 12, 97.5)  # chief referee
 chiefbatt25_image = format_image(
-    "DRLimages/battery25.png", 3, 12, 97.5)  # chief referee
+    "/home/pi/Desktop/DRL3/DRLimages/battery25.png", 3, 12, 97.5)  # chief referee
 
 rightbatt100_image = format_image(
-    "DRLimages/battery100.png", 3, 16, 97.5)  # right referee
+    "/home/pi/Desktop/DRL3/DRLimages/battery100.png", 3, 16, 97.5)  # right referee
 rightbatt75_image = format_image(
-    "DRLimages/battery75.png", 3, 16, 97.5)  # right referee
+    "/home/pi/Desktop/DRL3/DRLimages/battery75.png", 3, 16, 97.5)  # right referee
 rightbatt50_image = format_image(
-    "DRLimages/battery50.png", 3, 16, 97.5)  # right referee
+    "/home/pi/Desktop/DRL3/DRLimages/battery50.png", 3, 16, 97.5)  # right referee
 rightbatt25_image = format_image(
-    "DRLimages/battery25.png", 3, 16, 97.5)  # right referee
+    "/home/pi/Desktop/DRL3/DRLimages/battery25.png", 3, 16, 97.5)  # right referee
 
 
 # Attempt and Lifter Clock Labels
@@ -1542,94 +1557,94 @@ e = 1  # need to go in and remove these after image resolution tests.
 
 z = 2
 lifterID_image = format_image(
-    "DRLimages/liftertimerID.png", 7, 63 + offset, 91.5 + yoffset)
+    "/home/pi/Desktop/DRL3/DRLimages/liftertimerID.png", 7, 63 + offset, 91.5 + yoffset)
 attemptID_image = format_image(
-    "DRLimages/attempttimerID.png", 7, 83 + offset, 91.5 + +yoffset)
+    "/home/pi/Desktop/DRL3/DRLimages/attempttimerID.png", 7, 83 + offset, 91.5 + +yoffset)
 # Attempt Clocks
 attempt1_image = format_image(
-    "DRLimages/attempttimerbox.png", 8, 76 + offset + e, 83 + yoffset)  # put it on the screen.
+    "/home/pi/Desktop/DRL3/DRLimages/attempttimerbox.png", 8, 76 + offset + e, 83 + yoffset)  # put it on the screen.
 attempt2_image = format_image(
-    "DRLimages/attempttimerbox.png", 8, 83 + offset + e, 83 + yoffset)
+    "/home/pi/Desktop/DRL3/DRLimages/attempttimerbox.png", 8, 83 + offset + e, 83 + yoffset)
 attempt3_image = format_image(
-    "DRLimages/attempttimerbox.png", 8, 90 + offset + e, 83 + yoffset)
+    "/home/pi/Desktop/DRL3/DRLimages/attempttimerbox.png", 8, 90 + offset + e, 83 + yoffset)
 # Left Referee Decisions
 leftGoodlift_image = format_image(
-    "DRLimages/goodlift.png", 40, 15, 20 + z)  # left main good lift circle "check"
+    "/home/pi/Desktop/DRL3/DRLimages/goodlift.png", 40, 15, 20 + z)  # left main good lift circle "check"
 leftNolift_image = format_image(
-    "DRLimages/nolift.png", 40, 15, 20 + z)  # left main no lift square "X"
+    "/home/pi/Desktop/DRL3/DRLimages/nolift.png", 40, 15, 20 + z)  # left main no lift square "X"
 leftRed_image = format_image(
-    "DRLimages/redcard.png", 8.5, 7, 46 + z)  # left red card
+    "/home/pi/Desktop/DRL3/DRLimages/redcard.png", 8.5, 7, 46 + z)  # left red card
 leftBlue_image = format_image(
-    "DRLimages/bluecard.png", 8.5, 15, 46 + z)  # left blue card
+    "/home/pi/Desktop/DRL3/DRLimages/bluecard.png", 8.5, 15, 46 + z)  # left blue card
 leftYellow_image = format_image(
-    "DRLimages/yellowcard.png", 8.5, 23, 46 + z)  # left yellow card
+    "/home/pi/Desktop/DRL3/DRLimages/yellowcard.png", 8.5, 23, 46 + z)  # left yellow card
 # Chief Referee Decisions
 chiefGoodlift_image = format_image(
-    "DRLimages/goodlift.png", 40, 50, 20 + z)  # chief main good lift circle "check"
+    "/home/pi/Desktop/DRL3/DRLimages/goodlift.png", 40, 50, 20 + z)  # chief main good lift circle "check"
 chiefNolift_image = format_image(
-    "DRLimages/nolift.png", 40, 50, 20 + z)  # chief main no lift square "X"
+    "/home/pi/Desktop/DRL3/DRLimages/nolift.png", 40, 50, 20 + z)  # chief main no lift square "X"
 chiefRed_image = format_image(
-    "DRLimages/redcard.png", 8.5, 42, 46 + z)  # chief red card
+    "/home/pi/Desktop/DRL3/DRLimages/redcard.png", 8.5, 42, 46 + z)  # chief red card
 chiefBlue_image = format_image(
-    "DRLimages/bluecard.png", 8.5, 50, 46 + z)  # chief blue card
+    "/home/pi/Desktop/DRL3/DRLimages/bluecard.png", 8.5, 50, 46 + z)  # chief blue card
 chiefYellow_image = format_image(
-    "DRLimages/yellowcard.png", 8.5, 58, 46 + z)  # chief yellow card
+    "/home/pi/Desktop/DRL3/DRLimages/yellowcard.png", 8.5, 58, 46 + z)  # chief yellow card
 # Right Referee Decisions
 rightGoodlift_image = format_image(
-    "DRLimages/goodlift.png", 40, 85, 20 + z)  # right main good lift circle "check"
+    "/home/pi/Desktop/DRL3/DRLimages/goodlift.png", 40, 85, 20 + z)  # right main good lift circle "check"
 rightNolift_image = format_image(
-    "DRLimages/nolift.png", 40, 85, 20 + z)  # right main no lift square "X"
+    "/home/pi/Desktop/DRL3/DRLimages/nolift.png", 40, 85, 20 + z)  # right main no lift square "X"
 rightRed_image = format_image(
-    "DRLimages/redcard.png", 8.5, 77, 46 + z)  # right red card
+    "/home/pi/Desktop/DRL3/DRLimages/redcard.png", 8.5, 77, 46 + z)  # right red card
 rightBlue_image = format_image(
-    "DRLimages/bluecard.png", 8.5, 85, 46 + z)  # right blue card
+    "/home/pi/Desktop/DRL3/DRLimages/bluecard.png", 8.5, 85, 46 + z)  # right blue card
 rightYellow_image = format_image(
-    "DRLimages/yellowcard.png", 8.5, 93, 46 + z)  # right yellow card
+    "/home/pi/Desktop/DRL3/DRLimages/yellowcard.png", 8.5, 93, 46 + z)  # right yellow card
 # Decision Circles
 leftDecision_image = format_image(
-    "DRLimages/referee_input.png", 40, 15, 20 + z)  # draw the left referee decision dot
+    "/home/pi/Desktop/DRL3/DRLimages/referee_input.png", 40, 15, 20 + z)  # draw the left referee decision dot
 chiefDecision_image = format_image(
-    "DRLimages/referee_input.png", 40, 50, 20 + z)  # draw the chief referee decision dot
+    "/home/pi/Desktop/DRL3/DRLimages/referee_input.png", 40, 50, 20 + z)  # draw the chief referee decision dot
 rightDecision_image = format_image(
-    "DRLimages/referee_input.png", 40, 85, 20 + z)  # draw the right referee decision dot
+    "/home/pi/Desktop/DRL3/DRLimages/referee_input.png", 40, 85, 20 + z)  # draw the right referee decision dot
 # Desync Symbols
-leftDesync_image = format_image("DRLimages/desync.png", 40, 15, 20 + z)
-chiefDesync_image = format_image("DRLimages/desync.png", 40, 50, 20 + z)
-rightDesync_image = format_image("DRLimages/desync.png", 40, 85, 20 + z)
+leftDesync_image = format_image("/home/pi/Desktop/DRL3/DRLimages/desync.png", 40, 15, 20 + z)
+chiefDesync_image = format_image("/home/pi/Desktop/DRL3/DRLimages/desync.png", 40, 50, 20 + z)
+rightDesync_image = format_image("/home/pi/Desktop/DRL3/DRLimages/desync.png", 40, 85, 20 + z)
 # Break Mode Frames
-break_mode_image = format_image("DRLimages/flightstartbox.png", 70, 50, 50)
+break_mode_image = format_image("/home/pi/Desktop/DRL3/DRLimages/flightstartbox.png", 70, 50, 50)
 # Atempt Change Images
-attempt_change_image = format_image("DRLimages/change.png", 40, 50, 50)
-small_attempt_change_image = format_image("DRLimages/change.png", 20, 50, 70)
-chief_remote_ipf_image = format_image("DRLimages/IPF_Chief.png", 35, 50, 65)
-left_remote_ipf_image = format_image("DRLimages/IPF_Left-Right.png",35, 35,65)
-right_remote_ipf_image = format_image("DRLimages/IPF_Left-Right.png",35, 65,65)
-spare_remote_ipf_image = format_image("DRLimages/IPF_Chief.png", 35, 90, 65)
+attempt_change_image = format_image("/home/pi/Desktop/DRL3/DRLimages/change.png", 40, 50, 50)
+small_attempt_change_image = format_image("/home/pi/Desktop/DRL3/DRLimages/change.png", 20, 50, 70)
+chief_remote_ipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/IPF_Chief.png", 35, 50, 65)
+left_remote_ipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/IPF_Left-Right.png",35, 35,65)
+right_remote_ipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/IPF_Left-Right.png",35, 65,65)
+spare_remote_ipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/IPF_Chief.png", 35, 90, 65)
 
 #DRL remote images used for the main menu.
-chief_remote_nonipf_image = format_image("DRLimages/non_ipf_chief.png", 35, 50, 65)
-left_remote_nonipf_image = format_image("DRLimages/non_ipf_left-right.png",35, 35,65)
-right_remote_nonipf_image = format_image("DRLimages/non_ipf_left-right.png",35, 65,65)
-spare_remote_nonipf_image = format_image("DRLimages/non_ipf_chief.png", 35, 90, 65)
+chief_remote_nonipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/non_ipf_chief.png", 35, 50, 65)
+left_remote_nonipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/non_ipf_left-right.png",35, 35,65)
+right_remote_nonipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/non_ipf_left-right.png",35, 65,65)
+spare_remote_nonipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/non_ipf_chief.png", 35, 90, 65)
 
 #DRL remote images used for the spare remote config menu
 #IPF Remotes
-left_remote_ipf_selected_image = format_image("DRLimages/IPF_Left-Right_selected.png",35, 35,65)
-chief_remote_ipf_selected_image = format_image("DRLimages/IPF_Chief_selected.png", 35, 50, 65)
-right_remote_ipf_selected_image = format_image("DRLimages/IPF_Left-Right_selected.png",35, 65,65)
+left_remote_ipf_selected_image = format_image("/home/pi/Desktop/DRL3/DRLimages/IPF_Left-Right_selected.png",35, 35,65)
+chief_remote_ipf_selected_image = format_image("/home/pi/Desktop/DRL3/DRLimages/IPF_Chief_selected.png", 35, 50, 65)
+right_remote_ipf_selected_image = format_image("/home/pi/Desktop/DRL3/DRLimages/IPF_Left-Right_selected.png",35, 65,65)
 #non IPF
-left_remote_nonipf_selected_image = format_image("DRLimages/non_ipf_left-right_selected.png",35, 35,65)
-chief_remote_nonipf_selected_image = format_image("DRLimages/non_ipf_chief_selected.png", 35, 50, 65)
-right_remote_nonipf_selected_image = format_image("DRLimages/non_ipf_left-right_selected.png",35, 65,65)
+left_remote_nonipf_selected_image = format_image("/home/pi/Desktop/DRL3/DRLimages/non_ipf_left-right_selected.png",35, 35,65)
+chief_remote_nonipf_selected_image = format_image("/home/pi/Desktop/DRL3/DRLimages/non_ipf_chief_selected.png", 35, 50, 65)
+right_remote_nonipf_selected_image = format_image("/home/pi/Desktop/DRL3/DRLimages/non_ipf_left-right_selected.png",35, 65,65)
 
 #Attempt Change Arrows
-left_arrow_image = init_arrow("DRLimages/changeicon_left.png")
-right_arrow_image = init_arrow("DRLimages/changeicon_right.png")
+left_arrow_image = init_arrow("/home/pi/Desktop/DRL3/DRLimages/changeicon_left.png")
+right_arrow_image = init_arrow("/home/pi/Desktop/DRL3/DRLimages/changeicon_right.png")
 
 #Liftingcast Sync Icons
-no_sync_image = format_image("DRLimages/changeicon_red.png", 4, 22,97) #red sync icon. 
-good_sync_image = format_image("DRLimages/changeicon_green.png", 4, 22,97) #green sync icon. 
-lc_sync_image = format_image("DRLimages/changeicon_gray.png", 4, 22,97) #gray sync icon. 
+no_sync_image = format_image("/home/pi/Desktop/DRL3/DRLimages/changeicon_red.png", 4, 22,97) #red sync icon. 
+good_sync_image = format_image("/home/pi/Desktop/DRL3/DRLimages/changeicon_green.png", 4, 22,97) #green sync icon. 
+lc_sync_image = format_image("/home/pi/Desktop/DRL3/DRLimages/changeicon_gray.png", 4, 22,97) #gray sync icon. 
 
 
 
@@ -1649,17 +1664,17 @@ bottom_arrow_surface.fill((23, 23, 23))
 
 # Pre render the Fonts.
 main_timer_font = pygame.font.Font(
-    "TitilliumWeb-Bold.ttf", int(dimensions.current_w / 100 * 25))
+    "/home/pi/Desktop/DRL3/TitilliumWeb-Bold.ttf", int(dimensions.current_w / 100 * 25))
 attempt_timer_font = pygame.font.Font(
-    "TitilliumWeb-Bold.ttf", int(dimensions.current_w / 100 * 4))
+    "/home/pi/Desktop/DRL3/TitilliumWeb-Bold.ttf", int(dimensions.current_w / 100 * 4))
 main_timer_break_font = pygame.font.Font(
-    "TitilliumWeb-Bold.ttf", int(dimensions.current_w / 100 * 15)) #used to be 20
+    "/home/pi/Desktop/DRL3/TitilliumWeb-Bold.ttf", int(dimensions.current_w / 100 * 15)) #used to be 20
 opener_change_font = pygame.font.Font(
-    "TitilliumWeb-Bold.ttf", int(dimensions.current_w / 100 * 11))
+    "/home/pi/Desktop/DRL3/TitilliumWeb-Bold.ttf", int(dimensions.current_w / 100 * 11))
 no_more_changes_font = pygame.font.Font(
-    "TitilliumWeb-Bold.ttf", int(dimensions.current_w / 100 * 5))
+    "/home/pi/Desktop/DRL3/TitilliumWeb-Bold.ttf", int(dimensions.current_w / 100 * 5))
 menu_font = pygame.font.Font(
-    "TitilliumWeb-Bold.ttf", int(dimensions.current_w / 100 * 4))
+    "/home/pi/Desktop/DRL3/TitilliumWeb-Bold.ttf", int(dimensions.current_w / 100 * 4))
 
 
 surface.fill((23, 23, 23))  # color the screen black

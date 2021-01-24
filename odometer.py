@@ -1,7 +1,7 @@
 import json
 
 def increase_mileage():
-	read_file = open('.mileage.json', 'r') #open the json file
+	read_file = open('/home/pi/mileage.json', 'r') #open the json file
 	data = json.load(read_file) #read in the data
 	read_file.close() #close the json file. 
 	#current_attempts = read_mileage()

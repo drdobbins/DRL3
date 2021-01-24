@@ -4,24 +4,26 @@ import requests
 
 
 server = "mainSite" #mainSite for liftingcast.com, "relay" for relay server. 
-localServerIP = "192.168.86.124" #if using a relay server, define the IP here. 
+localServerIP = "192.168.1.160" #if using a relay server, define the IP here. 
 
-meet_id = 'mi8nv9yfnn87' #liftingcast meet ID
+meet_id = 'mrzivliqz10r' #liftingcast meet ID
 #USAPL Platform IDs
-platform_id = 'p7jfprr86xvz' #liftingcast platform ID added "1" at the end. 
+platform_id = 'pi40bz3ayeqz' #liftingcast platform ID added  at the end. 
 #define meet password
-password = 'squat1000' #meet password
+password = 'TSS20' #meet password
 
-configured = False #this means meet ID, platform ID, and password have been entered. When this is true the sync icon is drawn on the screen. 
+configured = True #this means meet ID, platform ID, and password have been entered. When this is true the sync icon is drawn on the screen. 
 good_sync = False #this variable is checked by the main thread for drawing the sync icons. 
 bad_sync = False #this variable is checked by the main thread for drawing the sync icons. 
 
 if server == "mainSite":
+    print("Liftingcast Server is: Main Site")
     meet_url = "liftingcast.com" #main server address
     protocol = "https://"
     
 elif server == "relay":
-    meet_url = "192.168.86.124" #local relay server IP
+    print("Liftingcast Server is: Relay Server")
+    meet_url = localServerIP #local relay server IP
     protocol = "http://"
 
 #-----------------------------------
@@ -31,24 +33,43 @@ set_clock_url = protocol+meet_url+"/api/meets/"+meet_id+"/platforms/"+platform_i
 start_clock_url= protocol+meet_url+"/api/meets/"+meet_id+"/platforms/"+platform_id+"/start_clock"
 reset_clock_url= protocol+meet_url+"/api/meets/"+meet_id+"/platforms/"+platform_id+"/reset_clock"
 password_data={"password":password}
+
+print("Light URL:")
+print(light_url)
+print("Set CLock URL")
+print(set_clock_url)
+print("Start Clock URL")
+print(start_clock_url)
+print("Reset Clock URL")
+print(reset_clock_url)
 #-------------------------------------
 
 def start_liftingcast_clock():
-	global good_sync, bad_sync
-	try:
-		print("ATTEMPTING TO POST CLOCK START TO LIFTINGCAST.....\n")
-		r = requests.post(start_clock_url,json=password_data, timeout=3) #start the liftingcast clock
-		#place_image(good_sync_image, True) #draw the green sync
-		# I need to put something in the queu of the main thread letting it know to draw the green sync.
-		good_sync = True #this will draw a green sync icon on the main thread. 
-	except:
-		print("\n\nError when making post request to start the clock\n\n")
-		bad_sync = True #this will draw a red sync icon on the main thread. 
+    global good_sync, bad_sync
+    print("Start Clock URL")
+    print(start_clock_url)
+    try:
+        print("ATTEMPTING TO POST CLOCK START TO LIFTINGCAST.....\n")
+        print("Start Clock URL")
+        print(start_clock_url)
+        r = requests.post(start_clock_url,json=password_data, timeout=3) #start the liftingcast clock
+        #place_image(good_sync_image, True) #draw the green sync
+        # I need to put something in the queu of the main thread letting it know to draw the green sync.
+        good_sync = True #this will draw a green sync icon on the main thread. 
+    except:
+        print("\n\nError when making post request to start the clock\n\n")
+        print("Start Clock URL")
+        print(start_clock_url)
+        bad_sync = True #this will draw a red sync icon on the main thread. 
 
 def reset_liftingcast_clock():
+    print("Reset Clock URL")
+    print(reset_clock_url)
     r = requests.post(reset_clock_url,json=password_data) #reset the liftingcast clock
 
 def set_liftingcast_clock(time):
+    print("Set CLock URL")
+    print(set_clock_url)
     global password
     reset_data={"clockTimerLength": time,"password":password} #create the json package to set the clock. 
     r = requests.post(set_clock_url,json=reset_data) #we have to include the time duration on this type of request

@@ -21,6 +21,7 @@ import lc
 import requests
 
 
+
 version = "0.4"
 
 pygame.init()  # initialize pygame
@@ -36,6 +37,8 @@ dimensions = pygame.display.Info()  # this grabs the screen's size in pixels
 dim_w = dimensions.current_w  # the screens width in pixels
 dim_h = dimensions.current_h  # the screens height in pixels.
 
+os.system("python3 /home/pi/Desktop/DRL3/autoconnect.py") #run the autoconnect script. 
+ 
 
 with open('/home/pi/Desktop/DRL3/config.json') as f:
     config_data = json.load(f)

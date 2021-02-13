@@ -22,7 +22,7 @@ import requests
 
 
 
-version = "0.4"
+version = "0.5"
 
 pygame.init()  # initialize pygame
 mainClock = pygame.time.Clock()
@@ -37,7 +37,9 @@ dimensions = pygame.display.Info()  # this grabs the screen's size in pixels
 dim_w = dimensions.current_w  # the screens width in pixels
 dim_h = dimensions.current_h  # the screens height in pixels.
 
-os.system("python3 /home/pi/Desktop/DRL3/autoconnect.py") #run the autoconnect script. 
+#this script seems to generate a false positive for connections, and thus will fool the system into thinking each remote is connected
+#this triggers the spare configuration menu on every connect. 
+#os.system("python3 /home/pi/Desktop/DRL3/autoconnect.py") #run the autoconnect script. 
  
 
 with open('/home/pi/Desktop/DRL3/config.json') as f:
@@ -52,8 +54,10 @@ federation = config_data["federation"] #either "IPF" or non IPF
 
 if federation == "IPF":
     IPF = True
+    infractionCards = True
 else:
     IPF = False
+    infractionCards = False
 
 
 surface = pygame.display.set_mode((dimensions.current_w, dimensions.current_h), pygame.FULLSCREEN | pygame.DOUBLEBUF)  # creates the main window
@@ -1174,7 +1178,7 @@ def screen_reset():
 
 
 def menu():
-    global left_soc, chief_soc, right_soc, IPF
+    global left_soc, chief_soc, right_soc, IPF, infractionCards
     surface.fill((23, 23, 23))  # color the screen black
     #pygame.display.update((0, 0, dimensions.current_w, (dimensions.current_h/100)*90))
     pygame.display.update() #update the entire screen. 
@@ -1184,6 +1188,15 @@ def menu():
     place_text("MENU", "white",menu_font, 50,5,"mainTimer")
     place_text("IP: " + ip,"white", menu_font, 50, 20, "mainTimer")
     place_text("Version: " + version,"white",menu_font, 50, 40, "mainTimer")
+    
+    place_text("1 - Manual Remote Connect","white", menu_font, 50, 86, "mainTimer")
+    #need to put if config is IPF, give option to remove infraction cards. 
+    
+    if infractionCards and IPF:
+        place_text("2 - Remove Infraction Cards", "white", menu_font, 50, 95, "mainTimer")
+    elif IPF and not infractionCards:
+        place_text("2 - Add Infraction Cards", "white", menu_font, 50, 95, "mainTimer")
+        
     #place_text("Left Remote Battery: " + str(left_soc) + "%","white", menu_font, 50, 35, "mainTimer")
     #place_text("Chief Remote Battery: " + str(chief_soc) + "%","white", menu_font, 50, 55, "mainTimer")
     #place_text("Right Remote Battery: " + str(right_soc) + "%","white", menu_font, 50, 75, "mainTimer")
@@ -1205,9 +1218,29 @@ def menu():
         place_text(str(spare_soc)+"%", "white", menu_font, 90, 70, "mainTimer")
         for event in GAME_EVENTS.get():
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_KP1:
+                    #run the autoconnect script. 
+                    os.system("python3 /home/pi/Desktop/DRL3/autoconnect.py") #run the autoconnect script.
+                    stayLooped = False
+                    system_reset()
+                    
+                if event.key == pygame.K_KP2 and IPF:
+                    #toggle the infraction cards
+                    if infractionCards:
+                        infractionCards = False
+                    else:
+                        infractionCards = True
+                    stayLooped = False
+                    system_reset()
+                    
                 if event.key == pygame.K_KP_ENTER:  # EXIT CONDITION
                     stayLooped = False
                     system_reset()
+                    
+                if event.key == pygame.K_ESCAPE:
+                    pygame.event.clear() #remove all events from the queue. 
+                    pygame.quit()
+                    sys.exit()
                     
 def get_ip_address(ifname):
     testIP = "8.8.8.8"
@@ -1476,6 +1509,10 @@ def spare_config():
                     stayLooped = False
                     system_reset()
                     
+                if event.key == pygame.K_ESCAPE:
+                    pygame.event.clear() #remove all events from the queue. 
+                    pygame.quit()
+                    sys.exit()
                     
 
 main_timer = clock(1, 0)  # initialize the main timer.
@@ -2022,40 +2059,46 @@ while True:
 
             if leftRed:
                 place_image(leftNolift_image, False)
-                if IPF:
+                if IPF and infractionCards:
                     place_image(leftRed_image, False)
 
             if leftBlue:
                 place_image(leftNolift_image, False)
-                place_image(leftBlue_image, False)
+                if IPF and infractionCards:
+                    place_image(leftBlue_image, False)
             if leftYellow:
                 place_image(leftNolift_image, False)
-                place_image(leftYellow_image, False)
+                if IPF and infractionCards:
+                    place_image(leftYellow_image, False)
 
             if chiefRed:
                 place_image(chiefNolift_image, False)
-                if IPF:
+                if IPF and infractionCards:
                     place_image(chiefRed_image, False)
 
             if chiefBlue:
                 place_image(chiefNolift_image, False)
-                place_image(chiefBlue_image, False)
+                if IPF and infractionCards:
+                    place_image(chiefBlue_image, False)
             if chiefYellow:
                 place_image(chiefNolift_image, False)
-                place_image(chiefYellow_image, False)
+                if IPF and infractionCards:
+                    place_image(chiefYellow_image, False)
 
             if rightRed:
                 place_image(rightNolift_image, False)
-                if IPF: #only draw the infraction card if its an IPF contest
+                if IPF and infractionCards: #only draw the infraction card if its an IPF contest
                     place_image(rightRed_image, False)
 
             if rightBlue:
                 place_image(rightNolift_image, False)
-                place_image(rightBlue_image, False)
+                if IPF and infractionCards:
+                    place_image(rightBlue_image, False)
 
             if rightYellow:
                 place_image(rightNolift_image, False)
-                place_image(rightYellow_image, False)
+                if IPF   and infractionCards:
+                    place_image(rightYellow_image, False)
 
             pygame.display.update((0, 0, dimensions.current_w, (dimensions.current_h / 100) * 55))# this update reveals all aspects of the lights at once!
             main_timer.reset()  # reset the timer

@@ -12,9 +12,7 @@ platform_id = 'pi40bz3ayeqz' #liftingcast platform ID added  at the end.
 #define meet password
 password = 'TSS20' #meet password
 
-configured = True #this means meet ID, platform ID, and password have been entered. When this is true the sync icon is drawn on the screen. 
-good_sync = False #this variable is checked by the main thread for drawing the sync icons. 
-bad_sync = False #this variable is checked by the main thread for drawing the sync icons. 
+configured = False #this means meet ID, platform ID, and password have been entered. When this is true the sync icon is drawn on the screen. 
 
 if server == "mainSite":
     print("Liftingcast Server is: Main Site")
@@ -26,6 +24,9 @@ elif server == "relay":
     meet_url = localServerIP #local relay server IP
     protocol = "http://"
 
+
+good_sync = False #this variable is checked by the main thread for drawing the sync icons. 
+bad_sync = False #this variable is checked by the main thread for drawing the sync icons. 
 #-----------------------------------
 #these are the URLs used to make requests to liftingcast
 light_url = protocol+meet_url+"/api/meets/"+meet_id+"/platforms/"+platform_id+"/lights"

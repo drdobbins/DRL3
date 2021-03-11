@@ -2509,7 +2509,7 @@ while True:
                     revealDecision = True  # this removes the decision dots later on.
                     print("All 3 decisions made, setting timer for 2 seconds")
                     pygame.time.set_timer(
-                        reveal_lights_event, 2000)  # Begin the tick.
+                        reveal_lights_event, 1000)  # Begin the tick.
 
     mainClock.tick(120)
     # print("Main Loop Frame Rate: " + str(mainClock.get_fps()))

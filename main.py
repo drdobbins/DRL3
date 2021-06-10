@@ -28,6 +28,11 @@ pygame.init()  # initialize pygame
 mainClock = pygame.time.Clock()
 pygame.font.init()  # initialize pygame font
 
+# Start the flask app to configure DRL with LiftingCast meet and platform info.
+t5 = Thread(target=lc.app.run)
+t5.daemon = True
+t5.start()
+
 # test minimizing a window will work while getting input.
 # pygame.display.iconify()
 # os.system('amixer cset numid=3 2')  # sets the audio output to digital
@@ -38,9 +43,9 @@ dim_w = dimensions.current_w  # the screens width in pixels
 dim_h = dimensions.current_h  # the screens height in pixels.
 
 #this script seems to generate a false positive for connections, and thus will fool the system into thinking each remote is connected
-#this triggers the spare configuration menu on every connect. 
-#os.system("python3 /home/pi/Desktop/DRL3/autoconnect.py") #run the autoconnect script. 
- 
+#this triggers the spare configuration menu on every connect.
+#os.system("python3 /home/pi/Desktop/DRL3/autoconnect.py") #run the autoconnect script.
+
 
 with open('/home/pi/Desktop/DRL3/config.json') as f:
     config_data = json.load(f)
@@ -78,41 +83,41 @@ def check_bluetooth_status():
         #print("Start of the bluetooth querey thread:")
         #print("checking bluetooth device status")
         bl = Bluetoothctl()
-        
-        #initial values, will 
+
+        #initial values, will
         leftSync_init = bl.is_connected(leftMac)  # check if the chief remote is connected
         chiefSync_init = bl.is_connected(chiefMac)  # check if the chief remote is connected.
         rightSync_init = bl.is_connected(rightMac)  # check if the chief remote is connected.
         spareSync = bl.is_connected(spareMac)
-        
+
         if not spareSync: #the spare remote isn't connected
-            spare_not_configured = True #therefore the remote isn't configured, global variable. 
-        
+            spare_not_configured = True #therefore the remote isn't configured, global variable.
+
         left_init_soc = get_battery_percent(leftMac, left_soc)
         chief_init_soc = get_battery_percent(chiefMac, chief_soc)
         right_init_soc = get_battery_percent(rightMac, right_soc)
         spare_init_soc = get_battery_percent(spareMac, spare_soc)
-        
-        
+
+
         if isinstance(spare_init_soc,int):
             spare_soc = spare_init_soc
-    
+
         if spare_not_configured: # the spare remote isn't configured, report as normal
-            spare_soc = 0 #reset the battery percentage to 0% if it isn't configured. 
-            #----Gather the battery information, everything is normal. 
+            spare_soc = 0 #reset the battery percentage to 0% if it isn't configured.
+            #----Gather the battery information, everything is normal.
             if isinstance(left_init_soc,int):
                 left_soc = left_init_soc
             if isinstance(chief_init_soc,int):
                 chief_soc = chief_init_soc
-            if isinstance(right_init_soc,int): 
+            if isinstance(right_init_soc,int):
                 right_soc = right_init_soc
-            #everthing is normal, report out the normal sync statuses of the 3 main remotes. 
+            #everthing is normal, report out the normal sync statuses of the 3 main remotes.
             leftSync = leftSync_init
             chiefSync = chiefSync_init
             rightSync = rightSync_init
-                
+
         else: #the spare remote is configured, we need to update the correct battery image with the spare's value!
-            try: #theres a possiblity that the main loop won't update this value by the time we get here, so just hang tight until the spare remote side is selected. 
+            try: #theres a possiblity that the main loop won't update this value by the time we get here, so just hang tight until the spare remote side is selected.
                 if spare_side == "left":
                     leftSync = spareSync
                     chiefSync = chiefSync_init
@@ -127,26 +132,26 @@ def check_bluetooth_status():
                     rightSync = spareSync
             except:
                 print("Spare Remote side hasn't been selected, error when assigning sync responsibility")
-                    
-            
-            
-            #---The spare remote is connected, we need to now configure the battery icons. 
+
+
+
+            #---The spare remote is connected, we need to now configure the battery icons.
             if isinstance(spare_init_soc,int): #make sure the spare SOC is a real number.
                 try:
                     if spare_side == "left":
                         left_soc = spare_init_soc #update the left battery icon with the spare's value
-                        if isinstance(chief_init_soc,int): 
+                        if isinstance(chief_init_soc,int):
                             chief_soc = chief_init_soc #update the chief remote with its actual value
-                        if isinstance(right_init_soc,int): 
+                        if isinstance(right_init_soc,int):
                             right_soc = right_init_soc #update the right remote with its actual value
-                            
+
                     elif spare_side == "chief":
                         chief_soc = spare_init_soc #update the chief battery icon with the spare's value
                         if isinstance(left_init_soc,int):
                             left_soc = left_init_soc #udpate the left remote with its actual value
-                        if isinstance(right_init_soc,int): 
+                        if isinstance(right_init_soc,int):
                             right_soc = right_init_soc#update the right remote with its actual value
-                            
+
                     elif spare_side == "right":
                         right_soc = spare_init_soc #update the right battery icon with the spare's value.
                         if isinstance(left_init_soc,int):
@@ -155,9 +160,9 @@ def check_bluetooth_status():
                             chief_soc = chief_init_soc#update the chief remote with its actual value
                 except:
                     print("Spare side has not been defined yet... \n\n")
-                
-                
-            
+
+
+
         #print("Battery values are: Left: " +str(left_soc) + "% , Chief: " +str(chief_soc) + "% , Right: " + str(right_soc) +"% , Spare: " +str(spare_soc))
         time.sleep(1)
         #print("Bluetooth Thread sleeping for 5 seconds...")
@@ -651,24 +656,24 @@ class clock:
         else:
             value = str(self.minutes) + ":" + str(self.seconds)
         return value
-        
+
     def break_status(self):
         reported_seconds = str(self.seconds)
         reported_minutes = str(self.minutes)
         reported_hours = str(self.hours)
-        
+
         if self.seconds < 10:
             reported_seconds = "0"+str(self.seconds)
         if self.minutes < 10:
             reported_minutes = "0"+str(self.minutes)
-            
+
         value = reported_hours + ":" + reported_minutes + ":" + reported_seconds
         return value
 
     def start(self):
         # start the clock
         self.running = True
-        if self == main_timer: #we only want to toggle the caps lock value if the main timer is one being started, not attempt timers. 
+        if self == main_timer: #we only want to toggle the caps lock value if the main timer is one being started, not attempt timers.
             capsLockOn = get_caps_lock()
             if capsLockOn: #if caps lock is currently on, turn it off.
                 os.system("xte 'key Caps_Lock' -x:0") #turn off the LED
@@ -684,7 +689,7 @@ class clock:
             if not capsLockOn: #if the LED is off
                 os.system("xte 'key Caps_Lock' -x:0")#turn on the LED
                 print("Turning ON ATTEMPT CHANGE LED")
-                  
+
         print("Clock has been reset to 1:00")
         self.minutes = 1
         self.seconds = 0
@@ -712,19 +717,19 @@ class clock:
         reported_hour = self.hours
         reported_minute = self.minutes
         reported_seconds = self.seconds
-        
+
         if self.minutes < openerChange: #this is for the use case where an hour needs to change to keep track of the opener change
             if self.hours > 0:
                 reported_hour = self.hours - 1
             reported_minute = 60 - (openerChange - self.minutes)
         else:
             reported_minute = self.minutes - openerChange
-            
-            
+
+
         if reported_minute < 10:
             reported_minute = "0"+str(reported_minute)
-            
-        if self.seconds < 10: #if its less than 10 seconds, pad a zero. 
+
+        if self.seconds < 10: #if its less than 10 seconds, pad a zero.
             reported_seconds = "0" + str(self.seconds)
         #else:
         value = str(reported_hour) + ":" + str(reported_minute) + ":" + str(reported_seconds)
@@ -741,11 +746,11 @@ class clock:
             if self.seconds < 0 and self.minutes > -1:  # if the seconds portion has reached zero
                 self.seconds = 59  # reset the seonds portion then...l
                 self.minutes -= 1  # decrement the minute number
-                
+
             if self.minutes < 0 and self.hours > 0:
                 self.minutes = 59
                 self.hours -= 1
-                
+
             if self.minutes == 0 and self.seconds == 0 and self.hours == 0:
                 self.running = False
                 self.empty = True
@@ -754,8 +759,8 @@ class clock:
 def reset_main_liftingcast_clock():
     global lc, good_sync_image, no_sync_image
     if lc.configured: #if liftingcast is configured
-        try: 
-            total_time = 60 #60 seconds 
+        try:
+            total_time = 60 #60 seconds
             t2 = Thread(target=lc.set_liftingcast_clock, args=[total_time])
             t2.daemon = True
             t2.start()
@@ -854,8 +859,8 @@ def stringToclock(string):
         print(finalString)
         print("")
         return finalString
-    
-    else:   
+
+    else:
         seconds = string[-2:]
         minutes = string[:-2]
         print("beginning of string to clock function")
@@ -972,37 +977,37 @@ def timer_edit():
                         hours = int(new_time[0])
                         minutes = int(new_time[1:3])
                         seconds = int(new_time[4:])
-                        
+
                         if seconds > 59:
                             minutes = minutes +1
                             seconds = (seconds-60)
-                        
+
                         if minutes > 59:
                             hours += 1
                             minutes = (minutes-60)
-                        
+
                         main_timer.hours = hours
                         main_timer.minutes = minutes
                         main_timer.seconds = seconds
-                        
+
                         print("")
                         print(main_timer.hours)
                         print(main_timer.minutes)
                         print(main_timer.seconds)
                         print("")
-                    else:   
+                    else:
                         if len(new_time) < 3:  # that means the user only entered seconds.
                             minutes = 0
                             hours = 0
-                        else: #the user entered minutes too! 
+                        else: #the user entered minutes too!
                             minutes = int(new_time[:-2])
                         # this is what handles an empty input vs a non-empty input.
                         if len(new_time) == 0:  # this means the user entered nothing, which we default to normal operation.
-                            main_timer.hours = 0 #reset the hour variable since its only used on break. 
+                            main_timer.hours = 0 #reset the hour variable since its only used on break.
                             system_reset()
                             # update the class value
 
-                        else: #if the user entered a non zero input. 
+                        else: #if the user entered a non zero input.
                             seconds = int(new_time[-2:])
                             if seconds > 59:  # handle the weird input of 90 seconds = 1:30 we need to add minutes. 60-99 needs to add a minute
                                 minutes = minutes + 1
@@ -1181,22 +1186,22 @@ def menu():
     global left_soc, chief_soc, right_soc, IPF, infractionCards
     surface.fill((23, 23, 23))  # color the screen black
     #pygame.display.update((0, 0, dimensions.current_w, (dimensions.current_h/100)*90))
-    pygame.display.update() #update the entire screen. 
-    place_text("00:00", "gray", main_timer_font, 50, 70, "mainTimer") #remove the main timer. 
-    ip = display_ip_address() #check the IP. 
+    pygame.display.update() #update the entire screen.
+    place_text("00:00", "gray", main_timer_font, 50, 70, "mainTimer") #remove the main timer.
+    ip = display_ip_address() #check the IP.
     stayLooped = True
     place_text("MENU", "white",menu_font, 50,5,"mainTimer")
     place_text("IP: " + ip,"white", menu_font, 50, 20, "mainTimer")
     place_text("Version: " + version,"white",menu_font, 50, 40, "mainTimer")
-    
+
     place_text("1 - Manual Remote Connect","white", menu_font, 50, 86, "mainTimer")
-    #need to put if config is IPF, give option to remove infraction cards. 
-    
+    #need to put if config is IPF, give option to remove infraction cards.
+
     if infractionCards and IPF:
         place_text("2 - Remove Infraction Cards", "white", menu_font, 50, 95, "mainTimer")
     elif IPF and not infractionCards:
         place_text("2 - Add Infraction Cards", "white", menu_font, 50, 95, "mainTimer")
-        
+
     #place_text("Left Remote Battery: " + str(left_soc) + "%","white", menu_font, 50, 35, "mainTimer")
     #place_text("Chief Remote Battery: " + str(chief_soc) + "%","white", menu_font, 50, 55, "mainTimer")
     #place_text("Right Remote Battery: " + str(right_soc) + "%","white", menu_font, 50, 75, "mainTimer")
@@ -1219,11 +1224,11 @@ def menu():
         for event in GAME_EVENTS.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_KP1:
-                    #run the autoconnect script. 
+                    #run the autoconnect script.
                     os.system("python3 /home/pi/Desktop/DRL3/autoconnect.py") #run the autoconnect script.
                     stayLooped = False
                     system_reset()
-                    
+
                 if event.key == pygame.K_KP2 and IPF:
                     #toggle the infraction cards
                     if infractionCards:
@@ -1232,16 +1237,16 @@ def menu():
                         infractionCards = True
                     stayLooped = False
                     system_reset()
-                    
+
                 if event.key == pygame.K_KP_ENTER:  # EXIT CONDITION
                     stayLooped = False
                     system_reset()
-                    
+
                 if event.key == pygame.K_ESCAPE:
-                    pygame.event.clear() #remove all events from the queue. 
+                    pygame.event.clear() #remove all events from the queue.
                     pygame.quit()
                     sys.exit()
-                    
+
 def get_ip_address(ifname):
     testIP = "8.8.8.8"
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -1254,7 +1259,7 @@ def display_ip_address():
     try:
         ip = str(get_ip_address('eth0'))
         return ip
-        
+
     except:
         try:
             ip =str(get_ip_address('wlan0'))
@@ -1354,13 +1359,13 @@ def clock_event():
     print("Clock button pressed")
     if main_timer.running or main_timer.empty:
         if breakMode:
-            main_timer.pause() # just pause the clock. this may cause issues with liftingcast sync's. 
+            main_timer.pause() # just pause the clock. this may cause issues with liftingcast sync's.
         else:
             pygame.time.set_timer(main_timer_event, 0)  # Halt the repeating events.
             pygame.event.get(main_timer_event)  # this should remove any late main timer events in the queue.
             main_timer.reset()  # reset the clock to 1 minute.
-            
-            #need to wrap in a try block, only if we are configured for a LC sync. 
+
+            #need to wrap in a try block, only if we are configured for a LC sync.
             if lc.configured:
                 try:
                     t3 = Thread(target=lc.reset_liftingcast_clock)
@@ -1370,8 +1375,8 @@ def clock_event():
                     place_image(good_sync_image, True) #draw the green sync
                 except:
                     place_image(no_sync_image, True) #draw the red sync
-                    
-            
+
+
             place_text(main_timer.status(), "white", main_timer_font, 50, 70, "mainTimer")# prints the main timer. #update the timerplace_text
 
     else:
@@ -1379,13 +1384,13 @@ def clock_event():
         print("Starting the Main Timer")
         main_timer.start()
         main_timer.tick()  # go ahead and decremete the first time.
-        #need to wrap in a try block, only if we are configured for a LC sync. 
+        #need to wrap in a try block, only if we are configured for a LC sync.
         if lc.configured:
             #try:
             t4 = Thread(target=lc.start_liftingcast_clock)
             t4.daemon = True
             t4.start()
-            
+
             #r = requests.post(lc.start_clock_url,json=lc.password_data) #start the liftingcast clock
             #place_image(good_sync_image, True) #draw the green sync
             #except:
@@ -1420,18 +1425,18 @@ def spare_config():
     #this menu will configure the spare remote.
     global spareSync, IPF
     surface.fill((23, 23, 23))  # color the screen black
-    pygame.display.update() #update the entire screen. 
-    
+    pygame.display.update() #update the entire screen.
+
     stayLooped = True
     place_text("SPARE REMOTE CONFIGURATION", "white",menu_font, 50,10,"mainTimer")
     place_text("Press the red button to cycle through positions", "white",menu_font, 50,20,"mainTimer")
     place_text("Press the white button to select the position", "white",menu_font, 50,30,"mainTimer")
-   
+
     if IPF: #initial highlighting of the left remote when the menu starts.
         place_image(left_remote_ipf_selected_image, True)
         place_image(chief_remote_ipf_image, True)
         place_image(right_remote_ipf_image, True)
-        
+
     else: #initial highlighting of the left remote when the menu starts.
         place_image(left_remote_nonipf_selected_image, True)
         place_image(chief_remote_nonipf_image, True)
@@ -1442,11 +1447,11 @@ def spare_config():
             stayLooped = False
             system_reset()
             return None
-        
+
         for event in GAME_EVENTS.get():
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_v or event.key == pygame.K_m: #IPF White button pushed, which means select the desired remote. 
-                    #print a message asking for confirmation. 
+                if event.key == pygame.K_v or event.key == pygame.K_m: #IPF White button pushed, which means select the desired remote.
+                    #print a message asking for confirmation.
                     #place_text("Press the red button to cycle through positions", "gray",menu_font, 50,20,"mainTimer")
                     #place_text("Press the white button to select the side", "gray",menu_font, 50,30,"mainTimer")
                     draw_background_box("spareMenu",True)
@@ -1455,7 +1460,7 @@ def spare_config():
                     place_text("Press the red button to return to position selection", "white",menu_font, 50,40,"mainTimer")
                     confirm_selection = False
                     while not confirm_selection: #wait for the user to make a decision.
-                        if not spareSync: #remote has been disconnected, exit the loop. 
+                        if not spareSync: #remote has been disconnected, exit the loop.
                             confirm_selection = True
                             stayLooped = False
                             system_reset()
@@ -1467,15 +1472,15 @@ def spare_config():
                                     stayLooped = False
                                     system_reset() #exit the menu
                                     return selected #return either, "left", "chief", or "right"
-                                    #add in config output stuff. 
+                                    #add in config output stuff.
                                 if event.key == pygame.K_b: #this means the user doesnt want to confirm their decision, go back.
                                     confirm_selection = True
                                     draw_background_box("spareMenu",True)
                                     place_text("Press the red button to cycle through positions", "white",menu_font, 50,20,"mainTimer")
                                     place_text("Press the white button to select the position", "white",menu_font, 50,30,"mainTimer")
-                                
-                    
-                    
+
+
+
                 if event.key == pygame.K_b: #red button.
                     #cycle the selected images.
                     if selected == "left":
@@ -1486,7 +1491,7 @@ def spare_config():
                         else:
                             place_image(left_remote_nonipf_image, True) # make the left remote white
                             place_image(chief_remote_nonipf_selected_image, True) # select the chief remote
-                        
+
                     elif selected == "chief":
                         selected = "right"
                         if IPF:
@@ -1495,7 +1500,7 @@ def spare_config():
                         else:
                             place_image(chief_remote_nonipf_image, True) # make the chief remote white
                             place_image(right_remote_nonipf_selected_image, True) #select the right remote
-                    
+
                     elif selected == "right":
                         selected = "left"
                         if IPF:
@@ -1504,16 +1509,16 @@ def spare_config():
                         else:
                             place_image(right_remote_nonipf_image, True) # select the right remote
                             place_image(left_remote_nonipf_selected_image, True) # select the left remote
-                    
+
                 if event.key == pygame.K_KP_ENTER:  # EXIT CONDITION
                     stayLooped = False
                     system_reset()
-                    
+
                 if event.key == pygame.K_ESCAPE:
-                    pygame.event.clear() #remove all events from the queue. 
+                    pygame.event.clear() #remove all events from the queue.
                     pygame.quit()
                     sys.exit()
-                    
+
 
 main_timer = clock(1, 0)  # initialize the main timer.
 attempt_timer1 = clock(0, 0)  # initialize the left most attempt timer.
@@ -1682,9 +1687,9 @@ left_arrow_image = init_arrow("/home/pi/Desktop/DRL3/DRLimages/changeicon_left.p
 right_arrow_image = init_arrow("/home/pi/Desktop/DRL3/DRLimages/changeicon_right.png")
 
 #Liftingcast Sync Icons
-no_sync_image = format_image("/home/pi/Desktop/DRL3/DRLimages/changeicon_red.png", 4, 22,97) #red sync icon. 
-good_sync_image = format_image("/home/pi/Desktop/DRL3/DRLimages/changeicon_green.png", 4, 22,97) #green sync icon. 
-lc_sync_image = format_image("/home/pi/Desktop/DRL3/DRLimages/changeicon_gray.png", 4, 22,97) #gray sync icon. 
+no_sync_image = format_image("/home/pi/Desktop/DRL3/DRLimages/changeicon_red.png", 4, 22,97) #red sync icon.
+good_sync_image = format_image("/home/pi/Desktop/DRL3/DRLimages/changeicon_green.png", 4, 22,97) #green sync icon.
+lc_sync_image = format_image("/home/pi/Desktop/DRL3/DRLimages/changeicon_gray.png", 4, 22,97) #gray sync icon.
 
 
 
@@ -1739,7 +1744,7 @@ print("display updated-main init")
 pygame.time.set_timer(sync_check_event, 5000)
                       # check every 5 seconds if the remotes are connected.
 
-#initial battery percentage initializations. 
+#initial battery percentage initializations.
 left_soc = 0
 chief_soc = 0
 right_soc = 0
@@ -1749,42 +1754,42 @@ t = Thread(target=check_bluetooth_status)
 t.daemon = True
 t.start()  # start the bluetooth thread.
 
-pygame.event.post(sync_check_postable_event) #check for remote connections at the very beginning! 
+pygame.event.post(sync_check_postable_event) #check for remote connections at the very beginning!
 
 
-capsLockOn = get_caps_lock() #used for the attempt change button illumination. 
-if not capsLockOn: #if caps lock is off, turn it on. 
+capsLockOn = get_caps_lock() #used for the attempt change button illumination.
+if not capsLockOn: #if caps lock is off, turn it on.
     os.system("xte 'key Caps_Lock' -x:0")
 
 while True:
     # print("we are in the main loop")
     #we should constantly check for a spare remote connection event.
-    
+
     if lc.good_sync and lc.configured:
         print("Drawing Green LC Sync from the Main Thread")
-        place_image(good_sync_image, True) #draw the green sync#draw the green icon. 
-        lc.good_sync = False #reset the variable so we don't constantly draw it. 
-        
+        place_image(good_sync_image, True) #draw the green sync#draw the green icon.
+        lc.good_sync = False #reset the variable so we don't constantly draw it.
+
     if lc.bad_sync and lc.configured:
         print("Drawing Reed LC Sync from the Main Thread")
         place_image(no_sync_image, True) #draw the green sync#draw the green icon.
-        lc.bad_sync = False #reset the variable so we don't constantly draw it. 
-        
-    
+        lc.bad_sync = False #reset the variable so we don't constantly draw it.
+
+
     if spareSync and spare_not_configured:#only configure the spare if its connected and hasn't been configured.
         print("Spare remote connected! configuring...\n\n\n")
         spare_not_configured = False #we don't want to enter this state again.
         spare_side = spare_config()
-    
-     
+
+
     for event in GAME_EVENTS.get():
-        
+
         if event.type == sync_check_event and not revealDecision:
             # sync check will also double as the callback function that clears a liftingcast stync icon status. 
-            
-            if lc.configured: #if we are configured to a liftingcast server, draw the gray icon. 
-                place_image(lc_sync_image, True) #draw the normal sync icon, overwriting whatever was there last. 
-            
+
+            if lc.configured: #if we are configured to a liftingcast server, draw the gray icon.
+                place_image(lc_sync_image, True) #draw the normal sync icon, overwriting whatever was there last.
+
             # check if the remotes are connected, if not draw the desync icon
             # in its place.
             print("")
@@ -1902,7 +1907,7 @@ while True:
                 print("checking bluetooth stack for right battery percentage")
                 # right_soc = get_battery_percent(rightMac)
                 print("right battery percent is: " + str(right_soc) + "%")
-                
+
                 if type(right_soc) == int:
                     draw_background_box("rightBatt", False)
                     if right_soc > 75:
@@ -2113,7 +2118,7 @@ while True:
                     place_image(good_sync_image, True) #draw the red sync
                 except:
                     place_image(no_sync_image, True)
-            
+
             # set a 10 second timer to clear the lights.
             pygame.time.set_timer(clear_lights_event, 10000)
             print("Timer set to clear lights")
@@ -2156,12 +2161,12 @@ while True:
             if event.key == pygame.K_q and not spare_not_configured:
                 if spare_side == "chief":
                     clock_event() #trigger the clock becuase this remote is a spare.
-                    
+
             #-----------IPF SPARE WHITE BUTTON or USPA GREEN BUTTON-----
             if event.key == pygame.K_v and not input_blocked and not spare_not_configured:
                 #this is a spare remote IPF white button/ USPA clock button
-                
-                if IPF: #if this set is an IPF remote, the spare top right button is the white button. 
+
+                if IPF: #if this set is an IPF remote, the spare top right button is the white button.
                     if spare_side == "left": #if the spare is configured as a left remote
                         leftGoodlift = True
                         leftRed = False
@@ -2170,8 +2175,8 @@ while True:
                         leftDecision = True
                         place_image(leftDecision_image, True)
                         pygame.time.set_timer(watchdog_event, 5000)
-                        #need to add some de sync stuff. 
-                        
+                        #need to add some de sync stuff.
+
                     elif spare_side == "chief": #if the spare is configured as a chief remote
                         chiefGoodlift = True
                         chiefRed = False
@@ -2180,7 +2185,7 @@ while True:
                         chiefDecision = True
                         place_image(chiefDecision_image, True)
                         pygame.time.set_timer(watchdog_event, 5000)
-                        
+
                     elif spare_side == "right": #if the spare is configured as a right remote
                         rightGoodlift = True
                         rightRed = False
@@ -2189,34 +2194,34 @@ while True:
                         rightDecision = True
                         place_image(rightDecision_image, True)
                         pygame.time.set_timer(watchdog_event, 5000)
-                else: #this is a non IPF set, trigger the clock! 
+                else: #this is a non IPF set, trigger the clock!
                     if spare_side == "chief":
                         clock_event()
-                    
-            #-------------IPF & USPA SPARE RED BUTTON-------------------    
+
+            #-------------IPF & USPA SPARE RED BUTTON-------------------
             if event.key == pygame.K_b and not input_blocked and not spare_not_configured:
                 if spare_side == "left": #if the spare is configured as a left remote
                     leftRed = True
                     leftGoodlift = False
                     leftDecision = True
                     place_image(leftDecision_image, True)
-                    pygame.time.set_timer(watchdog_event, 5000)    
-                    #need to add some de sync stuff. 
-                        
+                    pygame.time.set_timer(watchdog_event, 5000)
+                    #need to add some de sync stuff.
+
                 elif spare_side == "chief": #if the spare is configured as a chief remote
                     chiefRed = True
                     chiefGoodlift = False
                     chiefDecision = True
                     place_image(chiefDecision_image, True)
-                    pygame.time.set_timer(watchdog_event, 5000)     
-                        
+                    pygame.time.set_timer(watchdog_event, 5000)
+
                 elif spare_side == "right": #if the spare is configured as a right remote
                     rightRed = True
                     rightGoodlift = False
                     rightDecision = True
                     place_image(rightDecision_image, True)
                     pygame.time.set_timer(watchdog_event, 5000)
-                    
+
             #-----------------IPF SPARE BLUE BUTTON---------------------
             if event.key == pygame.K_n and not input_blocked and not spare_not_configured:
                 if spare_side == "left": #if the spare is configured as a left remote
@@ -2224,23 +2229,23 @@ while True:
                     leftGoodlift = False
                     leftDecision = True
                     place_image(leftDecision_image, True)
-                    pygame.time.set_timer(watchdog_event, 5000)    
-                    #need to add some de sync stuff. 
-                        
+                    pygame.time.set_timer(watchdog_event, 5000)
+                    #need to add some de sync stuff.
+
                 elif spare_side == "chief": #if the spare is configured as a chief remote
                     chiefBlue = True
                     chiefGoodlift = False
                     chiefDecision = True
                     place_image(chiefDecision_image, True)
-                    pygame.time.set_timer(watchdog_event, 5000)     
-                        
+                    pygame.time.set_timer(watchdog_event, 5000)
+
                 elif spare_side == "right": #if the spare is configured as a right remote
                     rightBlue = True
                     rightGoodlift = False
                     rightDecision = True
                     place_image(rightDecision_image, True)
                     pygame.time.set_timer(watchdog_event, 5000)
-                    
+
             #------IPF SPARE YELLOW BUTTON or USPA SPARE WHITE BUTTON---
             if event.key == pygame.K_m and not input_blocked and not spare_not_configured:
                 if IPF:
@@ -2249,23 +2254,23 @@ while True:
                         leftGoodlift = False
                         leftDecision = True
                         place_image(leftDecision_image, True)
-                        pygame.time.set_timer(watchdog_event, 5000)    
-                        #need to add some de sync stuff. 
-                            
+                        pygame.time.set_timer(watchdog_event, 5000)
+                        #need to add some de sync stuff.
+
                     elif spare_side == "chief": #if the spare is configured as a chief remote
                         chiefYellow = True
                         chiefGoodlift = False
                         chiefDecision = True
                         place_image(chiefDecision_image, True)
-                        pygame.time.set_timer(watchdog_event, 5000)     
-                            
+                        pygame.time.set_timer(watchdog_event, 5000)
+
                     elif spare_side == "right": #if the spare is configured as a right remote
                         rightYellow = True
                         rightGoodlift = False
                         rightDecision = True
                         place_image(rightDecision_image, True)
                         pygame.time.set_timer(watchdog_event, 5000)
-                        
+
                 else: #this is a USPA remote, which has a white button in place of "M"
                     if spare_side == "left": #if the spare is configured as a left remote
                         leftGoodlift = True
@@ -2275,8 +2280,8 @@ while True:
                         leftDecision = True
                         place_image(leftDecision_image, True)
                         pygame.time.set_timer(watchdog_event, 5000)
-                        #need to add some de sync stuff. 
-                        
+                        #need to add some de sync stuff.
+
                     elif spare_side == "chief": #if the spare is configured as a chief remote
                         chiefGoodlift = True
                         chiefRed = False
@@ -2285,7 +2290,7 @@ while True:
                         chiefDecision = True
                         place_image(chiefDecision_image, True)
                         pygame.time.set_timer(watchdog_event, 5000)
-                        
+
                     elif spare_side == "right": #if the spare is configured as a right remote
                         rightGoodlift = True
                         rightRed = False
@@ -2294,7 +2299,7 @@ while True:
                         rightDecision = True
                         place_image(rightDecision_image, True)
                         pygame.time.set_timer(watchdog_event, 5000)
-                    
+
             #----------------REGULAR REMOTE INPUT-----------------------
             #-----------------------------------------------------------
             #-----------------------------------------------------------
@@ -2323,7 +2328,7 @@ while True:
                 pygame.time.set_timer(watchdog_event, 5000)
                 leftSync = True
                 left_currently_desync = False
-                
+
             #----------------IPF LEFT BLUE BUTTON----------------------
             if event.key == pygame.K_s and not input_blocked and IPF:
                 if left_currently_desync:
@@ -2335,7 +2340,7 @@ while True:
                 pygame.time.set_timer(watchdog_event, 5000)
                 leftSync = True
                 left_currently_desync = False
-                
+
             #--------IPF LEFT YELLOW or USPA WHITE BUTTON---------------
             if event.key == pygame.K_d and not input_blocked:
                 if left_currently_desync:
@@ -2351,12 +2356,12 @@ while True:
                 pygame.time.set_timer(watchdog_event, 5000)
                 leftSync = True
                 left_currently_desync = False
-                
+
             #---------IPF CHIEF WHITE or USPA GREEN BUTTON--------------
             if event.key == pygame.K_t:
                 if chief_currently_desync:
                     draw_background_box("chief", True)
-                    
+
                 if IPF and not input_blocked: #ipf white button
                     chiefGoodlift = True
                     chiefRed = False
@@ -2369,7 +2374,7 @@ while True:
                 chiefSync = True
                 chief_currently_desync = False
                 pygame.time.set_timer(watchdog_event, 5000)
-                
+
             #-----------IPF & USPA CHIEF RED BUTTON---------------------
             if event.key == pygame.K_f and not input_blocked:
                 if chief_currently_desync:
@@ -2381,7 +2386,7 @@ while True:
                 pygame.time.set_timer(watchdog_event, 5000)
                 chiefSync = True
                 chief_currently_desync = False
-                
+
             #----------------IPF CHIEF BLUE BUTTON----------------------
             if event.key == pygame.K_g and not input_blocked and IPF:
                 if chief_currently_desync:
@@ -2393,7 +2398,7 @@ while True:
                 pygame.time.set_timer(watchdog_event, 5000)
                 chiefSync = True
                 chief_currently_desync = False
-                
+
             #-------IPF CHIEF YELLOW or USPA CHIEF WHITE BUTTON---------------
             if event.key == pygame.K_h and not input_blocked:
                 if chief_currently_desync:
@@ -2408,7 +2413,7 @@ while True:
                 place_image(chiefDecision_image, True)
                 pygame.time.set_timer(watchdog_event, 5000)
                 chiefSync = True
-                
+
             #------------IPF RIGHT WHITE BUTTON-------------------------
             if event.key == pygame.K_i and not input_blocked:
                 if right_currently_desync:
@@ -2422,7 +2427,7 @@ while True:
                 pygame.time.set_timer(watchdog_event, 5000)
                 rightSync = True
                 right_currently_desync = False
-                
+
             #-----------IPF & USPA RIGHT RED BUTTON---------------------
             if event.key == pygame.K_j and not input_blocked:
                 if right_currently_desync:
@@ -2469,11 +2474,11 @@ while True:
                 timer_edit()
                 print("Timer Edit mode complete, checking if break condition")
                 total_time = (main_timer.hours * 3600) + (main_timer.minutes * 60) + main_timer.seconds
-                
-                #data package to set the liftingcast clock. 
+
+                #data package to set the liftingcast clock.
                 if lc.configured: #if liftingcast is configured
-                    try: 
-                        #reset_data={"clockTimerLength": total_time,"password":lc.password} #create the json package to set the clock. 
+                    try:
+                        #reset_data={"clockTimerLength": total_time,"password":lc.password} #create the json package to set the clock.
                         #r = requests.post(lc.set_clock_url,json=reset_data) #we have to include the time duration on this type of request
                         t2 = Thread(target=lc.set_liftingcast_clock, args=[total_time])
                         t2.daemon = True
@@ -2481,23 +2486,23 @@ while True:
                         place_image(good_sync_image, True) #draw the green sync logo
                     except:
                         place_image(no_sync_image, True) #draw the red sync logo
-                
-                
+
+
                 if total_time > 240:
                     print("Timer value is greater than 4 minutes, entering break mode")
                     print("Clock is currently:" + str(main_timer.hours)+":"+str(main_timer.minutes)+":"+str(main_timer.seconds))
                     breakMode = True  # we are now in a break.
                     break_mode()
-                    
+
             if event.key == pygame.K_SPACE:  # the space bar/attempt change button!
                 print ("Attempt Change button pressed")
                 attempt_change()
-            
+
 
             if event.key == pygame.K_KP_ENTER:  # EXIT CONDITION
                 menu() #
             if event.key == pygame.K_ESCAPE:
-                pygame.event.clear() #remove all events from the queue. 
+                pygame.event.clear() #remove all events from the queue.
                 pygame.quit()
                 sys.exit()
 

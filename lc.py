@@ -1,28 +1,38 @@
-import os
+import flask
 import json
+import os
 import requests
 
 
-server = "mainSite" #mainSite for liftingcast.com, "relay" for relay server. 
-localServerIP = "192.168.1.160" #if using a relay server, define the IP here. 
+# server = "mainSite" #mainSite for liftingcast.com, "relay" for relay server.
+# localServerIP = "192.168.1.160" #if using a relay server, define the IP here.
 
-meet_id = 'mrzivliqz10r' #liftingcast meet ID
+
+
+
+
+# meet_id = 'mrzivliqz10r' #liftingcast meet ID
 #USAPL Platform IDs
-platform_id = 'pi40bz3ayeqz' #liftingcast platform ID added  at the end. 
+# platform_id = 'pi40bz3ayeqz' #liftingcast platform ID added  at the end.
 #define meet password
-password = 'TSS20' #meet password
+# password = 'TSS20' #meet password
 
-configured = False #this means meet ID, platform ID, and password have been entered. When this is true the sync icon is drawn on the screen. 
+meet_id = ""
+platform_id = ""
+password = ""
+meet_url = ""
+protocol = ""
+configured = False # configured being True means meet ID, platform ID, and password have been entered. When this is true the sync icon is drawn on the screen.
 
-if server == "mainSite":
-    print("Liftingcast Server is: Main Site")
-    meet_url = "liftingcast.com" #main server address
-    protocol = "https://"
-    
-elif server == "relay":
-    print("Liftingcast Server is: Relay Server")
-    meet_url = localServerIP #local relay server IP
-    protocol = "http://"
+# if server == "mainSite":
+#     print("Liftingcast Server is: Main Site")
+#     meet_url = "liftingcast.com" #main server address
+#     protocol = "https://"
+#
+# elif server == "relay":
+#     print("Liftingcast Server is: Relay Server")
+#     meet_url = localServerIP #local relay server IP
+#     protocol = "http://"
 
 
 good_sync = False #this variable is checked by the main thread for drawing the sync icons. 
@@ -181,7 +191,7 @@ def empty_decisions():
     }
 
 def liftingcast_post(url,data):
-    
+
     try:
         r = requests.post(url,json=data)
         print("Referee Data Sent")
@@ -194,3 +204,68 @@ def liftingcast_post(url,data):
         #place_image("network_bad.png",2,windo_size[0]/8,windo_size[1]/8)
         #pygame.display.update()
         #time.sleep(1)
+
+
+
+# Flask app that
+# 1. Serves the site that allows the user to select the LiftingCast meet and platform for which this instance of DRL
+#    will be used and to enter the LiftingCast password for the meet.
+# 2. Receives those values from the site and sets the appropriate variables, to be used in the main thread of DRL.
+app = flask.Flask(__name__)
+
+# Endpoint for main Svelte app page
+@app.route("/")
+def base():
+    return flask.send_from_directory("lifting-cast-config-app/public", "index.html")
+
+# Endpoint for assets (compiled JS, CSS, etc.)
+@app.route("/<path:path>")
+def home(path):
+    return flask.send_from_directory("lifting-cast-config-app/public", path)
+
+ACCEPTED = 202
+BAD_REQUEST = 400
+SERVER_TYPES = ["mainSite", "relay"]
+
+# Receive LiftingCast information to configure DRL for the given meet and platform.
+@app.post("/lifting-cast-platform-config")
+def lifting_cast_platform_config():
+    global meet_id, password, platform_id, meet_url, protocol, configured
+
+    if not flask.request.is_json:
+        return flask.jsonify({"msg": "Invalid request"}), BAD_REQUEST
+
+    server_type = flask.request.json.get("server_type", None)
+    local_relay_server_ip_address = flask.request.json.get("local_relay_server_ip_address", None)
+    meet_id = flask.request.json.get("meet_id", None)
+    password = flask.request.json.get("password", None)
+    platform_id = flask.request.json.get("platform_id", None)
+
+    if server_type == "mainSite":
+        print("Liftingcast server type is: Main Site")
+        meet_url = "liftingcast.com"  #main server address
+        protocol = "https://"
+    elif server_type == "relay":
+        print("Liftingcast server type is: Relay Server")
+        meet_url = local_relay_server_ip_address #local relay server IP
+        protocol = "http://"
+    else:
+        meet_url = ""
+        protocol = ""
+
+    if meet_id is not None \
+            and password is not None \
+            and platform_id is not None \
+            and server_type in SERVER_TYPES \
+            and meet_url != "" \
+            and protocol != "":
+        configured = True
+        print(f"Configured DRL with\n  meet_url: {meet_url}\n  protocol: {protocol}\n  meet_id: {meet_id}\n  password: {password}\n  platform_id: {platform_id}\n  `configured` set to `True`")
+        return flask.jsonify({"msg": "Accepted"}), ACCEPTED
+    else:
+        configured = False
+        msg = f"Insufficient information from config app to configure DRL. Received:\n  server_type: {server_type}\n  local_relay_server_ip_address (required if and only if server_type is 'relay'): {local_relay_server_ip_address}\n  meet_id: {meet_id}\n  password: {password}\n  platform_id: {platform_id}\n  `configured` set to `False`"
+        print(msg)
+        return flask.jsonify({"msg": msg}), BAD_REQUEST
+
+

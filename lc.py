@@ -4,62 +4,91 @@ import os
 import requests
 
 
-# server = "mainSite" #mainSite for liftingcast.com, "relay" for relay server.
-# localServerIP = "192.168.1.160" #if using a relay server, define the IP here.
+def make_meet_url_and_protocol(server_type, local_relay_server_ip_address):
+    if server_type == "mainSite":
+        print("Liftingcast server type is: Main Site")
+        meet_url = "liftingcast.com"  # main server address
+        protocol = "https://"
+    elif server_type == "relay":
+        print("Liftingcast server type is: Relay Server")
+        meet_url = local_relay_server_ip_address  # local relay server IP
+        protocol = "http://"
+    else:
+        meet_url = ""
+        protocol = ""
+
+    return meet_url, protocol
 
 
+def set_lifting_cast_config_variables(dict):
+    global server_type, local_relay_server_ip_address, meet_id, password, platform_id, meet_url, protocol
+
+    server_type = dict.get("server_type", "")
+    local_relay_server_ip_address = dict.get("local_relay_server_ip_address", "")
+    meet_id = dict.get("meet_id", "")
+    password = dict.get("password", "")
+    platform_id = dict.get("platform_id", "")
+    meet_url, protocol = make_meet_url_and_protocol(server_type, local_relay_server_ip_address)
+
+    print(f"server_type: {server_type}")
+    print(f"local_relay_server_ip_address {local_relay_server_ip_address}")
+    print(f"meet_id: {meet_id}")
+    print(f"platform_id: {platform_id}")
+    print(f"password: {password}")
+    print(f"meet_url: {meet_url}")
+    print(f"protocol: {protocol}")
 
 
+def set_lifting_cast_urls(meet_url, password, meet_id, platform_id):
+    global light_url, set_clock_url, start_clock_url, reset_clock_url, password_data
+    # these are the URLs used to make requests to liftingcast
+    light_url = protocol + meet_url + "/api/meets/" + meet_id + "/platforms/" + platform_id + "/lights"
+    set_clock_url = protocol + meet_url + "/api/meets/" + meet_id + "/platforms/" + platform_id + "/clock"
+    start_clock_url = protocol + meet_url + "/api/meets/" + meet_id + "/platforms/" + platform_id + "/start_clock"
+    reset_clock_url = protocol + meet_url + "/api/meets/" + meet_id + "/platforms/" + platform_id + "/reset_clock"
+    password_data = {"password": password}
 
-# meet_id = 'mrzivliqz10r' #liftingcast meet ID
-#USAPL Platform IDs
-# platform_id = 'pi40bz3ayeqz' #liftingcast platform ID added  at the end.
-#define meet password
-# password = 'TSS20' #meet password
+    print("Light URL:")
+    print(light_url)
+    print("Set CLock URL")
+    print(set_clock_url)
+    print("Start Clock URL")
+    print(start_clock_url)
+    print("Reset Clock URL")
+    print(reset_clock_url)
 
+
+configured = False # configured being True means meet ID, platform ID, and password have been entered. When this is true the sync icon is drawn on the screen.
+LIFTING_CAST_CONFIG_FILE = "/home/pi/Desktop/DRL3/lifting_cast_config.json"
+
+server_type = ""
+local_relay_server_ip_address = ""
 meet_id = ""
-platform_id = ""
 password = ""
+platform_id = ""
 meet_url = ""
 protocol = ""
+
 # these are the URLs used to make requests to liftingcast
 light_url = ""
 set_clock_url = ""
 start_clock_url= ""
 reset_clock_url= ""
 password_data={}
-configured = False # configured being True means meet ID, platform ID, and password have been entered. When this is true the sync icon is drawn on the screen.
 
-# if server == "mainSite":
-#     print("Liftingcast Server is: Main Site")
-#     meet_url = "liftingcast.com" #main server address
-#     protocol = "https://"
-#
-# elif server == "relay":
-#     print("Liftingcast Server is: Relay Server")
-#     meet_url = localServerIP #local relay server IP
-#     protocol = "http://"
+try:
+    with open(LIFTING_CAST_CONFIG_FILE, "r") as f:
+        LIFTING_CAST_CONFIG_DATA_AT_STARTUP = json.load(f)
 
+    print(f"Read initial config from {LIFTING_CAST_CONFIG_FILE}")
+    set_lifting_cast_config_variables(LIFTING_CAST_CONFIG_DATA_AT_STARTUP)
+    configured = True # configured being True means meet ID, platform ID, and password have been entered. When this is true the sync icon is drawn on the screen.
+except OSError:
+    print(f"{LIFTING_CAST_CONFIG_FILE} not found at startup. This file will be created when DRL is configured through the config web app and DRL will attempt to read the initial LiftingCast config from the file on next startup.")
 
-good_sync = False #this variable is checked by the main thread for drawing the sync icons. 
+good_sync = False #this variable is checked by the main thread for drawing the sync icons.
 bad_sync = False #this variable is checked by the main thread for drawing the sync icons. 
 #-----------------------------------
-#these are the URLs used to make requests to liftingcast
-# light_url = protocol + meet_url + "/api/meets/" + meet_id + "/platforms/" + platform_id + "/lights"
-# set_clock_url = protocol + meet_url + "/api/meets/" + meet_id + "/platforms/" + platform_id + "/clock"
-# start_clock_url = protocol + meet_url + "/api/meets/" + meet_id + "/platforms/" + platform_id + "/start_clock"
-# reset_clock_url = protocol + meet_url + "/api/meets/" + meet_id + "/platforms/" + platform_id + "/reset_clock"
-# password_data = {"password": password}
-#
-# print("Light URL:")
-# print(light_url)
-# print("Set CLock URL")
-# print(set_clock_url)
-# print("Start Clock URL")
-# print(start_clock_url)
-# print("Reset Clock URL")
-# print(reset_clock_url)
-#-------------------------------------
 
 def start_liftingcast_clock():
     global good_sync, bad_sync
@@ -236,56 +265,25 @@ SERVER_TYPES = ["mainSite", "relay"]
 # Receive LiftingCast information to configure DRL for the given meet and platform.
 @app.post("/lifting-cast-platform-config")
 def lifting_cast_platform_config():
-    global meet_id, password, platform_id, meet_url, protocol, light_url, set_clock_url, start_clock_url, reset_clock_url, password_data, configured
+    global server_type, local_relay_server_ip_address, meet_id, password, platform_id, meet_url, protocol, light_url, set_clock_url, start_clock_url, reset_clock_url, password_data, configured
 
     if not flask.request.is_json:
         return flask.jsonify({"msg": "Invalid request"}), BAD_REQUEST
 
-    server_type = flask.request.json.get("server_type", None)
-    local_relay_server_ip_address = flask.request.json.get("local_relay_server_ip_address", None)
-    meet_id = flask.request.json.get("meet_id", None)
-    password = flask.request.json.get("password", None)
-    platform_id = flask.request.json.get("platform_id", None)
+    set_lifting_cast_config_variables(flask.request.json)
 
-    if server_type == "mainSite":
-        print("Liftingcast server type is: Main Site")
-        meet_url = "liftingcast.com"  #main server address
-        protocol = "https://"
-    elif server_type == "relay":
-        print("Liftingcast server type is: Relay Server")
-        meet_url = local_relay_server_ip_address #local relay server IP
-        protocol = "http://"
-    else:
-        meet_url = ""
-        protocol = ""
-
-    if meet_id is not None \
-            and password is not None \
-            and platform_id is not None \
+    if meet_id != "" \
+            and password != "" \
+            and platform_id != "" \
             and server_type in SERVER_TYPES \
             and meet_url != "" \
             and protocol != "":
-        light_url = protocol + meet_url + "/api/meets/" + meet_id + "/platforms/" + platform_id + "/lights"
-        set_clock_url = protocol + meet_url + "/api/meets/" + meet_id + "/platforms/" + platform_id + "/clock"
-        start_clock_url = protocol + meet_url + "/api/meets/" + meet_id + "/platforms/" + platform_id + "/start_clock"
-        reset_clock_url = protocol + meet_url + "/api/meets/" + meet_id + "/platforms/" + platform_id + "/reset_clock"
-        password_data = {"password": password}
+        set_lifting_cast_urls(meet_url, password, meet_id, platform_id)
         configured = True
-        print("Configured DRL with")
-        print(f"  meet_url: {meet_url}")
-        print(f"  protocol: {protocol}")
-        print(f"  meet_id: {meet_id}")
-        print(f"  password: {password}")
-        print(f"  platform_id: {platform_id}")
         print(f"`configured` set to `{configured}`")
-        print("Light URL:")
-        print(light_url)
-        print("Set CLock URL")
-        print(set_clock_url)
-        print("Start Clock URL")
-        print(start_clock_url)
-        print("Reset Clock URL")
-        print(reset_clock_url)
+
+        with open(LIFTING_CAST_CONFIG_FILE, "w") as f:
+            json.dump(flask.request.json, f)
 
         return flask.jsonify({"msg": "Accepted"}), ACCEPTED
     else:

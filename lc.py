@@ -22,6 +22,12 @@ platform_id = ""
 password = ""
 meet_url = ""
 protocol = ""
+# these are the URLs used to make requests to liftingcast
+light_url = ""
+set_clock_url = ""
+start_clock_url= ""
+reset_clock_url= ""
+password_data={}
 configured = False # configured being True means meet ID, platform ID, and password have been entered. When this is true the sync icon is drawn on the screen.
 
 # if server == "mainSite":
@@ -39,20 +45,20 @@ good_sync = False #this variable is checked by the main thread for drawing the s
 bad_sync = False #this variable is checked by the main thread for drawing the sync icons. 
 #-----------------------------------
 #these are the URLs used to make requests to liftingcast
-light_url = protocol+meet_url+"/api/meets/"+meet_id+"/platforms/"+platform_id+"/lights"
-set_clock_url = protocol+meet_url+"/api/meets/"+meet_id+"/platforms/"+platform_id+"/clock"
-start_clock_url= protocol+meet_url+"/api/meets/"+meet_id+"/platforms/"+platform_id+"/start_clock"
-reset_clock_url= protocol+meet_url+"/api/meets/"+meet_id+"/platforms/"+platform_id+"/reset_clock"
-password_data={"password":password}
-
-print("Light URL:")
-print(light_url)
-print("Set CLock URL")
-print(set_clock_url)
-print("Start Clock URL")
-print(start_clock_url)
-print("Reset Clock URL")
-print(reset_clock_url)
+# light_url = protocol + meet_url + "/api/meets/" + meet_id + "/platforms/" + platform_id + "/lights"
+# set_clock_url = protocol + meet_url + "/api/meets/" + meet_id + "/platforms/" + platform_id + "/clock"
+# start_clock_url = protocol + meet_url + "/api/meets/" + meet_id + "/platforms/" + platform_id + "/start_clock"
+# reset_clock_url = protocol + meet_url + "/api/meets/" + meet_id + "/platforms/" + platform_id + "/reset_clock"
+# password_data = {"password": password}
+#
+# print("Light URL:")
+# print(light_url)
+# print("Set CLock URL")
+# print(set_clock_url)
+# print("Start Clock URL")
+# print(start_clock_url)
+# print("Reset Clock URL")
+# print(reset_clock_url)
 #-------------------------------------
 
 def start_liftingcast_clock():
@@ -230,7 +236,7 @@ SERVER_TYPES = ["mainSite", "relay"]
 # Receive LiftingCast information to configure DRL for the given meet and platform.
 @app.post("/lifting-cast-platform-config")
 def lifting_cast_platform_config():
-    global meet_id, password, platform_id, meet_url, protocol, configured
+    global meet_id, password, platform_id, meet_url, protocol, light_url, set_clock_url, start_clock_url, reset_clock_url, password_data, configured
 
     if not flask.request.is_json:
         return flask.jsonify({"msg": "Invalid request"}), BAD_REQUEST
@@ -259,8 +265,28 @@ def lifting_cast_platform_config():
             and server_type in SERVER_TYPES \
             and meet_url != "" \
             and protocol != "":
+        light_url = protocol + meet_url + "/api/meets/" + meet_id + "/platforms/" + platform_id + "/lights"
+        set_clock_url = protocol + meet_url + "/api/meets/" + meet_id + "/platforms/" + platform_id + "/clock"
+        start_clock_url = protocol + meet_url + "/api/meets/" + meet_id + "/platforms/" + platform_id + "/start_clock"
+        reset_clock_url = protocol + meet_url + "/api/meets/" + meet_id + "/platforms/" + platform_id + "/reset_clock"
+        password_data = {"password": password}
         configured = True
-        print(f"Configured DRL with\n  meet_url: {meet_url}\n  protocol: {protocol}\n  meet_id: {meet_id}\n  password: {password}\n  platform_id: {platform_id}\n  `configured` set to `True`")
+        print("Configured DRL with")
+        print(f"  meet_url: {meet_url}")
+        print(f"  protocol: {protocol}")
+        print(f"  meet_id: {meet_id}")
+        print(f"  password: {password}")
+        print(f"  platform_id: {platform_id}")
+        print(f"`configured` set to `{configured}`")
+        print("Light URL:")
+        print(light_url)
+        print("Set CLock URL")
+        print(set_clock_url)
+        print("Start Clock URL")
+        print(start_clock_url)
+        print("Reset Clock URL")
+        print(reset_clock_url)
+
         return flask.jsonify({"msg": "Accepted"}), ACCEPTED
     else:
         configured = False

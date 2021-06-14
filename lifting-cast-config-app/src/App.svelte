@@ -416,14 +416,14 @@
         >
             Verify meet credentials
         </button>
+    {/if}
 
-        {#if attemptedToCheckLiftingCastCredentials}
-            {#if completedCheckingLiftingCastCredentials && areLiftingCastCredentialsValid }
-                <p>Meet credentials verified with LiftingCast server.</p>
-            {:else}
-                <p class="error">Could not successfully verify meet credentials via {credentialCheckUrl}</p>
-                <p class="error">Error message: {liftingCastLoginResponse}</p>
-            {/if}
+    {#if completedCheckingLiftingCastCredentials}
+        {#if areLiftingCastCredentialsValid }
+            <p>Meet credentials verified with LiftingCast server.</p>
+        {:else}
+            <p class="error">Could not successfully verify meet credentials via {credentialCheckUrl}</p>
+            <p class="error">Error message: {liftingCastLoginResponse}</p>
         {/if}
     {/if}
 
@@ -436,7 +436,8 @@
     {:else if platformsPromise && !selectedPlatformId}
         <p class="help">Select your platform.</p>
     {:else if selectedMeetId && selectedPlatformId && !canSubmitConfigurationToDrl}
-        <p class="help">Enter your meet password and verify meet credentials before submitting configuration to DRL.</p>
+        <p class="help">Enter your meet password and verify meet credentials before submitting configuration to
+            DRL.</p>
     {:else if canSubmitConfigurationToDrl}
         <p class="help">Click button below to configure DRL with your LiftingCast meet and platform info.</p>
     {/if}

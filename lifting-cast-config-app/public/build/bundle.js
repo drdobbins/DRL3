@@ -14882,7 +14882,7 @@ var app = (function () {
     			if (!mounted) {
     				dispose = [
     					listen_dev(input, "input", /*input_input_handler*/ ctx[32]),
-    					listen_dev(input, "keydown", /*handleRelayUrlTextFieldKeyDown*/ ctx[15], false, false, false)
+    					listen_dev(input, "keydown", /*handleRelayUrlTextFieldKeyDown*/ ctx[14], false, false, false)
     				];
 
     				mounted = true;
@@ -14932,7 +14932,7 @@ var app = (function () {
     		error: 49
     	};
 
-    	handle_promise(promise = /*meetsPromise*/ ctx[11], info);
+    	handle_promise(promise = /*meetsPromise*/ ctx[10], info);
 
     	const block = {
     		c: function create() {
@@ -14955,7 +14955,7 @@ var app = (function () {
     			ctx = new_ctx;
     			info.ctx = ctx;
 
-    			if (dirty[0] & /*meetsPromise*/ 2048 && promise !== (promise = /*meetsPromise*/ ctx[11]) && handle_promise(promise, info)) ; else {
+    			if (dirty[0] & /*meetsPromise*/ 1024 && promise !== (promise = /*meetsPromise*/ ctx[10]) && handle_promise(promise, info)) ; else {
     				const child_ctx = ctx.slice();
     				child_ctx[50] = child_ctx[49] = info.resolved;
     				info.block.p(child_ctx, dirty);
@@ -14998,7 +14998,7 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			p0 = element("p");
-    			p0.textContent = `Network error; could not fetch meets from ${/*liftingCastMeetsUrl*/ ctx[16]()}`;
+    			p0.textContent = `Network error; could not fetch meets from ${/*liftingCastMeetsUrl*/ ctx[15]()}`;
     			t2 = space();
     			p1 = element("p");
     			t3 = text("Error message: ");
@@ -15027,7 +15027,7 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*meetsPromise*/ 2048 && t4_value !== (t4_value = /*error*/ ctx[49].message + "")) set_data_dev(t4, t4_value);
+    			if (dirty[0] & /*meetsPromise*/ 1024 && t4_value !== (t4_value = /*error*/ ctx[49].message + "")) set_data_dev(t4, t4_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(p0);
@@ -15110,16 +15110,16 @@ var app = (function () {
     			if (!mounted) {
     				dispose = [
     					listen_dev(select, "change", /*select_change_handler*/ ctx[34]),
-    					listen_dev(select, "change", /*handleMeetSelection*/ ctx[20], false, false, false)
+    					listen_dev(select, "change", /*handleMeetSelection*/ ctx[19], false, false, false)
     				];
 
     				mounted = true;
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*meetsPromise*/ 2048 && t0_value !== (t0_value = /*meets*/ ctx[50].length + "")) set_data_dev(t0, t0_value);
+    			if (dirty[0] & /*meetsPromise*/ 1024 && t0_value !== (t0_value = /*meets*/ ctx[50].length + "")) set_data_dev(t0, t0_value);
 
-    			if (dirty[0] & /*meetsPromise*/ 2048) {
+    			if (dirty[0] & /*meetsPromise*/ 1024) {
     				each_value_1 = /*meets*/ ctx[50];
     				validate_each_argument(each_value_1);
     				let i;
@@ -15143,7 +15143,7 @@ var app = (function () {
     				each_blocks.length = each_value_1.length;
     			}
 
-    			if (dirty[0] & /*selectedMeetId, meetsPromise*/ 2052) {
+    			if (dirty[0] & /*selectedMeetId, meetsPromise*/ 1028) {
     				select_option(select, /*selectedMeetId*/ ctx[2]);
     			}
     		},
@@ -15198,10 +15198,10 @@ var app = (function () {
     			append_dev(option, t3);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*meetsPromise*/ 2048 && t0_value !== (t0_value = /*meet*/ ctx[51].name + "")) set_data_dev(t0, t0_value);
-    			if (dirty[0] & /*meetsPromise*/ 2048 && t2_value !== (t2_value = /*meet*/ ctx[51].date + "")) set_data_dev(t2, t2_value);
+    			if (dirty[0] & /*meetsPromise*/ 1024 && t0_value !== (t0_value = /*meet*/ ctx[51].name + "")) set_data_dev(t0, t0_value);
+    			if (dirty[0] & /*meetsPromise*/ 1024 && t2_value !== (t2_value = /*meet*/ ctx[51].date + "")) set_data_dev(t2, t2_value);
 
-    			if (dirty[0] & /*meetsPromise*/ 2048 && option_value_value !== (option_value_value = /*meet*/ ctx[51]._id)) {
+    			if (dirty[0] & /*meetsPromise*/ 1024 && option_value_value !== (option_value_value = /*meet*/ ctx[51]._id)) {
     				prop_dev(option, "__value", option_value_value);
     				option.value = option.__value;
     			}
@@ -15271,7 +15271,7 @@ var app = (function () {
     		error: 49
     	};
 
-    	handle_promise(promise = /*platformsPromise*/ ctx[12], info);
+    	handle_promise(promise = /*platformsPromise*/ ctx[11], info);
 
     	const block = {
     		c: function create() {
@@ -15294,7 +15294,7 @@ var app = (function () {
     			ctx = new_ctx;
     			info.ctx = ctx;
 
-    			if (dirty[0] & /*platformsPromise*/ 4096 && promise !== (promise = /*platformsPromise*/ ctx[12]) && handle_promise(promise, info)) ; else {
+    			if (dirty[0] & /*platformsPromise*/ 2048 && promise !== (promise = /*platformsPromise*/ ctx[11]) && handle_promise(promise, info)) ; else {
     				const child_ctx = ctx.slice();
     				child_ctx[45] = child_ctx[49] = info.resolved;
     				info.block.p(child_ctx, dirty);
@@ -15327,7 +15327,7 @@ var app = (function () {
     	let t0;
     	let t1;
     	let t2;
-    	let t3_value = /*liftingCastPlatfomsUrl*/ ctx[17](/*selectedMeetId*/ ctx[2]) + "";
+    	let t3_value = /*liftingCastPlatfomsUrl*/ ctx[16](/*selectedMeetId*/ ctx[2]) + "";
     	let t3;
     	let t4;
     	let p1;
@@ -15379,8 +15379,8 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			if (dirty[0] & /*selectedMeetId*/ 4) set_data_dev(t1, /*selectedMeetId*/ ctx[2]);
-    			if (dirty[0] & /*selectedMeetId*/ 4 && t3_value !== (t3_value = /*liftingCastPlatfomsUrl*/ ctx[17](/*selectedMeetId*/ ctx[2]) + "")) set_data_dev(t3, t3_value);
-    			if (dirty[0] & /*platformsPromise*/ 4096 && t6_value !== (t6_value = /*error*/ ctx[49].message + "")) set_data_dev(t6, t6_value);
+    			if (dirty[0] & /*selectedMeetId*/ 4 && t3_value !== (t3_value = /*liftingCastPlatfomsUrl*/ ctx[16](/*selectedMeetId*/ ctx[2]) + "")) set_data_dev(t3, t3_value);
+    			if (dirty[0] & /*platformsPromise*/ 2048 && t6_value !== (t6_value = /*error*/ ctx[49].message + "")) set_data_dev(t6, t6_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(p0);
@@ -15463,16 +15463,16 @@ var app = (function () {
     			if (!mounted) {
     				dispose = [
     					listen_dev(select, "change", /*select_change_handler_1*/ ctx[36]),
-    					listen_dev(select, "change", /*handlePlatformSelection*/ ctx[21], false, false, false)
+    					listen_dev(select, "change", /*handlePlatformSelection*/ ctx[20], false, false, false)
     				];
 
     				mounted = true;
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*platformsPromise*/ 4096 && t0_value !== (t0_value = /*platforms*/ ctx[45].length + "")) set_data_dev(t0, t0_value);
+    			if (dirty[0] & /*platformsPromise*/ 2048 && t0_value !== (t0_value = /*platforms*/ ctx[45].length + "")) set_data_dev(t0, t0_value);
 
-    			if (dirty[0] & /*platformsPromise*/ 4096) {
+    			if (dirty[0] & /*platformsPromise*/ 2048) {
     				each_value = /*platforms*/ ctx[45];
     				validate_each_argument(each_value);
     				let i;
@@ -15496,7 +15496,7 @@ var app = (function () {
     				each_blocks.length = each_value.length;
     			}
 
-    			if (dirty[0] & /*selectedPlatformId, platformsPromise*/ 4104) {
+    			if (dirty[0] & /*selectedPlatformId, platformsPromise*/ 2056) {
     				select_option(select, /*selectedPlatformId*/ ctx[3]);
     			}
     		},
@@ -15544,9 +15544,9 @@ var app = (function () {
     			append_dev(option, t1);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*platformsPromise*/ 4096 && t0_value !== (t0_value = /*platform*/ ctx[46].name + "")) set_data_dev(t0, t0_value);
+    			if (dirty[0] & /*platformsPromise*/ 2048 && t0_value !== (t0_value = /*platform*/ ctx[46].name + "")) set_data_dev(t0, t0_value);
 
-    			if (dirty[0] & /*platformsPromise*/ 4096 && option_value_value !== (option_value_value = /*platform*/ ctx[46]._id)) {
+    			if (dirty[0] & /*platformsPromise*/ 2048 && option_value_value !== (option_value_value = /*platform*/ ctx[46]._id)) {
     				prop_dev(option, "__value", option_value_value);
     				option.value = option.__value;
     			}
@@ -15598,7 +15598,7 @@ var app = (function () {
     }
 
     // (400:4) {#if selectedMeetId && selectedPlatformId}
-    function create_if_block_6(ctx) {
+    function create_if_block_8(ctx) {
     	let hr;
     	let t0;
     	let label;
@@ -15606,11 +15606,8 @@ var app = (function () {
     	let input;
     	let t3;
     	let button;
-    	let t5;
-    	let if_block_anchor;
     	let mounted;
     	let dispose;
-    	let if_block = /*attemptedToCheckLiftingCastCredentials*/ ctx[5] && create_if_block_7(ctx);
 
     	const block = {
     		c: function create() {
@@ -15623,9 +15620,6 @@ var app = (function () {
     			t3 = space();
     			button = element("button");
     			button.textContent = "Verify meet credentials";
-    			t5 = space();
-    			if (if_block) if_block.c();
-    			if_block_anchor = empty();
     			attr_dev(hr, "class", "svelte-1dqar03");
     			add_location(hr, file, 400, 8, 13273);
     			attr_dev(label, "for", "password");
@@ -15646,15 +15640,12 @@ var app = (function () {
     			set_input_value(input, /*password*/ ctx[4]);
     			insert_dev(target, t3, anchor);
     			insert_dev(target, button, anchor);
-    			insert_dev(target, t5, anchor);
-    			if (if_block) if_block.m(target, anchor);
-    			insert_dev(target, if_block_anchor, anchor);
 
     			if (!mounted) {
     				dispose = [
     					listen_dev(input, "input", /*input_input_handler_1*/ ctx[38]),
-    					listen_dev(input, "keydown", /*handlePasswordTextFieldKeyDown*/ ctx[23], false, false, false),
-    					listen_dev(button, "click", /*checkLiftingCastCredentials*/ ctx[22], false, false, false)
+    					listen_dev(input, "keydown", /*handlePasswordTextFieldKeyDown*/ ctx[22], false, false, false),
+    					listen_dev(button, "click", /*checkLiftingCastCredentials*/ ctx[21], false, false, false)
     				];
 
     				mounted = true;
@@ -15663,19 +15654,6 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			if (dirty[0] & /*password*/ 16 && input.value !== /*password*/ ctx[4]) {
     				set_input_value(input, /*password*/ ctx[4]);
-    			}
-
-    			if (/*attemptedToCheckLiftingCastCredentials*/ ctx[5]) {
-    				if (if_block) {
-    					if_block.p(ctx, dirty);
-    				} else {
-    					if_block = create_if_block_7(ctx);
-    					if_block.c();
-    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
-    				}
-    			} else if (if_block) {
-    				if_block.d(1);
-    				if_block = null;
     			}
     		},
     		d: function destroy(detaching) {
@@ -15686,9 +15664,6 @@ var app = (function () {
     			if (detaching) detach_dev(input);
     			if (detaching) detach_dev(t3);
     			if (detaching) detach_dev(button);
-    			if (detaching) detach_dev(t5);
-    			if (if_block) if_block.d(detaching);
-    			if (detaching) detach_dev(if_block_anchor);
     			mounted = false;
     			run_all(dispose);
     		}
@@ -15696,7 +15671,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_6.name,
+    		id: create_if_block_8.name,
     		type: "if",
     		source: "(400:4) {#if selectedMeetId && selectedPlatformId}",
     		ctx
@@ -15705,12 +15680,12 @@ var app = (function () {
     	return block;
     }
 
-    // (420:8) {#if attemptedToCheckLiftingCastCredentials}
-    function create_if_block_7(ctx) {
+    // (421:4) {#if completedCheckingLiftingCastCredentials}
+    function create_if_block_6(ctx) {
     	let if_block_anchor;
 
     	function select_block_type(ctx, dirty) {
-    		if (/*completedCheckingLiftingCastCredentials*/ ctx[6] && /*areLiftingCastCredentialsValid*/ ctx[7]) return create_if_block_8;
+    		if (/*areLiftingCastCredentialsValid*/ ctx[6]) return create_if_block_7;
     		return create_else_block;
     	}
 
@@ -15747,16 +15722,16 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_7.name,
+    		id: create_if_block_6.name,
     		type: "if",
-    		source: "(420:8) {#if attemptedToCheckLiftingCastCredentials}",
+    		source: "(421:4) {#if completedCheckingLiftingCastCredentials}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (423:12) {:else}
+    // (424:8) {:else}
     function create_else_block(ctx) {
     	let p0;
     	let t0;
@@ -15770,15 +15745,15 @@ var app = (function () {
     		c: function create() {
     			p0 = element("p");
     			t0 = text("Could not successfully verify meet credentials via ");
-    			t1 = text(/*credentialCheckUrl*/ ctx[13]);
+    			t1 = text(/*credentialCheckUrl*/ ctx[12]);
     			t2 = space();
     			p1 = element("p");
     			t3 = text("Error message: ");
-    			t4 = text(/*liftingCastLoginResponse*/ ctx[8]);
+    			t4 = text(/*liftingCastLoginResponse*/ ctx[7]);
     			attr_dev(p0, "class", "error svelte-1dqar03");
-    			add_location(p0, file, 423, 16, 14020);
+    			add_location(p0, file, 424, 12, 13968);
     			attr_dev(p1, "class", "error svelte-1dqar03");
-    			add_location(p1, file, 424, 16, 14129);
+    			add_location(p1, file, 425, 12, 14073);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p0, anchor);
@@ -15790,8 +15765,8 @@ var app = (function () {
     			append_dev(p1, t4);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*credentialCheckUrl*/ 8192) set_data_dev(t1, /*credentialCheckUrl*/ ctx[13]);
-    			if (dirty[0] & /*liftingCastLoginResponse*/ 256) set_data_dev(t4, /*liftingCastLoginResponse*/ ctx[8]);
+    			if (dirty[0] & /*credentialCheckUrl*/ 4096) set_data_dev(t1, /*credentialCheckUrl*/ ctx[12]);
+    			if (dirty[0] & /*liftingCastLoginResponse*/ 128) set_data_dev(t4, /*liftingCastLoginResponse*/ ctx[7]);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(p0);
@@ -15804,22 +15779,22 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(423:12) {:else}",
+    		source: "(424:8) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (421:12) {#if completedCheckingLiftingCastCredentials && areLiftingCastCredentialsValid }
-    function create_if_block_8(ctx) {
+    // (422:8) {#if areLiftingCastCredentialsValid }
+    function create_if_block_7(ctx) {
     	let p;
 
     	const block = {
     		c: function create() {
     			p = element("p");
     			p.textContent = "Meet credentials verified with LiftingCast server.";
-    			add_location(p, file, 421, 16, 13926);
+    			add_location(p, file, 422, 12, 13882);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -15832,16 +15807,16 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_8.name,
+    		id: create_if_block_7.name,
     		type: "if",
-    		source: "(421:12) {#if completedCheckingLiftingCastCredentials && areLiftingCastCredentialsValid }",
+    		source: "(422:8) {#if areLiftingCastCredentialsValid }",
     		ctx
     	});
 
     	return block;
     }
 
-    // (440:42) 
+    // (441:42) 
     function create_if_block_5(ctx) {
     	let p;
 
@@ -15850,7 +15825,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Click button below to configure DRL with your LiftingCast meet and platform info.";
     			attr_dev(p, "class", "help svelte-1dqar03");
-    			add_location(p, file, 440, 8, 14802);
+    			add_location(p, file, 441, 8, 14740);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -15864,7 +15839,7 @@ var app = (function () {
     		block,
     		id: create_if_block_5.name,
     		type: "if",
-    		source: "(440:42) ",
+    		source: "(441:42) ",
     		ctx
     	});
 
@@ -15878,9 +15853,9 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			p = element("p");
-    			p.textContent = "Enter your meet password and verify meet credentials before submitting configuration to DRL.";
+    			p.textContent = "Enter your meet password and verify meet credentials before submitting configuration to\n            DRL.";
     			attr_dev(p, "class", "help svelte-1dqar03");
-    			add_location(p, file, 438, 8, 14638);
+    			add_location(p, file, 438, 8, 14564);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -15910,7 +15885,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Select your platform.";
     			attr_dev(p, "class", "help svelte-1dqar03");
-    			add_location(p, file, 436, 8, 14504);
+    			add_location(p, file, 436, 8, 14430);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -15940,7 +15915,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Select your meet.";
     			attr_dev(p, "class", "help svelte-1dqar03");
-    			add_location(p, file, 434, 8, 14403);
+    			add_location(p, file, 434, 8, 14329);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -15970,7 +15945,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Fetch the meets for your LiftingCast server type.";
     			attr_dev(p, "class", "help svelte-1dqar03");
-    			add_location(p, file, 432, 8, 14278);
+    			add_location(p, file, 432, 8, 14204);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -15991,7 +15966,7 @@ var app = (function () {
     	return block;
     }
 
-    // (451:4) {#if isDrlConfigured}
+    // (452:4) {#if isDrlConfigured}
     function create_if_block(ctx) {
     	let div;
 
@@ -15999,7 +15974,7 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			div.textContent = "DRL has been configured";
-    			add_location(div, file, 451, 8, 15145);
+    			add_location(div, file, 452, 8, 15083);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -16013,7 +15988,7 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(451:4) {#if isDrlConfigured}",
+    		source: "(452:4) {#if isDrlConfigured}",
     		ctx
     	});
 
@@ -16040,31 +16015,33 @@ var app = (function () {
     	let t8;
     	let t9;
     	let t10;
-    	let hr;
     	let t11;
+    	let hr;
     	let t12;
-    	let button1;
     	let t13;
-    	let button1_disabled_value;
+    	let button1;
     	let t14;
+    	let button1_disabled_value;
+    	let t15;
     	let mounted;
     	let dispose;
-    	let if_block0 = /*serverType*/ ctx[0] === /*SERVER_TYPE*/ ctx[14].RELAY_SERVER && create_if_block_11(ctx);
-    	let if_block1 = /*meetsPromise*/ ctx[11] && create_if_block_10(ctx);
-    	let if_block2 = /*platformsPromise*/ ctx[12] && create_if_block_9(ctx);
-    	let if_block3 = /*selectedMeetId*/ ctx[2] && /*selectedPlatformId*/ ctx[3] && create_if_block_6(ctx);
+    	let if_block0 = /*serverType*/ ctx[0] === /*SERVER_TYPE*/ ctx[13].RELAY_SERVER && create_if_block_11(ctx);
+    	let if_block1 = /*meetsPromise*/ ctx[10] && create_if_block_10(ctx);
+    	let if_block2 = /*platformsPromise*/ ctx[11] && create_if_block_9(ctx);
+    	let if_block3 = /*selectedMeetId*/ ctx[2] && /*selectedPlatformId*/ ctx[3] && create_if_block_8(ctx);
+    	let if_block4 = /*completedCheckingLiftingCastCredentials*/ ctx[5] && create_if_block_6(ctx);
 
     	function select_block_type_1(ctx, dirty) {
-    		if (!/*meetsPromise*/ ctx[11]) return create_if_block_1;
-    		if (/*meetsPromise*/ ctx[11] && !/*selectedMeetId*/ ctx[2]) return create_if_block_2;
-    		if (/*platformsPromise*/ ctx[12] && !/*selectedPlatformId*/ ctx[3]) return create_if_block_3;
-    		if (/*selectedMeetId*/ ctx[2] && /*selectedPlatformId*/ ctx[3] && !/*canSubmitConfigurationToDrl*/ ctx[10]) return create_if_block_4;
-    		if (/*canSubmitConfigurationToDrl*/ ctx[10]) return create_if_block_5;
+    		if (!/*meetsPromise*/ ctx[10]) return create_if_block_1;
+    		if (/*meetsPromise*/ ctx[10] && !/*selectedMeetId*/ ctx[2]) return create_if_block_2;
+    		if (/*platformsPromise*/ ctx[11] && !/*selectedPlatformId*/ ctx[3]) return create_if_block_3;
+    		if (/*selectedMeetId*/ ctx[2] && /*selectedPlatformId*/ ctx[3] && !/*canSubmitConfigurationToDrl*/ ctx[9]) return create_if_block_4;
+    		if (/*canSubmitConfigurationToDrl*/ ctx[9]) return create_if_block_5;
     	}
 
     	let current_block_type = select_block_type_1(ctx);
-    	let if_block4 = current_block_type && current_block_type(ctx);
-    	let if_block5 = /*isDrlConfigured*/ ctx[9] && create_if_block(ctx);
+    	let if_block5 = current_block_type && current_block_type(ctx);
+    	let if_block6 = /*isDrlConfigured*/ ctx[8] && create_if_block(ctx);
 
     	const block = {
     		c: function create() {
@@ -16091,20 +16068,22 @@ var app = (function () {
     			t9 = space();
     			if (if_block3) if_block3.c();
     			t10 = space();
-    			hr = element("hr");
-    			t11 = space();
     			if (if_block4) if_block4.c();
+    			t11 = space();
+    			hr = element("hr");
     			t12 = space();
-    			button1 = element("button");
-    			t13 = text("Configure DRL with meet and platform info");
-    			t14 = space();
     			if (if_block5) if_block5.c();
+    			t13 = space();
+    			button1 = element("button");
+    			t14 = text("Configure DRL with meet and platform info");
+    			t15 = space();
+    			if (if_block6) if_block6.c();
     			attr_dev(h1, "class", "svelte-1dqar03");
     			add_location(h1, file, 275, 4, 9443);
     			attr_dev(input0, "type", "radio");
     			attr_dev(input0, "name", "serverType");
     			attr_dev(input0, "id", "lifting-cast-server-type");
-    			input0.__value = /*SERVER_TYPE*/ ctx[14].LIFTING_CAST;
+    			input0.__value = /*SERVER_TYPE*/ ctx[13].LIFTING_CAST;
     			input0.value = input0.__value;
     			input0.checked = true;
     			/*$$binding_groups*/ ctx[30][0].push(input0);
@@ -16114,7 +16093,7 @@ var app = (function () {
     			attr_dev(input1, "type", "radio");
     			attr_dev(input1, "name", "serverType");
     			attr_dev(input1, "id", "server-type-relay-server");
-    			input1.__value = /*SERVER_TYPE*/ ctx[14].RELAY_SERVER;
+    			input1.__value = /*SERVER_TYPE*/ ctx[13].RELAY_SERVER;
     			input1.value = input1.__value;
     			/*$$binding_groups*/ ctx[30][0].push(input1);
     			add_location(input1, file, 291, 12, 9939);
@@ -16123,9 +16102,9 @@ var app = (function () {
     			add_location(div, file, 277, 4, 9501);
     			add_location(button0, file, 317, 4, 10730);
     			attr_dev(hr, "class", "svelte-1dqar03");
-    			add_location(hr, file, 429, 4, 14239);
-    			button1.disabled = button1_disabled_value = !/*canSubmitConfigurationToDrl*/ ctx[10] || undefined;
-    			add_location(button1, file, 443, 4, 14919);
+    			add_location(hr, file, 429, 4, 14165);
+    			button1.disabled = button1_disabled_value = !/*canSubmitConfigurationToDrl*/ ctx[9] || undefined;
+    			add_location(button1, file, 444, 4, 14857);
     			attr_dev(main, "class", "svelte-1dqar03");
     			add_location(main, file, 274, 0, 9432);
     		},
@@ -16158,21 +16137,23 @@ var app = (function () {
     			append_dev(main, t9);
     			if (if_block3) if_block3.m(main, null);
     			append_dev(main, t10);
-    			append_dev(main, hr);
-    			append_dev(main, t11);
     			if (if_block4) if_block4.m(main, null);
+    			append_dev(main, t11);
+    			append_dev(main, hr);
     			append_dev(main, t12);
-    			append_dev(main, button1);
-    			append_dev(button1, t13);
-    			append_dev(main, t14);
     			if (if_block5) if_block5.m(main, null);
+    			append_dev(main, t13);
+    			append_dev(main, button1);
+    			append_dev(button1, t14);
+    			append_dev(main, t15);
+    			if (if_block6) if_block6.m(main, null);
 
     			if (!mounted) {
     				dispose = [
     					listen_dev(input0, "change", /*input0_change_handler*/ ctx[29]),
     					listen_dev(input1, "change", /*input1_change_handler*/ ctx[31]),
     					listen_dev(button0, "click", /*click_handler*/ ctx[33], false, false, false),
-    					listen_dev(button1, "click", /*sendLiftingCastInfoToDrl*/ ctx[24], false, false, false)
+    					listen_dev(button1, "click", /*sendLiftingCastInfoToDrl*/ ctx[23], false, false, false)
     				];
 
     				mounted = true;
@@ -16187,7 +16168,7 @@ var app = (function () {
     				input1.checked = input1.__value === /*serverType*/ ctx[0];
     			}
 
-    			if (/*serverType*/ ctx[0] === /*SERVER_TYPE*/ ctx[14].RELAY_SERVER) {
+    			if (/*serverType*/ ctx[0] === /*SERVER_TYPE*/ ctx[13].RELAY_SERVER) {
     				if (if_block0) {
     					if_block0.p(ctx, dirty);
     				} else {
@@ -16200,7 +16181,7 @@ var app = (function () {
     				if_block0 = null;
     			}
 
-    			if (/*meetsPromise*/ ctx[11]) {
+    			if (/*meetsPromise*/ ctx[10]) {
     				if (if_block1) {
     					if_block1.p(ctx, dirty);
     				} else {
@@ -16213,7 +16194,7 @@ var app = (function () {
     				if_block1 = null;
     			}
 
-    			if (/*platformsPromise*/ ctx[12]) {
+    			if (/*platformsPromise*/ ctx[11]) {
     				if (if_block2) {
     					if_block2.p(ctx, dirty);
     				} else {
@@ -16230,7 +16211,7 @@ var app = (function () {
     				if (if_block3) {
     					if_block3.p(ctx, dirty);
     				} else {
-    					if_block3 = create_if_block_6(ctx);
+    					if_block3 = create_if_block_8(ctx);
     					if_block3.c();
     					if_block3.m(main, t10);
     				}
@@ -16239,29 +16220,42 @@ var app = (function () {
     				if_block3 = null;
     			}
 
-    			if (current_block_type !== (current_block_type = select_block_type_1(ctx))) {
-    				if (if_block4) if_block4.d(1);
-    				if_block4 = current_block_type && current_block_type(ctx);
-
+    			if (/*completedCheckingLiftingCastCredentials*/ ctx[5]) {
     				if (if_block4) {
+    					if_block4.p(ctx, dirty);
+    				} else {
+    					if_block4 = create_if_block_6(ctx);
     					if_block4.c();
-    					if_block4.m(main, t12);
+    					if_block4.m(main, t11);
+    				}
+    			} else if (if_block4) {
+    				if_block4.d(1);
+    				if_block4 = null;
+    			}
+
+    			if (current_block_type !== (current_block_type = select_block_type_1(ctx))) {
+    				if (if_block5) if_block5.d(1);
+    				if_block5 = current_block_type && current_block_type(ctx);
+
+    				if (if_block5) {
+    					if_block5.c();
+    					if_block5.m(main, t13);
     				}
     			}
 
-    			if (dirty[0] & /*canSubmitConfigurationToDrl*/ 1024 && button1_disabled_value !== (button1_disabled_value = !/*canSubmitConfigurationToDrl*/ ctx[10] || undefined)) {
+    			if (dirty[0] & /*canSubmitConfigurationToDrl*/ 512 && button1_disabled_value !== (button1_disabled_value = !/*canSubmitConfigurationToDrl*/ ctx[9] || undefined)) {
     				prop_dev(button1, "disabled", button1_disabled_value);
     			}
 
-    			if (/*isDrlConfigured*/ ctx[9]) {
-    				if (if_block5) ; else {
-    					if_block5 = create_if_block(ctx);
-    					if_block5.c();
-    					if_block5.m(main, null);
+    			if (/*isDrlConfigured*/ ctx[8]) {
+    				if (if_block6) ; else {
+    					if_block6 = create_if_block(ctx);
+    					if_block6.c();
+    					if_block6.m(main, null);
     				}
-    			} else if (if_block5) {
-    				if_block5.d(1);
-    				if_block5 = null;
+    			} else if (if_block6) {
+    				if_block6.d(1);
+    				if_block6 = null;
     			}
     		},
     		i: noop,
@@ -16274,12 +16268,13 @@ var app = (function () {
     			if (if_block1) if_block1.d();
     			if (if_block2) if_block2.d();
     			if (if_block3) if_block3.d();
+    			if (if_block4) if_block4.d();
 
-    			if (if_block4) {
-    				if_block4.d();
+    			if (if_block5) {
+    				if_block5.d();
     			}
 
-    			if (if_block5) if_block5.d();
+    			if (if_block6) if_block6.d();
     			mounted = false;
     			run_all(dispose);
     		}
@@ -16352,7 +16347,7 @@ var app = (function () {
 
     	function handleRelayUrlTextFieldKeyDown(event) {
     		if (event.key === "Enter") {
-    			$$invalidate(11, meetsPromise = fetchMeets());
+    			$$invalidate(10, meetsPromise = fetchMeets());
     		}
     	}
 
@@ -16381,7 +16376,7 @@ var app = (function () {
 
     		const meets = transduce(compose(filter(prop("date")), filter(propSatisfies(dateString => !isBeforeToday(dateString), "date"))), flip(append$1), [], sortBy(prop("date"))(docs));
     		debug_log("sorted meets not in the past", meets);
-    		$$invalidate(25, meetsForDebug = meets);
+    		$$invalidate(24, meetsForDebug = meets);
     		return meets;
     	}
 
@@ -16395,7 +16390,7 @@ var app = (function () {
 
     		const platforms = sortBy(prop("name"))(docs);
     		debug_log("sorted platforms", JSON.stringify(platforms, undefined, 2));
-    		$$invalidate(26, platformsForDebug = platforms);
+    		$$invalidate(25, platformsForDebug = platforms);
     		return platforms;
     	}
 
@@ -16403,7 +16398,7 @@ var app = (function () {
     		const meetId = event.target.value;
     		$$invalidate(2, selectedMeetId = meetId);
     		debug_log("selectedMeetId", meetId);
-    		$$invalidate(12, platformsPromise = fetchPlatforms(meetId));
+    		$$invalidate(11, platformsPromise = fetchPlatforms(meetId));
     	}
 
     	function handlePlatformSelection(event) {
@@ -16413,7 +16408,7 @@ var app = (function () {
     	}
 
     	async function checkLiftingCastCredentials() {
-    		$$invalidate(5, attemptedToCheckLiftingCastCredentials = true);
+    		$$invalidate(26, attemptedToCheckLiftingCastCredentials = true);
     		debug_log("Checking LiftingCast credentials:", JSON.stringify({ name: selectedMeetId, password }, undefined, 2));
 
     		const request = new Request(credentialCheckUrl,
@@ -16434,33 +16429,33 @@ var app = (function () {
     			debug_log("LiftingCast reports ok?", prop("ok", json));
 
     			if (isUnauthorized(response)) {
-    				$$invalidate(6, completedCheckingLiftingCastCredentials = true);
-    				$$invalidate(8, liftingCastLoginResponse = JSON.stringify(json, undefined, 2));
-    				$$invalidate(7, areLiftingCastCredentialsValid = false);
+    				$$invalidate(5, completedCheckingLiftingCastCredentials = true);
+    				$$invalidate(7, liftingCastLoginResponse = JSON.stringify(json, undefined, 2));
+    				$$invalidate(6, areLiftingCastCredentialsValid = false);
     			}
 
     			if (isServerError(response)) {
-    				$$invalidate(6, completedCheckingLiftingCastCredentials = false);
-    				$$invalidate(8, liftingCastLoginResponse = `Something went wrong with the LiftingCast server: ${json}`);
-    				$$invalidate(7, areLiftingCastCredentialsValid = undefined);
+    				$$invalidate(5, completedCheckingLiftingCastCredentials = false);
+    				$$invalidate(7, liftingCastLoginResponse = `Something went wrong with the LiftingCast server: ${json}`);
+    				$$invalidate(6, areLiftingCastCredentialsValid = undefined);
     			} else if (!response.ok) {
     				// Any other non-2xx HTTP response
-    				$$invalidate(6, completedCheckingLiftingCastCredentials = true);
+    				$$invalidate(5, completedCheckingLiftingCastCredentials = true);
 
-    				$$invalidate(8, liftingCastLoginResponse = `Response from LiftingCast Server: ${JSON.stringify(json, undefined, 2)}`);
-    				$$invalidate(7, areLiftingCastCredentialsValid = undefined);
+    				$$invalidate(7, liftingCastLoginResponse = `Response from LiftingCast Server: ${JSON.stringify(json, undefined, 2)}`);
+    				$$invalidate(6, areLiftingCastCredentialsValid = undefined);
     			} else {
     				// Success
-    				$$invalidate(6, completedCheckingLiftingCastCredentials = true);
+    				$$invalidate(5, completedCheckingLiftingCastCredentials = true);
 
-    				$$invalidate(7, areLiftingCastCredentialsValid = true);
+    				$$invalidate(6, areLiftingCastCredentialsValid = true);
     			}
     		} catch(e) {
     			// Network error
-    			$$invalidate(6, completedCheckingLiftingCastCredentials = false);
+    			$$invalidate(5, completedCheckingLiftingCastCredentials = false);
 
-    			$$invalidate(8, liftingCastLoginResponse = e);
-    			$$invalidate(7, areLiftingCastCredentialsValid = undefined);
+    			$$invalidate(7, liftingCastLoginResponse = e);
+    			$$invalidate(6, areLiftingCastCredentialsValid = undefined);
     		}
     	}
 
@@ -16468,8 +16463,8 @@ var app = (function () {
     		if (event.key === "Enter") {
     			checkLiftingCastCredentials();
     		} else {
-    			$$invalidate(5, attemptedToCheckLiftingCastCredentials = false);
-    			$$invalidate(6, completedCheckingLiftingCastCredentials = false);
+    			$$invalidate(26, attemptedToCheckLiftingCastCredentials = false);
+    			$$invalidate(5, completedCheckingLiftingCastCredentials = false);
     		}
     	}
 
@@ -16497,9 +16492,9 @@ var app = (function () {
     			// TODO: Handle network error.
     			// TODO: Handle HTTP errors and response errors
     			if (response.ok) {
-    				$$invalidate(9, isDrlConfigured = true);
+    				$$invalidate(8, isDrlConfigured = true);
     			} else {
-    				$$invalidate(9, isDrlConfigured = false);
+    				$$invalidate(8, isDrlConfigured = false);
     			} // TODO: Error message
     			// TODO: Retry? Recover?
     		}
@@ -16529,27 +16524,27 @@ var app = (function () {
     	}
 
     	const click_handler = () => {
-    		$$invalidate(11, meetsPromise = fetchMeets());
+    		$$invalidate(10, meetsPromise = fetchMeets());
     	};
 
     	function select_change_handler() {
     		selectedMeetId = select_value(this);
     		$$invalidate(2, selectedMeetId);
-    		$$invalidate(11, meetsPromise);
+    		$$invalidate(10, meetsPromise);
     	}
 
     	const click_handler_1 = () => {
-    		$$invalidate(11, meetsPromise = fetchMeets());
+    		$$invalidate(10, meetsPromise = fetchMeets());
     	};
 
     	function select_change_handler_1() {
     		selectedPlatformId = select_value(this);
     		$$invalidate(3, selectedPlatformId);
-    		$$invalidate(12, platformsPromise);
+    		$$invalidate(11, platformsPromise);
     	}
 
     	const click_handler_2 = () => {
-    		$$invalidate(12, platformsPromise = fetchPlatforms(selectedMeetId));
+    		$$invalidate(11, platformsPromise = fetchPlatforms(selectedMeetId));
     	};
 
     	function input_input_handler_1() {
@@ -16608,23 +16603,23 @@ var app = (function () {
     		if ("DEBUG_LOGGING" in $$props) DEBUG_LOGGING = $$props.DEBUG_LOGGING;
     		if ("serverType" in $$props) $$invalidate(0, serverType = $$props.serverType);
     		if ("relayServerIpAddress" in $$props) $$invalidate(1, relayServerIpAddress = $$props.relayServerIpAddress);
-    		if ("meetsPromise" in $$props) $$invalidate(11, meetsPromise = $$props.meetsPromise);
-    		if ("meetsForDebug" in $$props) $$invalidate(25, meetsForDebug = $$props.meetsForDebug);
+    		if ("meetsPromise" in $$props) $$invalidate(10, meetsPromise = $$props.meetsPromise);
+    		if ("meetsForDebug" in $$props) $$invalidate(24, meetsForDebug = $$props.meetsForDebug);
     		if ("selectedMeetId" in $$props) $$invalidate(2, selectedMeetId = $$props.selectedMeetId);
-    		if ("platformsPromise" in $$props) $$invalidate(12, platformsPromise = $$props.platformsPromise);
-    		if ("platformsForDebug" in $$props) $$invalidate(26, platformsForDebug = $$props.platformsForDebug);
+    		if ("platformsPromise" in $$props) $$invalidate(11, platformsPromise = $$props.platformsPromise);
+    		if ("platformsForDebug" in $$props) $$invalidate(25, platformsForDebug = $$props.platformsForDebug);
     		if ("selectedPlatformId" in $$props) $$invalidate(3, selectedPlatformId = $$props.selectedPlatformId);
     		if ("password" in $$props) $$invalidate(4, password = $$props.password);
-    		if ("attemptedToCheckLiftingCastCredentials" in $$props) $$invalidate(5, attemptedToCheckLiftingCastCredentials = $$props.attemptedToCheckLiftingCastCredentials);
-    		if ("completedCheckingLiftingCastCredentials" in $$props) $$invalidate(6, completedCheckingLiftingCastCredentials = $$props.completedCheckingLiftingCastCredentials);
-    		if ("areLiftingCastCredentialsValid" in $$props) $$invalidate(7, areLiftingCastCredentialsValid = $$props.areLiftingCastCredentialsValid);
-    		if ("liftingCastLoginResponse" in $$props) $$invalidate(8, liftingCastLoginResponse = $$props.liftingCastLoginResponse);
-    		if ("isDrlConfigured" in $$props) $$invalidate(9, isDrlConfigured = $$props.isDrlConfigured);
+    		if ("attemptedToCheckLiftingCastCredentials" in $$props) $$invalidate(26, attemptedToCheckLiftingCastCredentials = $$props.attemptedToCheckLiftingCastCredentials);
+    		if ("completedCheckingLiftingCastCredentials" in $$props) $$invalidate(5, completedCheckingLiftingCastCredentials = $$props.completedCheckingLiftingCastCredentials);
+    		if ("areLiftingCastCredentialsValid" in $$props) $$invalidate(6, areLiftingCastCredentialsValid = $$props.areLiftingCastCredentialsValid);
+    		if ("liftingCastLoginResponse" in $$props) $$invalidate(7, liftingCastLoginResponse = $$props.liftingCastLoginResponse);
+    		if ("isDrlConfigured" in $$props) $$invalidate(8, isDrlConfigured = $$props.isDrlConfigured);
     		if ("isRelayServer" in $$props) $$invalidate(27, isRelayServer = $$props.isRelayServer);
     		if ("liftingCastBaseUrl" in $$props) $$invalidate(28, liftingCastBaseUrl = $$props.liftingCastBaseUrl);
-    		if ("credentialCheckUrl" in $$props) $$invalidate(13, credentialCheckUrl = $$props.credentialCheckUrl);
+    		if ("credentialCheckUrl" in $$props) $$invalidate(12, credentialCheckUrl = $$props.credentialCheckUrl);
     		if ("liftingCastApiUrl" in $$props) liftingCastApiUrl = $$props.liftingCastApiUrl;
-    		if ("canSubmitConfigurationToDrl" in $$props) $$invalidate(10, canSubmitConfigurationToDrl = $$props.canSubmitConfigurationToDrl);
+    		if ("canSubmitConfigurationToDrl" in $$props) $$invalidate(9, canSubmitConfigurationToDrl = $$props.canSubmitConfigurationToDrl);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -16647,7 +16642,7 @@ var app = (function () {
     		}
 
     		if ($$self.$$.dirty[0] & /*isRelayServer, relayServerIpAddress*/ 134217730) {
-    			$$invalidate(13, credentialCheckUrl = isRelayServer
+    			$$invalidate(12, credentialCheckUrl = isRelayServer
     			? `http://couchdb.${relayServerIpAddress}/_session`
     			: LIFTING_CAST_CREDENTIAL_CHECK_URL);
     		}
@@ -16660,11 +16655,11 @@ var app = (function () {
     			debug_log("baseUrl set to", liftingCastBaseUrl);
     		}
 
-    		if ($$self.$$.dirty[0] & /*selectedMeetId, meetsForDebug*/ 33554436) {
+    		if ($$self.$$.dirty[0] & /*selectedMeetId, meetsForDebug*/ 16777220) {
     			debug_log("meet selected:", find(propEq("_id", selectedMeetId), meetsForDebug));
     		}
 
-    		if ($$self.$$.dirty[0] & /*selectedPlatformId, platformsForDebug*/ 67108872) {
+    		if ($$self.$$.dirty[0] & /*selectedPlatformId, platformsForDebug*/ 33554440) {
     			debug_log("platform selected:", find(propEq("_id", selectedPlatformId), platformsForDebug));
     		}
 
@@ -16672,31 +16667,31 @@ var app = (function () {
     			debug_log("password set to", password);
     		}
 
-    		if ($$self.$$.dirty[0] & /*attemptedToCheckLiftingCastCredentials*/ 32) {
+    		if ($$self.$$.dirty[0] & /*attemptedToCheckLiftingCastCredentials*/ 67108864) {
     			debug_log("attemptedToCheckLiftingCastCredentials set to", attemptedToCheckLiftingCastCredentials);
     		}
 
-    		if ($$self.$$.dirty[0] & /*completedCheckingLiftingCastCredentials*/ 64) {
+    		if ($$self.$$.dirty[0] & /*completedCheckingLiftingCastCredentials*/ 32) {
     			debug_log("completedCheckingLiftingCastCredentials set to", completedCheckingLiftingCastCredentials);
     		}
 
-    		if ($$self.$$.dirty[0] & /*areLiftingCastCredentialsValid*/ 128) {
+    		if ($$self.$$.dirty[0] & /*areLiftingCastCredentialsValid*/ 64) {
     			debug_log("areLiftingCastCredentialsValid set to", areLiftingCastCredentialsValid);
     		}
 
-    		if ($$self.$$.dirty[0] & /*liftingCastLoginResponse*/ 256) {
+    		if ($$self.$$.dirty[0] & /*liftingCastLoginResponse*/ 128) {
     			debug_log("liftingCastLoginResponse:", liftingCastLoginResponse);
     		}
 
-    		if ($$self.$$.dirty[0] & /*attemptedToCheckLiftingCastCredentials, completedCheckingLiftingCastCredentials, areLiftingCastCredentialsValid, serverType, relayServerIpAddress, selectedMeetId, password, selectedPlatformId*/ 255) {
-    			$$invalidate(10, canSubmitConfigurationToDrl = attemptedToCheckLiftingCastCredentials && completedCheckingLiftingCastCredentials && areLiftingCastCredentialsValid && (serverType === SERVER_TYPE.LIFTING_CAST || serverType === SERVER_TYPE.RELAY_SERVER && !isEmpty(relayServerIpAddress)) && selectedMeetId && password && selectedPlatformId);
+    		if ($$self.$$.dirty[0] & /*attemptedToCheckLiftingCastCredentials, completedCheckingLiftingCastCredentials, areLiftingCastCredentialsValid, serverType, relayServerIpAddress, selectedMeetId, password, selectedPlatformId*/ 67108991) {
+    			$$invalidate(9, canSubmitConfigurationToDrl = attemptedToCheckLiftingCastCredentials && completedCheckingLiftingCastCredentials && areLiftingCastCredentialsValid && (serverType === SERVER_TYPE.LIFTING_CAST || serverType === SERVER_TYPE.RELAY_SERVER && !isEmpty(relayServerIpAddress)) && selectedMeetId && password && selectedPlatformId);
     		}
 
-    		if ($$self.$$.dirty[0] & /*canSubmitConfigurationToDrl*/ 1024) {
+    		if ($$self.$$.dirty[0] & /*canSubmitConfigurationToDrl*/ 512) {
     			debug_log("canSubmitConfigurationToDrl", canSubmitConfigurationToDrl);
     		}
 
-    		if ($$self.$$.dirty[0] & /*isDrlConfigured*/ 512) {
+    		if ($$self.$$.dirty[0] & /*isDrlConfigured*/ 256) {
     			debug_log("isDrlConfigured set to", isDrlConfigured);
     		}
     	};
@@ -16707,7 +16702,6 @@ var app = (function () {
     		selectedMeetId,
     		selectedPlatformId,
     		password,
-    		attemptedToCheckLiftingCastCredentials,
     		completedCheckingLiftingCastCredentials,
     		areLiftingCastCredentialsValid,
     		liftingCastLoginResponse,
@@ -16729,6 +16723,7 @@ var app = (function () {
     		sendLiftingCastInfoToDrl,
     		meetsForDebug,
     		platformsForDebug,
+    		attemptedToCheckLiftingCastCredentials,
     		isRelayServer,
     		liftingCastBaseUrl,
     		input0_change_handler,

@@ -284,9 +284,6 @@ def lifting_cast_platform_config():
     if not flask.request.is_json:
         return flask.jsonify({"msg": "Invalid request"}), BAD_REQUEST
 
-    print("flask.request.json")
-    print(flask.request.json)
-
     # This is a workaround for Flask 0.12.1, used on the DRL Pi.
     # For some reason, `flask.request.json` has the value `(Ellipsis, Ellipsis)`
     # while `flask.request.data` is a binary string of the request JSON.

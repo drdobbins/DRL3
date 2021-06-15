@@ -282,8 +282,11 @@ def lifting_cast_platform_config():
         configured = True
         print("`configured` set to {}".format(configured))
 
-        with open(LIFTING_CAST_CONFIG_FILE, "w") as f:
-            json.dump(flask.request.json, f)
+        try:
+            with open(LIFTING_CAST_CONFIG_FILE, "w") as f:
+                json.dump(flask.request.json, f)
+        except FileNotFoundError:
+            print("Error: Could not open/create file at {} to persist LiftingCast config info.".format(LIFTING_CAST_CONFIG_FILE))
 
         return flask.jsonify({"msg": "Accepted"}), ACCEPTED
     else:

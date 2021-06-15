@@ -314,7 +314,7 @@ def lifting_cast_platform_config():
                 # The following is a workaround for Flask 0.12.1, as above:
                 json.dump(request_json, f)
         except FileNotFoundError:
-            print("Error: Could not open/create file at {} to persist LiftingCast config info.".format(LIFTING_CAST_CONFIG_FILE))
+            print("Warning: Could not open/create file at {} to persist LiftingCast config info.".format(LIFTING_CAST_CONFIG_FILE))
 
         return flask.jsonify({"msg": "Accepted"}), ACCEPTED
     else:

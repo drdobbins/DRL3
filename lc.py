@@ -247,6 +247,18 @@ def liftingcast_post(url,data):
 # 2. Receives those values from the site and sets the appropriate variables, to be used in the main thread of DRL.
 app = flask.Flask(__name__)
 
+# This is a workaround for Flask 0.12.1, used on the DRL Pi.
+# Calling `flask.jsonify` resulted in AttributeError: 'Request' object has no attribute 'is_xhr'
+# Source: https://stackoverflow.com/questions/60992849/attributeerror-request-object-has-no-attribute-is-xhr
+# This is caused by request.is_xhr having been removed by a flask dependency, Werkzeug, and affects the combination of
+# Flask <= 0.12.4 and Werkzeug >=1.0.0.
+# The stacktrace shows
+#   File "/Users/cort/Projects/DRL3/.venv/lib/python3.8/site-packages/flask/json.py", line 251, in jsonify
+#     if current_app.config['JSONIFY_PRETTYPRINT_REGULAR'] and not request.is_xhr:
+# so a workaround is to short circuit that `and` as per the following:
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
+
+
 # Endpoint for main Svelte app page
 @app.route("/")
 def base():
@@ -265,14 +277,24 @@ SERVER_TYPES = ["mainSite", "relay"]
 
 
 # Receive LiftingCast information to configure DRL for the given meet and platform.
-@app.post("/lifting-cast-platform-config")
+@app.route("/lifting-cast-platform-config", methods=["POST"])
 def lifting_cast_platform_config():
     global server_type, local_relay_server_ip_address, meet_id, password, platform_id, meet_url, protocol, light_url, set_clock_url, start_clock_url, reset_clock_url, password_data, configured
 
     if not flask.request.is_json:
         return flask.jsonify({"msg": "Invalid request"}), BAD_REQUEST
 
-    set_lifting_cast_config_variables(flask.request.json)
+    print("flask.request.json")
+    print(flask.request.json)
+
+    # This is a workaround for Flask 0.12.1, used on the DRL Pi.
+    # For some reason, `flask.request.json` has the value `(Ellipsis, Ellipsis)`
+    # while `flask.request.data` is a binary string of the request JSON.
+    # I originally wrote this with Flask 2.0.1, with which the following
+    # works just fine:
+    #   set_lifting_cast_config_variables(flask.request.json)
+    request_json = json.loads(flask.request.data.decode("utf-8"))
+    set_lifting_cast_config_variables(request_json)
 
     if meet_id != "" \
             and password != "" \
@@ -286,7 +308,11 @@ def lifting_cast_platform_config():
 
         try:
             with open(LIFTING_CAST_CONFIG_FILE, "w") as f:
-                json.dump(flask.request.json, f)
+                # With flask 2.0.1, this works just fine:
+                #   json.dump(flask.request.json, f)
+                #
+                # The following is a workaround for Flask 0.12.1, as above:
+                json.dump(request_json, f)
         except FileNotFoundError:
             print("Error: Could not open/create file at {} to persist LiftingCast config info.".format(LIFTING_CAST_CONFIG_FILE))
 

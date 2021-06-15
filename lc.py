@@ -284,12 +284,16 @@ def lifting_cast_platform_config():
     if not flask.request.is_json:
         return flask.jsonify({"msg": "Invalid request"}), BAD_REQUEST
 
-    # This is a workaround for Flask 0.12.1, used on the DRL Pi.
-    # For some reason, `flask.request.json` has the value `(Ellipsis, Ellipsis)`
-    # while `flask.request.data` is a binary string of the request JSON.
-    # I originally wrote this with Flask 2.0.1, with which the following
-    # works just fine:
-    #   set_lifting_cast_config_variables(flask.request.json)
+    # This is a workaround for Flask 0.12.1, used on the DRL dev Pi, dev3, with Python 3.8.1.
+    # The DRL dev Pi, dev3, runs Python 3.5.3. Installing that on my Mac fails for some reason so I'm using 3.8.1, which
+    # is the oldest Python I had handy.
+    #     (DRL dev Pi) Python 3.5.3 + Flask 0.12.1 => `flask.request.json` works correctly
+    #     (Cort's Mac) Python 3.8.1 + Flask 2.0.1  => `flask.request.json` works correctly
+    #     (Cort's Mac) Python 3.8.1 + Flask 0.12.1 => `flask.request.json` has the value `(Ellipsis, Ellipsis)`
+    #
+    # I want to be able to run this both on my Mac and on the DRL dev Pi so I'm using the following workaround that I
+    # found while inspecting the request in the debugger:
+    # `flask.request.data` is a binary string of the request JSON.
     request_json = json.loads(flask.request.data.decode("utf-8"))
     set_lifting_cast_config_variables(request_json)
 
@@ -305,10 +309,6 @@ def lifting_cast_platform_config():
 
         try:
             with open(LIFTING_CAST_CONFIG_FILE, "w") as f:
-                # With flask 2.0.1, this works just fine:
-                #   json.dump(flask.request.json, f)
-                #
-                # The following is a workaround for Flask 0.12.1, as above:
                 json.dump(request_json, f)
         except FileNotFoundError:
             print("Warning: Could not open/create file at {} to persist LiftingCast config info.".format(LIFTING_CAST_CONFIG_FILE))

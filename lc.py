@@ -30,13 +30,13 @@ def set_lifting_cast_config_variables(dict):
     platform_id = dict.get("platform_id", "")
     meet_url, protocol = make_meet_url_and_protocol(server_type, local_relay_server_ip_address)
 
-    print(f"server_type: {server_type}")
-    print(f"local_relay_server_ip_address {local_relay_server_ip_address}")
-    print(f"meet_id: {meet_id}")
-    print(f"platform_id: {platform_id}")
-    print(f"password: {password}")
-    print(f"meet_url: {meet_url}")
-    print(f"protocol: {protocol}")
+    print("server_type: " + server_type)
+    print("local_relay_server_ip_address: " + local_relay_server_ip_address)
+    print("meet_id: " + meet_id)
+    print("platform_id: " + platform_id)
+    print("password: " + password)
+    print("meet_url: " + meet_url)
+    print("protocol: " + protocol)
 
 
 def set_lifting_cast_urls(meet_url, password, meet_id, platform_id):
@@ -80,11 +80,11 @@ try:
     with open(LIFTING_CAST_CONFIG_FILE, "r") as f:
         LIFTING_CAST_CONFIG_DATA_AT_STARTUP = json.load(f)
 
-    print(f"Read initial config from {LIFTING_CAST_CONFIG_FILE}")
+    print("Read initial config from" + LIFTING_CAST_CONFIG_FILE)
     set_lifting_cast_config_variables(LIFTING_CAST_CONFIG_DATA_AT_STARTUP)
     configured = True # configured being True means meet ID, platform ID, and password have been entered. When this is true the sync icon is drawn on the screen.
 except OSError:
-    print(f"{LIFTING_CAST_CONFIG_FILE} not found at startup. This file will be created when DRL is configured through the config web app and DRL will attempt to read the initial LiftingCast config from the file on next startup.")
+    print(LIFTING_CAST_CONFIG_FILE + " not found at startup. This file will be created when DRL is configured through the config web app and DRL will attempt to read the initial LiftingCast config from the file on next startup.")
 
 good_sync = False #this variable is checked by the main thread for drawing the sync icons.
 bad_sync = False #this variable is checked by the main thread for drawing the sync icons. 
@@ -280,7 +280,7 @@ def lifting_cast_platform_config():
             and protocol != "":
         set_lifting_cast_urls(meet_url, password, meet_id, platform_id)
         configured = True
-        print(f"`configured` set to `{configured}`")
+        print("`configured` set to {}".format(configured))
 
         with open(LIFTING_CAST_CONFIG_FILE, "w") as f:
             json.dump(flask.request.json, f)
@@ -288,8 +288,12 @@ def lifting_cast_platform_config():
         return flask.jsonify({"msg": "Accepted"}), ACCEPTED
     else:
         configured = False
-        msg = f"Insufficient information from config app to configure DRL. Received:\n  server_type: {server_type}\n  local_relay_server_ip_address (required if and only if server_type is 'relay'): {local_relay_server_ip_address}\n  meet_id: {meet_id}\n  password: {password}\n  platform_id: {platform_id}\n  `configured` set to `False`"
+        msg = "Insufficient information from config app to configure DRL. Received:\n  server_type: {}\n  local_relay_server_ip_address (required if and only if server_type is 'relay'): {}\n  meet_id: {}\n  password: {}\n  platform_id: {}\n  `configured` set to `False`".format(
+            server_type,
+            local_relay_server_ip_address,
+            meet_id,
+            password,
+            platform_id
+        )
         print(msg)
         return flask.jsonify({"msg": msg}), BAD_REQUEST
-
-

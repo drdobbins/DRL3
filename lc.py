@@ -82,6 +82,7 @@ try:
 
     print("Read initial config from" + LIFTING_CAST_CONFIG_FILE)
     set_lifting_cast_config_variables(LIFTING_CAST_CONFIG_DATA_AT_STARTUP)
+    set_lifting_cast_urls(meet_url, password, meet_id, platform_id)
     configured = True # configured being True means meet ID, platform ID, and password have been entered. When this is true the sync icon is drawn on the screen.
 except OSError:
     print(LIFTING_CAST_CONFIG_FILE + " not found at startup. This file will be created when DRL is configured through the config web app and DRL will attempt to read the initial LiftingCast config from the file on next startup.")

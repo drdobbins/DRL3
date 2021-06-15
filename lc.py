@@ -241,7 +241,6 @@ def liftingcast_post(url,data):
         #time.sleep(1)
 
 
-
 # Flask app that
 # 1. Serves the site that allows the user to select the LiftingCast meet and platform for which this instance of DRL
 #    will be used and to enter the LiftingCast password for the meet.
@@ -253,14 +252,17 @@ app = flask.Flask(__name__)
 def base():
     return flask.send_from_directory("lifting-cast-config-app/public", "index.html")
 
+
 # Endpoint for assets (compiled JS, CSS, etc.)
 @app.route("/<path:path>")
 def home(path):
     return flask.send_from_directory("lifting-cast-config-app/public", path)
 
+
 ACCEPTED = 202
 BAD_REQUEST = 400
 SERVER_TYPES = ["mainSite", "relay"]
+
 
 # Receive LiftingCast information to configure DRL for the given meet and platform.
 @app.post("/lifting-cast-platform-config")

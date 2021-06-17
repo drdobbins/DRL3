@@ -22,7 +22,7 @@ import requests
 
 
 
-version = "0.5"
+version = "0.6"
 
 pygame.init()  # initialize pygame
 mainClock = pygame.time.Clock()
@@ -963,7 +963,7 @@ def timer_edit():
 
             if event.type == pygame.KEYDOWN:
 
-                if event.key == pygame.K_KP_ENTER:  # EXIT CONDITION
+                if event.key == pygame.K_KP_ENTER or event.key == pygame.K_RETURN:  # EXIT CONDITION
                     print("exiting the timer loop")
                     stayLooped = False
 
@@ -2463,7 +2463,7 @@ while True:
                 right_currently_desync = False
 
 
-            if event.key == pygame.K_KP_PLUS:  # need to change this to KP plus
+            if event.key == pygame.K_EQUALS or event.key == pygame.K_KP_PLUS:# or pygame.K_EQUALS:  # need to change this to KP plus 
                 # we need to edit the edit the main timer.
                 print("Editing the timer, calling the timer_edit() function")
                 timer_edit()

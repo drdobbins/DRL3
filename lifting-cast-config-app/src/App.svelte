@@ -18,20 +18,23 @@
         RELAY_SERVER: "relay"
     }
 
-    const LIFTING_CAST_BASE_URL = "https://liftingcast.com"
-    const LIFTING_CAST_CREDENTIAL_CHECK_URL = "https://couchdb.liftingcast.com/_session";
+    const LIFTING_CAST_DOT_COM_BASE_URL = "https://liftingcast.com"
+    const LIFTING_CAST_DOT_COM_CREDENTIAL_CHECK_URL = "https://couchdb.liftingcast.com/_session";
 
     let serverType = SERVER_TYPE.LIFTING_CAST;
     $: debug_log("serverType set to", serverType);
 
     let relayServerIpAddress = "";
+    $: relayServerBaseUrl = `http://${relayServerIpAddress}`;
+    $: relayServerCredentialCheckUrl = `http://${relayServerIpAddress}:5984/_session`;
+    $: debug_log("relayServerCredentialCheckUrl set to", relayServerCredentialCheckUrl);
     $: isRelayServer = serverType === SERVER_TYPE.RELAY_SERVER;
     $: liftingCastBaseUrl = isRelayServer
-                            ? `http://${relayServerIpAddress}`
-                            : LIFTING_CAST_BASE_URL;
+                            ? relayServerBaseUrl
+                            : LIFTING_CAST_DOT_COM_BASE_URL;
     $: credentialCheckUrl = isRelayServer
-                            ? `http://couchdb.${relayServerIpAddress}/_session`
-                            : LIFTING_CAST_CREDENTIAL_CHECK_URL;
+                            ? relayServerCredentialCheckUrl
+                            : LIFTING_CAST_DOT_COM_CREDENTIAL_CHECK_URL;
     $: liftingCastApiUrl = `${liftingCastBaseUrl}/api`;
 
     $: debug_log("baseUrl set to", liftingCastBaseUrl);

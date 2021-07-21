@@ -104,6 +104,7 @@
     }
 
     async function fetchMeets() {
+        debug_log("Fetching meets")
         const response = await fetch(liftingCastMeetsUrl());
         const json = await response.json();
         // TODO: Handle HTTP errors and response errors

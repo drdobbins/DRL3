@@ -59,7 +59,7 @@ def set_lifting_cast_urls(meet_url, password, meet_id, platform_id):
 
 
 configured = False # configured being True means meet ID, platform ID, and password have been entered. When this is true the sync icon is drawn on the screen.
-LIFTING_CAST_CONFIG_FILE = "/home/pi/Desktop/DRL3/lifting_cast_config.json"
+LIFTING_CAST_CONFIG_FILE = "./lifting_cast_config.json"
 
 server_type = ""
 local_relay_server_ip_address = ""

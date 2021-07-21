@@ -69,16 +69,16 @@
     let liftingCastLoginResponse = "";
     $: debug_log("liftingCastLoginResponse:", liftingCastLoginResponse);
 
-    $: canSubmitConfigurationToDrl =
-        attemptedToCheckLiftingCastCredentials
-        && completedCheckingLiftingCastCredentials
-        && areLiftingCastCredentialsValid
-        && (serverType === SERVER_TYPE.LIFTING_CAST
-            || (serverType === SERVER_TYPE.RELAY_SERVER && !R.isEmpty(relayServerIpAddress)))
-        && selectedMeetId
-        && password
-        && selectedPlatformId;
-    // let canSubmitConfigurationToDrl = true;
+    // $: canSubmitConfigurationToDrl =
+    //     attemptedToCheckLiftingCastCredentials
+    //     && completedCheckingLiftingCastCredentials
+    //     && areLiftingCastCredentialsValid
+    //     && (serverType === SERVER_TYPE.LIFTING_CAST
+    //         || (serverType === SERVER_TYPE.RELAY_SERVER && !R.isEmpty(relayServerIpAddress)))
+    //     && selectedMeetId
+    //     && password
+    //     && selectedPlatformId;
+    let canSubmitConfigurationToDrl = true;
     $: debug_log("canSubmitConfigurationToDrl", canSubmitConfigurationToDrl);
 
     let isDrlConfigured = false;

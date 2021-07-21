@@ -14862,13 +14862,13 @@ var app = (function () {
     			t3 = space();
     			input = element("input");
     			attr_dev(label, "for", "relay-server-ip-address");
-    			add_location(label, file, 340, 8, 11574);
-    			add_location(span, file, 344, 12, 11730);
+    			add_location(label, file, 340, 8, 11598);
+    			add_location(span, file, 344, 12, 11754);
     			attr_dev(input, "type", "url");
     			attr_dev(input, "id", "relay-server-ip-address");
-    			add_location(input, file, 345, 12, 11763);
+    			add_location(input, file, 345, 12, 11787);
     			set_style(div, "display", "flex");
-    			add_location(div, file, 343, 8, 11690);
+    			add_location(div, file, 343, 8, 11714);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, label, anchor);
@@ -14932,7 +14932,7 @@ var app = (function () {
     		error: 52
     	};
 
-    	handle_promise(promise = /*meetsPromise*/ ctx[10], info);
+    	handle_promise(promise = /*meetsPromise*/ ctx[9], info);
 
     	const block = {
     		c: function create() {
@@ -14941,7 +14941,7 @@ var app = (function () {
     			await_block_anchor = empty();
     			info.block.c();
     			attr_dev(hr, "class", "svelte-1dqar03");
-    			add_location(hr, file, 361, 8, 12153);
+    			add_location(hr, file, 361, 8, 12177);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, hr, anchor);
@@ -14955,7 +14955,7 @@ var app = (function () {
     			ctx = new_ctx;
     			info.ctx = ctx;
 
-    			if (dirty[0] & /*meetsPromise*/ 1024 && promise !== (promise = /*meetsPromise*/ ctx[10]) && handle_promise(promise, info)) ; else {
+    			if (dirty[0] & /*meetsPromise*/ 512 && promise !== (promise = /*meetsPromise*/ ctx[9]) && handle_promise(promise, info)) ; else {
     				const child_ctx = ctx.slice();
     				child_ctx[53] = child_ctx[52] = info.resolved;
     				info.block.p(child_ctx, dirty);
@@ -15007,10 +15007,10 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "Retry";
     			attr_dev(p0, "class", "error svelte-1dqar03");
-    			add_location(p0, file, 388, 12, 12927);
+    			add_location(p0, file, 388, 12, 12951);
     			attr_dev(p1, "class", "error svelte-1dqar03");
-    			add_location(p1, file, 389, 12, 13026);
-    			add_location(button, file, 390, 12, 13090);
+    			add_location(p1, file, 389, 12, 13050);
+    			add_location(button, file, 390, 12, 13114);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p0, anchor);
@@ -15027,7 +15027,7 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*meetsPromise*/ 1024 && t4_value !== (t4_value = /*error*/ ctx[52].message + "")) set_data_dev(t4, t4_value);
+    			if (dirty[0] & /*meetsPromise*/ 512 && t4_value !== (t4_value = /*error*/ ctx[52].message + "")) set_data_dev(t4, t4_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(p0);
@@ -15084,14 +15084,14 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			add_location(div, file, 366, 12, 12265);
+    			add_location(div, file, 366, 12, 12289);
     			option.disabled = true;
     			option.selected = true;
     			option.__value = "";
     			option.value = option.__value;
-    			add_location(option, file, 371, 16, 12447);
+    			add_location(option, file, 371, 16, 12471);
     			if (/*selectedMeetId*/ ctx[2] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[36].call(select));
-    			add_location(select, file, 367, 12, 12309);
+    			add_location(select, file, 367, 12, 12333);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -15117,9 +15117,9 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*meetsPromise*/ 1024 && t0_value !== (t0_value = /*meets*/ ctx[53].length + "")) set_data_dev(t0, t0_value);
+    			if (dirty[0] & /*meetsPromise*/ 512 && t0_value !== (t0_value = /*meets*/ ctx[53].length + "")) set_data_dev(t0, t0_value);
 
-    			if (dirty[0] & /*meetsPromise*/ 1024) {
+    			if (dirty[0] & /*meetsPromise*/ 512) {
     				each_value_1 = /*meets*/ ctx[53];
     				validate_each_argument(each_value_1);
     				let i;
@@ -15143,7 +15143,7 @@ var app = (function () {
     				each_blocks.length = each_value_1.length;
     			}
 
-    			if (dirty[0] & /*selectedMeetId, meetsPromise*/ 1028) {
+    			if (dirty[0] & /*selectedMeetId, meetsPromise*/ 516) {
     				select_option(select, /*selectedMeetId*/ ctx[2]);
     			}
     		},
@@ -15188,7 +15188,7 @@ var app = (function () {
     			t3 = text(")\n                    ");
     			option.__value = option_value_value = /*meet*/ ctx[54]._id;
     			option.value = option.__value;
-    			add_location(option, file, 380, 20, 12691);
+    			add_location(option, file, 380, 20, 12715);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -15198,10 +15198,10 @@ var app = (function () {
     			append_dev(option, t3);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*meetsPromise*/ 1024 && t0_value !== (t0_value = /*meet*/ ctx[54].name + "")) set_data_dev(t0, t0_value);
-    			if (dirty[0] & /*meetsPromise*/ 1024 && t2_value !== (t2_value = /*meet*/ ctx[54].date + "")) set_data_dev(t2, t2_value);
+    			if (dirty[0] & /*meetsPromise*/ 512 && t0_value !== (t0_value = /*meet*/ ctx[54].name + "")) set_data_dev(t0, t0_value);
+    			if (dirty[0] & /*meetsPromise*/ 512 && t2_value !== (t2_value = /*meet*/ ctx[54].date + "")) set_data_dev(t2, t2_value);
 
-    			if (dirty[0] & /*meetsPromise*/ 1024 && option_value_value !== (option_value_value = /*meet*/ ctx[54]._id)) {
+    			if (dirty[0] & /*meetsPromise*/ 512 && option_value_value !== (option_value_value = /*meet*/ ctx[54]._id)) {
     				prop_dev(option, "__value", option_value_value);
     				option.value = option.__value;
     			}
@@ -15230,7 +15230,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "... loading meets ...";
-    			add_location(p, file, 364, 12, 12202);
+    			add_location(p, file, 364, 12, 12226);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -15271,7 +15271,7 @@ var app = (function () {
     		error: 52
     	};
 
-    	handle_promise(promise = /*platformsPromise*/ ctx[11], info);
+    	handle_promise(promise = /*platformsPromise*/ ctx[10], info);
 
     	const block = {
     		c: function create() {
@@ -15280,7 +15280,7 @@ var app = (function () {
     			await_block_anchor = empty();
     			info.block.c();
     			attr_dev(hr, "class", "svelte-1dqar03");
-    			add_location(hr, file, 399, 8, 13287);
+    			add_location(hr, file, 399, 8, 13311);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, hr, anchor);
@@ -15294,7 +15294,7 @@ var app = (function () {
     			ctx = new_ctx;
     			info.ctx = ctx;
 
-    			if (dirty[0] & /*platformsPromise*/ 2048 && promise !== (promise = /*platformsPromise*/ ctx[11]) && handle_promise(promise, info)) ; else {
+    			if (dirty[0] & /*platformsPromise*/ 1024 && promise !== (promise = /*platformsPromise*/ ctx[10]) && handle_promise(promise, info)) ; else {
     				const child_ctx = ctx.slice();
     				child_ctx[48] = child_ctx[52] = info.resolved;
     				info.block.p(child_ctx, dirty);
@@ -15354,10 +15354,10 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "Retry";
     			attr_dev(p0, "class", "error svelte-1dqar03");
-    			add_location(p0, file, 425, 12, 14091);
+    			add_location(p0, file, 425, 12, 14115);
     			attr_dev(p1, "class", "error svelte-1dqar03");
-    			add_location(p1, file, 427, 12, 14253);
-    			add_location(button, file, 428, 12, 14317);
+    			add_location(p1, file, 427, 12, 14277);
+    			add_location(button, file, 428, 12, 14341);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p0, anchor);
@@ -15380,7 +15380,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			if (dirty[0] & /*selectedMeetId*/ 4) set_data_dev(t1, /*selectedMeetId*/ ctx[2]);
     			if (dirty[0] & /*selectedMeetId*/ 4 && t3_value !== (t3_value = /*liftingCastPlatfomsUrl*/ ctx[16](/*selectedMeetId*/ ctx[2]) + "")) set_data_dev(t3, t3_value);
-    			if (dirty[0] & /*platformsPromise*/ 2048 && t6_value !== (t6_value = /*error*/ ctx[52].message + "")) set_data_dev(t6, t6_value);
+    			if (dirty[0] & /*platformsPromise*/ 1024 && t6_value !== (t6_value = /*error*/ ctx[52].message + "")) set_data_dev(t6, t6_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(p0);
@@ -15437,14 +15437,14 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			add_location(div, file, 404, 12, 13411);
+    			add_location(div, file, 404, 12, 13435);
     			option.disabled = true;
     			option.selected = true;
     			option.__value = "";
     			option.value = option.__value;
-    			add_location(option, file, 409, 16, 13609);
+    			add_location(option, file, 409, 16, 13633);
     			if (/*selectedPlatformId*/ ctx[3] === void 0) add_render_callback(() => /*select_change_handler_1*/ ctx[38].call(select));
-    			add_location(select, file, 405, 12, 13463);
+    			add_location(select, file, 405, 12, 13487);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -15470,9 +15470,9 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*platformsPromise*/ 2048 && t0_value !== (t0_value = /*platforms*/ ctx[48].length + "")) set_data_dev(t0, t0_value);
+    			if (dirty[0] & /*platformsPromise*/ 1024 && t0_value !== (t0_value = /*platforms*/ ctx[48].length + "")) set_data_dev(t0, t0_value);
 
-    			if (dirty[0] & /*platformsPromise*/ 2048) {
+    			if (dirty[0] & /*platformsPromise*/ 1024) {
     				each_value = /*platforms*/ ctx[48];
     				validate_each_argument(each_value);
     				let i;
@@ -15496,7 +15496,7 @@ var app = (function () {
     				each_blocks.length = each_value.length;
     			}
 
-    			if (dirty[0] & /*selectedPlatformId, platformsPromise*/ 2056) {
+    			if (dirty[0] & /*selectedPlatformId, platformsPromise*/ 1032) {
     				select_option(select, /*selectedPlatformId*/ ctx[3]);
     			}
     		},
@@ -15536,7 +15536,7 @@ var app = (function () {
     			t1 = space();
     			option.__value = option_value_value = /*platform*/ ctx[49]._id;
     			option.value = option.__value;
-    			add_location(option, file, 417, 20, 13861);
+    			add_location(option, file, 417, 20, 13885);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -15544,9 +15544,9 @@ var app = (function () {
     			append_dev(option, t1);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*platformsPromise*/ 2048 && t0_value !== (t0_value = /*platform*/ ctx[49].name + "")) set_data_dev(t0, t0_value);
+    			if (dirty[0] & /*platformsPromise*/ 1024 && t0_value !== (t0_value = /*platform*/ ctx[49].name + "")) set_data_dev(t0, t0_value);
 
-    			if (dirty[0] & /*platformsPromise*/ 2048 && option_value_value !== (option_value_value = /*platform*/ ctx[49]._id)) {
+    			if (dirty[0] & /*platformsPromise*/ 1024 && option_value_value !== (option_value_value = /*platform*/ ctx[49]._id)) {
     				prop_dev(option, "__value", option_value_value);
     				option.value = option.__value;
     			}
@@ -15575,7 +15575,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "... loading platforms ...";
-    			add_location(p, file, 402, 12, 13340);
+    			add_location(p, file, 402, 12, 13364);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -15621,15 +15621,15 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "Verify meet credentials";
     			attr_dev(hr, "class", "svelte-1dqar03");
-    			add_location(hr, file, 437, 8, 14556);
+    			add_location(hr, file, 437, 8, 14580);
     			attr_dev(label, "for", "password");
-    			add_location(label, file, 439, 8, 14571);
+    			add_location(label, file, 439, 8, 14595);
     			attr_dev(input, "type", "text");
     			attr_dev(input, "id", "password");
     			set_style(input, "display", "block");
-    			add_location(input, file, 442, 8, 14657);
+    			add_location(input, file, 442, 8, 14681);
     			set_style(button, "display", "block");
-    			add_location(button, file, 449, 8, 14879);
+    			add_location(button, file, 449, 8, 14903);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, hr, anchor);
@@ -15745,15 +15745,15 @@ var app = (function () {
     		c: function create() {
     			p0 = element("p");
     			t0 = text("Could not successfully verify meet credentials via ");
-    			t1 = text(/*credentialCheckUrl*/ ctx[12]);
+    			t1 = text(/*credentialCheckUrl*/ ctx[11]);
     			t2 = space();
     			p1 = element("p");
     			t3 = text("Error message: ");
     			t4 = text(/*liftingCastLoginResponse*/ ctx[7]);
     			attr_dev(p0, "class", "error svelte-1dqar03");
-    			add_location(p0, file, 461, 12, 15251);
+    			add_location(p0, file, 461, 12, 15275);
     			attr_dev(p1, "class", "error svelte-1dqar03");
-    			add_location(p1, file, 462, 12, 15356);
+    			add_location(p1, file, 462, 12, 15380);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p0, anchor);
@@ -15765,7 +15765,7 @@ var app = (function () {
     			append_dev(p1, t4);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*credentialCheckUrl*/ 4096) set_data_dev(t1, /*credentialCheckUrl*/ ctx[12]);
+    			if (dirty[0] & /*credentialCheckUrl*/ 2048) set_data_dev(t1, /*credentialCheckUrl*/ ctx[11]);
     			if (dirty[0] & /*liftingCastLoginResponse*/ 128) set_data_dev(t4, /*liftingCastLoginResponse*/ ctx[7]);
     		},
     		d: function destroy(detaching) {
@@ -15794,7 +15794,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "Meet credentials verified with LiftingCast server.";
-    			add_location(p, file, 459, 12, 15165);
+    			add_location(p, file, 459, 12, 15189);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -15825,7 +15825,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Click button below to configure DRL with your LiftingCast meet and platform info.";
     			attr_dev(p, "class", "help svelte-1dqar03");
-    			add_location(p, file, 478, 8, 16023);
+    			add_location(p, file, 478, 8, 16047);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -15855,7 +15855,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Enter your meet password and verify meet credentials before submitting configuration to\n            DRL.";
     			attr_dev(p, "class", "help svelte-1dqar03");
-    			add_location(p, file, 475, 8, 15847);
+    			add_location(p, file, 475, 8, 15871);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -15885,7 +15885,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Select your platform.";
     			attr_dev(p, "class", "help svelte-1dqar03");
-    			add_location(p, file, 473, 8, 15713);
+    			add_location(p, file, 473, 8, 15737);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -15915,7 +15915,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Select your meet.";
     			attr_dev(p, "class", "help svelte-1dqar03");
-    			add_location(p, file, 471, 8, 15612);
+    			add_location(p, file, 471, 8, 15636);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -15945,7 +15945,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Fetch the meets for your LiftingCast server type.";
     			attr_dev(p, "class", "help svelte-1dqar03");
-    			add_location(p, file, 469, 8, 15487);
+    			add_location(p, file, 469, 8, 15511);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -15974,7 +15974,7 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			div.textContent = "DRL has been configured";
-    			add_location(div, file, 489, 8, 16366);
+    			add_location(div, file, 489, 8, 16390);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -16021,22 +16021,21 @@ var app = (function () {
     	let t13;
     	let button1;
     	let t14;
-    	let button1_disabled_value;
     	let t15;
     	let mounted;
     	let dispose;
-    	let if_block0 = /*serverType*/ ctx[0] === /*SERVER_TYPE*/ ctx[13].RELAY_SERVER && create_if_block_11(ctx);
-    	let if_block1 = /*meetsPromise*/ ctx[10] && create_if_block_10(ctx);
-    	let if_block2 = /*platformsPromise*/ ctx[11] && create_if_block_9(ctx);
+    	let if_block0 = /*serverType*/ ctx[0] === /*SERVER_TYPE*/ ctx[12].RELAY_SERVER && create_if_block_11(ctx);
+    	let if_block1 = /*meetsPromise*/ ctx[9] && create_if_block_10(ctx);
+    	let if_block2 = /*platformsPromise*/ ctx[10] && create_if_block_9(ctx);
     	let if_block3 = /*selectedMeetId*/ ctx[2] && /*selectedPlatformId*/ ctx[3] && create_if_block_8(ctx);
     	let if_block4 = /*completedCheckingLiftingCastCredentials*/ ctx[5] && create_if_block_6(ctx);
 
     	function select_block_type_1(ctx, dirty) {
-    		if (!/*meetsPromise*/ ctx[10]) return create_if_block_1;
-    		if (/*meetsPromise*/ ctx[10] && !/*selectedMeetId*/ ctx[2]) return create_if_block_2;
-    		if (/*platformsPromise*/ ctx[11] && !/*selectedPlatformId*/ ctx[3]) return create_if_block_3;
-    		if (/*selectedMeetId*/ ctx[2] && /*selectedPlatformId*/ ctx[3] && !/*canSubmitConfigurationToDrl*/ ctx[9]) return create_if_block_4;
-    		if (/*canSubmitConfigurationToDrl*/ ctx[9]) return create_if_block_5;
+    		if (!/*meetsPromise*/ ctx[9]) return create_if_block_1;
+    		if (/*meetsPromise*/ ctx[9] && !/*selectedMeetId*/ ctx[2]) return create_if_block_2;
+    		if (/*platformsPromise*/ ctx[10] && !/*selectedPlatformId*/ ctx[3]) return create_if_block_3;
+    		if (/*selectedMeetId*/ ctx[2] && /*selectedPlatformId*/ ctx[3] && !/*canSubmitConfigurationToDrl*/ ctx[13]) return create_if_block_4;
+    		if (/*canSubmitConfigurationToDrl*/ ctx[13]) return create_if_block_5;
     	}
 
     	let current_block_type = select_block_type_1(ctx);
@@ -16079,34 +16078,34 @@ var app = (function () {
     			t15 = space();
     			if (if_block6) if_block6.c();
     			attr_dev(h1, "class", "svelte-1dqar03");
-    			add_location(h1, file, 312, 4, 10726);
+    			add_location(h1, file, 312, 4, 10750);
     			attr_dev(input0, "type", "radio");
     			attr_dev(input0, "name", "serverType");
     			attr_dev(input0, "id", "lifting-cast-server-type");
-    			input0.__value = /*SERVER_TYPE*/ ctx[13].LIFTING_CAST;
+    			input0.__value = /*SERVER_TYPE*/ ctx[12].LIFTING_CAST;
     			input0.value = input0.__value;
     			input0.checked = true;
     			/*$$binding_groups*/ ctx[32][0].push(input0);
-    			add_location(input0, file, 316, 12, 10849);
+    			add_location(input0, file, 316, 12, 10873);
     			attr_dev(label0, "for", "lifting-cast-server-type");
-    			add_location(label0, file, 315, 8, 10798);
+    			add_location(label0, file, 315, 8, 10822);
     			attr_dev(input1, "type", "radio");
     			attr_dev(input1, "name", "serverType");
     			attr_dev(input1, "id", "server-type-relay-server");
-    			input1.__value = /*SERVER_TYPE*/ ctx[13].RELAY_SERVER;
+    			input1.__value = /*SERVER_TYPE*/ ctx[12].RELAY_SERVER;
     			input1.value = input1.__value;
     			/*$$binding_groups*/ ctx[32][0].push(input1);
-    			add_location(input1, file, 328, 12, 11222);
+    			add_location(input1, file, 328, 12, 11246);
     			attr_dev(label1, "for", "server-type-relay-server");
-    			add_location(label1, file, 327, 8, 11171);
-    			add_location(div, file, 314, 4, 10784);
-    			add_location(button0, file, 354, 4, 12013);
+    			add_location(label1, file, 327, 8, 11195);
+    			add_location(div, file, 314, 4, 10808);
+    			add_location(button0, file, 354, 4, 12037);
     			attr_dev(hr, "class", "svelte-1dqar03");
-    			add_location(hr, file, 466, 4, 15448);
-    			button1.disabled = button1_disabled_value = !/*canSubmitConfigurationToDrl*/ ctx[9] || undefined;
-    			add_location(button1, file, 481, 4, 16140);
+    			add_location(hr, file, 466, 4, 15472);
+    			button1.disabled = !/*canSubmitConfigurationToDrl*/ ctx[13] || undefined;
+    			add_location(button1, file, 481, 4, 16164);
     			attr_dev(main, "class", "svelte-1dqar03");
-    			add_location(main, file, 311, 0, 10715);
+    			add_location(main, file, 311, 0, 10739);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -16168,7 +16167,7 @@ var app = (function () {
     				input1.checked = input1.__value === /*serverType*/ ctx[0];
     			}
 
-    			if (/*serverType*/ ctx[0] === /*SERVER_TYPE*/ ctx[13].RELAY_SERVER) {
+    			if (/*serverType*/ ctx[0] === /*SERVER_TYPE*/ ctx[12].RELAY_SERVER) {
     				if (if_block0) {
     					if_block0.p(ctx, dirty);
     				} else {
@@ -16181,7 +16180,7 @@ var app = (function () {
     				if_block0 = null;
     			}
 
-    			if (/*meetsPromise*/ ctx[10]) {
+    			if (/*meetsPromise*/ ctx[9]) {
     				if (if_block1) {
     					if_block1.p(ctx, dirty);
     				} else {
@@ -16194,7 +16193,7 @@ var app = (function () {
     				if_block1 = null;
     			}
 
-    			if (/*platformsPromise*/ ctx[11]) {
+    			if (/*platformsPromise*/ ctx[10]) {
     				if (if_block2) {
     					if_block2.p(ctx, dirty);
     				} else {
@@ -16241,10 +16240,6 @@ var app = (function () {
     					if_block5.c();
     					if_block5.m(main, t13);
     				}
-    			}
-
-    			if (dirty[0] & /*canSubmitConfigurationToDrl*/ 512 && button1_disabled_value !== (button1_disabled_value = !/*canSubmitConfigurationToDrl*/ ctx[9] || undefined)) {
-    				prop_dev(button1, "disabled", button1_disabled_value);
     			}
 
     			if (/*isDrlConfigured*/ ctx[8]) {
@@ -16310,7 +16305,6 @@ var app = (function () {
     	let liftingCastBaseUrl;
     	let credentialCheckUrl;
     	let liftingCastApiUrl;
-    	let canSubmitConfigurationToDrl;
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("App", slots, []);
     	let DEBUG_LOGGING = true;
@@ -16345,11 +16339,23 @@ var app = (function () {
     	let completedCheckingLiftingCastCredentials = false;
     	let areLiftingCastCredentialsValid = false;
     	let liftingCastLoginResponse = "";
+
+    	// $: canSubmitConfigurationToDrl =
+    	//     attemptedToCheckLiftingCastCredentials
+    	//     && completedCheckingLiftingCastCredentials
+    	//     && areLiftingCastCredentialsValid
+    	//     && (serverType === SERVER_TYPE.LIFTING_CAST
+    	//         || (serverType === SERVER_TYPE.RELAY_SERVER && !R.isEmpty(relayServerIpAddress)))
+    	//     && selectedMeetId
+    	//     && password
+    	//     && selectedPlatformId;
+    	let canSubmitConfigurationToDrl = true;
+
     	let isDrlConfigured = false;
 
     	function handleRelayUrlTextFieldKeyDown(event) {
     		if (event.key === "Enter") {
-    			$$invalidate(10, meetsPromise = fetchMeets());
+    			$$invalidate(9, meetsPromise = fetchMeets());
     		}
     	}
 
@@ -16419,7 +16425,7 @@ var app = (function () {
     		const meetId = event.target.value;
     		$$invalidate(2, selectedMeetId = meetId);
     		debug_log("selectedMeetId", meetId);
-    		$$invalidate(11, platformsPromise = fetchPlatforms(meetId));
+    		$$invalidate(10, platformsPromise = fetchPlatforms(meetId));
     	}
 
     	function handlePlatformSelection(event) {
@@ -16545,27 +16551,27 @@ var app = (function () {
     	}
 
     	const click_handler = () => {
-    		$$invalidate(10, meetsPromise = fetchMeets());
+    		$$invalidate(9, meetsPromise = fetchMeets());
     	};
 
     	function select_change_handler() {
     		selectedMeetId = select_value(this);
     		$$invalidate(2, selectedMeetId);
-    		$$invalidate(10, meetsPromise);
+    		$$invalidate(9, meetsPromise);
     	}
 
     	const click_handler_1 = () => {
-    		$$invalidate(10, meetsPromise = fetchMeets());
+    		$$invalidate(9, meetsPromise = fetchMeets());
     	};
 
     	function select_change_handler_1() {
     		selectedPlatformId = select_value(this);
     		$$invalidate(3, selectedPlatformId);
-    		$$invalidate(11, platformsPromise);
+    		$$invalidate(10, platformsPromise);
     	}
 
     	const click_handler_2 = () => {
-    		$$invalidate(11, platformsPromise = fetchPlatforms(selectedMeetId));
+    		$$invalidate(10, platformsPromise = fetchPlatforms(selectedMeetId));
     	};
 
     	function input_input_handler_1() {
@@ -16597,6 +16603,7 @@ var app = (function () {
     		completedCheckingLiftingCastCredentials,
     		areLiftingCastCredentialsValid,
     		liftingCastLoginResponse,
+    		canSubmitConfigurationToDrl,
     		isDrlConfigured,
     		handleRelayUrlTextFieldKeyDown,
     		parseDate,
@@ -16619,18 +16626,17 @@ var app = (function () {
     		isRelayServer,
     		liftingCastBaseUrl,
     		credentialCheckUrl,
-    		liftingCastApiUrl,
-    		canSubmitConfigurationToDrl
+    		liftingCastApiUrl
     	});
 
     	$$self.$inject_state = $$props => {
     		if ("DEBUG_LOGGING" in $$props) DEBUG_LOGGING = $$props.DEBUG_LOGGING;
     		if ("serverType" in $$props) $$invalidate(0, serverType = $$props.serverType);
     		if ("relayServerIpAddress" in $$props) $$invalidate(1, relayServerIpAddress = $$props.relayServerIpAddress);
-    		if ("meetsPromise" in $$props) $$invalidate(10, meetsPromise = $$props.meetsPromise);
+    		if ("meetsPromise" in $$props) $$invalidate(9, meetsPromise = $$props.meetsPromise);
     		if ("meetsForDebug" in $$props) $$invalidate(24, meetsForDebug = $$props.meetsForDebug);
     		if ("selectedMeetId" in $$props) $$invalidate(2, selectedMeetId = $$props.selectedMeetId);
-    		if ("platformsPromise" in $$props) $$invalidate(11, platformsPromise = $$props.platformsPromise);
+    		if ("platformsPromise" in $$props) $$invalidate(10, platformsPromise = $$props.platformsPromise);
     		if ("platformsForDebug" in $$props) $$invalidate(25, platformsForDebug = $$props.platformsForDebug);
     		if ("selectedPlatformId" in $$props) $$invalidate(3, selectedPlatformId = $$props.selectedPlatformId);
     		if ("password" in $$props) $$invalidate(4, password = $$props.password);
@@ -16638,14 +16644,14 @@ var app = (function () {
     		if ("completedCheckingLiftingCastCredentials" in $$props) $$invalidate(5, completedCheckingLiftingCastCredentials = $$props.completedCheckingLiftingCastCredentials);
     		if ("areLiftingCastCredentialsValid" in $$props) $$invalidate(6, areLiftingCastCredentialsValid = $$props.areLiftingCastCredentialsValid);
     		if ("liftingCastLoginResponse" in $$props) $$invalidate(7, liftingCastLoginResponse = $$props.liftingCastLoginResponse);
+    		if ("canSubmitConfigurationToDrl" in $$props) $$invalidate(13, canSubmitConfigurationToDrl = $$props.canSubmitConfigurationToDrl);
     		if ("isDrlConfigured" in $$props) $$invalidate(8, isDrlConfigured = $$props.isDrlConfigured);
     		if ("relayServerBaseUrl" in $$props) $$invalidate(27, relayServerBaseUrl = $$props.relayServerBaseUrl);
     		if ("relayServerCredentialCheckUrl" in $$props) $$invalidate(28, relayServerCredentialCheckUrl = $$props.relayServerCredentialCheckUrl);
     		if ("isRelayServer" in $$props) $$invalidate(29, isRelayServer = $$props.isRelayServer);
     		if ("liftingCastBaseUrl" in $$props) $$invalidate(30, liftingCastBaseUrl = $$props.liftingCastBaseUrl);
-    		if ("credentialCheckUrl" in $$props) $$invalidate(12, credentialCheckUrl = $$props.credentialCheckUrl);
+    		if ("credentialCheckUrl" in $$props) $$invalidate(11, credentialCheckUrl = $$props.credentialCheckUrl);
     		if ("liftingCastApiUrl" in $$props) liftingCastApiUrl = $$props.liftingCastApiUrl;
-    		if ("canSubmitConfigurationToDrl" in $$props) $$invalidate(9, canSubmitConfigurationToDrl = $$props.canSubmitConfigurationToDrl);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -16680,7 +16686,7 @@ var app = (function () {
     		}
 
     		if ($$self.$$.dirty[0] & /*isRelayServer, relayServerCredentialCheckUrl*/ 805306368) {
-    			$$invalidate(12, credentialCheckUrl = isRelayServer
+    			$$invalidate(11, credentialCheckUrl = isRelayServer
     			? relayServerCredentialCheckUrl
     			: LIFTING_CAST_DOT_COM_CREDENTIAL_CHECK_URL);
     		}
@@ -16721,19 +16727,12 @@ var app = (function () {
     			debug_log("liftingCastLoginResponse:", liftingCastLoginResponse);
     		}
 
-    		if ($$self.$$.dirty[0] & /*attemptedToCheckLiftingCastCredentials, completedCheckingLiftingCastCredentials, areLiftingCastCredentialsValid, serverType, relayServerIpAddress, selectedMeetId, password, selectedPlatformId*/ 67108991) {
-    			$$invalidate(9, canSubmitConfigurationToDrl = attemptedToCheckLiftingCastCredentials && completedCheckingLiftingCastCredentials && areLiftingCastCredentialsValid && (serverType === SERVER_TYPE.LIFTING_CAST || serverType === SERVER_TYPE.RELAY_SERVER && !isEmpty(relayServerIpAddress)) && selectedMeetId && password && selectedPlatformId);
-    		}
-
-    		if ($$self.$$.dirty[0] & /*canSubmitConfigurationToDrl*/ 512) {
-    			// let canSubmitConfigurationToDrl = true;
-    			debug_log("canSubmitConfigurationToDrl", canSubmitConfigurationToDrl);
-    		}
-
     		if ($$self.$$.dirty[0] & /*isDrlConfigured*/ 256) {
     			debug_log("isDrlConfigured set to", isDrlConfigured);
     		}
     	};
+
+    	debug_log("canSubmitConfigurationToDrl", canSubmitConfigurationToDrl);
 
     	return [
     		serverType,
@@ -16745,11 +16744,11 @@ var app = (function () {
     		areLiftingCastCredentialsValid,
     		liftingCastLoginResponse,
     		isDrlConfigured,
-    		canSubmitConfigurationToDrl,
     		meetsPromise,
     		platformsPromise,
     		credentialCheckUrl,
     		SERVER_TYPE,
+    		canSubmitConfigurationToDrl,
     		handleRelayUrlTextFieldKeyDown,
     		liftingCastMeetsUrl,
     		liftingCastPlatfomsUrl,

@@ -2,6 +2,8 @@
     import * as R from "ramda";
     import {isBefore, parse, startOfToday} from "date-fns"
 
+    // import * as data from "./data"
+
     let DEBUG_LOGGING = true;
 
     function debug_log(...args) {
@@ -76,6 +78,7 @@
         && selectedMeetId
         && password
         && selectedPlatformId;
+    // let canSubmitConfigurationToDrl = true;
     $: debug_log("canSubmitConfigurationToDrl", canSubmitConfigurationToDrl);
 
     let isDrlConfigured = false;
@@ -125,12 +128,42 @@
         return meets;
     }
 
+    async function fetchMeetsDebug() {
+        debug_log("Using meets from data.json file")
+        const docs = data.meets;
+        const meets = R.transduce(
+            R.compose(
+                R.filter(R.prop("date")),
+                R.filter(R.propSatisfies((dateString) => !isBeforeToday(dateString), "date"))
+            ),
+            R.flip(R.append),
+            [],
+            R.sortBy(R.prop("date"))(docs)
+        );
+
+        debug_log("sorted meets not in the past", meets);
+        meetsForDebug = meets;
+
+        return meets;
+    }
+
     async function fetchPlatforms(meetId) {
         debug_log(`Fetching platforms for meet id ${meetId}`)
         const response = await fetch(liftingCastPlatfomsUrl(meetId));
         const json = await response.json();
         // TODO: Handle HTTP errors and response errors
         const docs = json.docs;
+        const platforms = R.sortBy(R.prop("name"))(docs);
+
+        debug_log("sorted platforms", JSON.stringify(platforms, undefined, 2));
+        platformsForDebug = platforms;
+
+        return platforms
+    }
+
+    async function fetchPlatformsDebug(meetId) {
+        debug_log("Using platforms from data.json file")
+        const docs = data.platforms;
         const platforms = R.sortBy(R.prop("name"))(docs);
 
         debug_log("sorted platforms", JSON.stringify(platforms, undefined, 2));
@@ -238,12 +271,12 @@
         }
     }
 
-    const conditionallyAddRelayServerIpAddress = R.when(
-        R.propEq("server_type", SERVER_TYPE.RELAY_SERVER),
-        R.assoc("local_relay_server_ip_address", relayServerIpAddress)
-    )
-
     async function sendLiftingCastInfoToDrl() {
+        const conditionallyAddRelayServerIpAddress = R.when(
+            R.propEq("server_type", SERVER_TYPE.RELAY_SERVER),
+            R.assoc("local_relay_server_ip_address", relayServerIpAddress)
+        );
+
         if (canSubmitConfigurationToDrl) {
             const request = new Request(
                 DRL_URL,

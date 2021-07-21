@@ -14829,18 +14829,18 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[48] = list[i];
+    	child_ctx[49] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[53] = list[i];
-    	child_ctx[55] = i;
+    	child_ctx[54] = list[i];
+    	child_ctx[56] = i;
     	return child_ctx;
     }
 
-    // (306:4) {#if serverType === SERVER_TYPE.RELAY_SERVER}
+    // (340:4) {#if serverType === SERVER_TYPE.RELAY_SERVER}
     function create_if_block_11(ctx) {
     	let label;
     	let t1;
@@ -14862,13 +14862,13 @@ var app = (function () {
     			t3 = space();
     			input = element("input");
     			attr_dev(label, "for", "relay-server-ip-address");
-    			add_location(label, file, 306, 8, 10527);
-    			add_location(span, file, 310, 12, 10683);
+    			add_location(label, file, 340, 8, 11574);
+    			add_location(span, file, 344, 12, 11730);
     			attr_dev(input, "type", "url");
     			attr_dev(input, "id", "relay-server-ip-address");
-    			add_location(input, file, 311, 12, 10716);
+    			add_location(input, file, 345, 12, 11763);
     			set_style(div, "display", "flex");
-    			add_location(div, file, 309, 8, 10643);
+    			add_location(div, file, 343, 8, 11690);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, label, anchor);
@@ -14906,14 +14906,14 @@ var app = (function () {
     		block,
     		id: create_if_block_11.name,
     		type: "if",
-    		source: "(306:4) {#if serverType === SERVER_TYPE.RELAY_SERVER}",
+    		source: "(340:4) {#if serverType === SERVER_TYPE.RELAY_SERVER}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (327:4) {#if meetsPromise}
+    // (361:4) {#if meetsPromise}
     function create_if_block_10(ctx) {
     	let hr;
     	let t;
@@ -14928,8 +14928,8 @@ var app = (function () {
     		pending: create_pending_block_1,
     		then: create_then_block_1,
     		catch: create_catch_block_1,
-    		value: 52,
-    		error: 51
+    		value: 53,
+    		error: 52
     	};
 
     	handle_promise(promise = /*meetsPromise*/ ctx[10], info);
@@ -14941,7 +14941,7 @@ var app = (function () {
     			await_block_anchor = empty();
     			info.block.c();
     			attr_dev(hr, "class", "svelte-1dqar03");
-    			add_location(hr, file, 327, 8, 11106);
+    			add_location(hr, file, 361, 8, 12153);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, hr, anchor);
@@ -14957,7 +14957,7 @@ var app = (function () {
 
     			if (dirty[0] & /*meetsPromise*/ 1024 && promise !== (promise = /*meetsPromise*/ ctx[10]) && handle_promise(promise, info)) ; else {
     				const child_ctx = ctx.slice();
-    				child_ctx[52] = child_ctx[51] = info.resolved;
+    				child_ctx[53] = child_ctx[52] = info.resolved;
     				info.block.p(child_ctx, dirty);
     			}
     		},
@@ -14975,20 +14975,20 @@ var app = (function () {
     		block,
     		id: create_if_block_10.name,
     		type: "if",
-    		source: "(327:4) {#if meetsPromise}",
+    		source: "(361:4) {#if meetsPromise}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (354:8) {:catch error}
+    // (388:8) {:catch error}
     function create_catch_block_1(ctx) {
     	let p0;
     	let t2;
     	let p1;
     	let t3;
-    	let t4_value = /*error*/ ctx[51].message + "";
+    	let t4_value = /*error*/ ctx[52].message + "";
     	let t4;
     	let t5;
     	let button;
@@ -15007,10 +15007,10 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "Retry";
     			attr_dev(p0, "class", "error svelte-1dqar03");
-    			add_location(p0, file, 354, 12, 11880);
+    			add_location(p0, file, 388, 12, 12927);
     			attr_dev(p1, "class", "error svelte-1dqar03");
-    			add_location(p1, file, 355, 12, 11979);
-    			add_location(button, file, 356, 12, 12043);
+    			add_location(p1, file, 389, 12, 13026);
+    			add_location(button, file, 390, 12, 13090);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p0, anchor);
@@ -15027,7 +15027,7 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*meetsPromise*/ 1024 && t4_value !== (t4_value = /*error*/ ctx[51].message + "")) set_data_dev(t4, t4_value);
+    			if (dirty[0] & /*meetsPromise*/ 1024 && t4_value !== (t4_value = /*error*/ ctx[52].message + "")) set_data_dev(t4, t4_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(p0);
@@ -15044,17 +15044,17 @@ var app = (function () {
     		block,
     		id: create_catch_block_1.name,
     		type: "catch",
-    		source: "(354:8) {:catch error}",
+    		source: "(388:8) {:catch error}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (332:8) {:then meets}
+    // (366:8) {:then meets}
     function create_then_block_1(ctx) {
     	let div;
-    	let t0_value = /*meets*/ ctx[52].length + "";
+    	let t0_value = /*meets*/ ctx[53].length + "";
     	let t0;
     	let t1;
     	let t2;
@@ -15062,7 +15062,7 @@ var app = (function () {
     	let option;
     	let mounted;
     	let dispose;
-    	let each_value_1 = /*meets*/ ctx[52];
+    	let each_value_1 = /*meets*/ ctx[53];
     	validate_each_argument(each_value_1);
     	let each_blocks = [];
 
@@ -15084,14 +15084,14 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			add_location(div, file, 332, 12, 11218);
+    			add_location(div, file, 366, 12, 12265);
     			option.disabled = true;
     			option.selected = true;
     			option.__value = "";
     			option.value = option.__value;
-    			add_location(option, file, 337, 16, 11400);
+    			add_location(option, file, 371, 16, 12447);
     			if (/*selectedMeetId*/ ctx[2] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[36].call(select));
-    			add_location(select, file, 333, 12, 11262);
+    			add_location(select, file, 367, 12, 12309);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -15117,10 +15117,10 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*meetsPromise*/ 1024 && t0_value !== (t0_value = /*meets*/ ctx[52].length + "")) set_data_dev(t0, t0_value);
+    			if (dirty[0] & /*meetsPromise*/ 1024 && t0_value !== (t0_value = /*meets*/ ctx[53].length + "")) set_data_dev(t0, t0_value);
 
     			if (dirty[0] & /*meetsPromise*/ 1024) {
-    				each_value_1 = /*meets*/ ctx[52];
+    				each_value_1 = /*meets*/ ctx[53];
     				validate_each_argument(each_value_1);
     				let i;
 
@@ -15161,20 +15161,20 @@ var app = (function () {
     		block,
     		id: create_then_block_1.name,
     		type: "then",
-    		source: "(332:8) {:then meets}",
+    		source: "(366:8) {:then meets}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (346:16) {#each meets as meet, i}
+    // (380:16) {#each meets as meet, i}
     function create_each_block_1(ctx) {
     	let option;
-    	let t0_value = /*meet*/ ctx[53].name + "";
+    	let t0_value = /*meet*/ ctx[54].name + "";
     	let t0;
     	let t1;
-    	let t2_value = /*meet*/ ctx[53].date + "";
+    	let t2_value = /*meet*/ ctx[54].date + "";
     	let t2;
     	let t3;
     	let option_value_value;
@@ -15186,9 +15186,9 @@ var app = (function () {
     			t1 = text(" (");
     			t2 = text(t2_value);
     			t3 = text(")\n                    ");
-    			option.__value = option_value_value = /*meet*/ ctx[53]._id;
+    			option.__value = option_value_value = /*meet*/ ctx[54]._id;
     			option.value = option.__value;
-    			add_location(option, file, 346, 20, 11644);
+    			add_location(option, file, 380, 20, 12691);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -15198,10 +15198,10 @@ var app = (function () {
     			append_dev(option, t3);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*meetsPromise*/ 1024 && t0_value !== (t0_value = /*meet*/ ctx[53].name + "")) set_data_dev(t0, t0_value);
-    			if (dirty[0] & /*meetsPromise*/ 1024 && t2_value !== (t2_value = /*meet*/ ctx[53].date + "")) set_data_dev(t2, t2_value);
+    			if (dirty[0] & /*meetsPromise*/ 1024 && t0_value !== (t0_value = /*meet*/ ctx[54].name + "")) set_data_dev(t0, t0_value);
+    			if (dirty[0] & /*meetsPromise*/ 1024 && t2_value !== (t2_value = /*meet*/ ctx[54].date + "")) set_data_dev(t2, t2_value);
 
-    			if (dirty[0] & /*meetsPromise*/ 1024 && option_value_value !== (option_value_value = /*meet*/ ctx[53]._id)) {
+    			if (dirty[0] & /*meetsPromise*/ 1024 && option_value_value !== (option_value_value = /*meet*/ ctx[54]._id)) {
     				prop_dev(option, "__value", option_value_value);
     				option.value = option.__value;
     			}
@@ -15215,14 +15215,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(346:16) {#each meets as meet, i}",
+    		source: "(380:16) {#each meets as meet, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (330:29)              <p>... loading meets ...</p>         {:then meets}
+    // (364:29)              <p>... loading meets ...</p>         {:then meets}
     function create_pending_block_1(ctx) {
     	let p;
 
@@ -15230,7 +15230,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "... loading meets ...";
-    			add_location(p, file, 330, 12, 11155);
+    			add_location(p, file, 364, 12, 12202);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -15245,14 +15245,14 @@ var app = (function () {
     		block,
     		id: create_pending_block_1.name,
     		type: "pending",
-    		source: "(330:29)              <p>... loading meets ...</p>         {:then meets}",
+    		source: "(364:29)              <p>... loading meets ...</p>         {:then meets}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (365:4) {#if platformsPromise}
+    // (399:4) {#if platformsPromise}
     function create_if_block_9(ctx) {
     	let hr;
     	let t;
@@ -15267,8 +15267,8 @@ var app = (function () {
     		pending: create_pending_block,
     		then: create_then_block,
     		catch: create_catch_block,
-    		value: 47,
-    		error: 51
+    		value: 48,
+    		error: 52
     	};
 
     	handle_promise(promise = /*platformsPromise*/ ctx[11], info);
@@ -15280,7 +15280,7 @@ var app = (function () {
     			await_block_anchor = empty();
     			info.block.c();
     			attr_dev(hr, "class", "svelte-1dqar03");
-    			add_location(hr, file, 365, 8, 12240);
+    			add_location(hr, file, 399, 8, 13287);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, hr, anchor);
@@ -15296,7 +15296,7 @@ var app = (function () {
 
     			if (dirty[0] & /*platformsPromise*/ 2048 && promise !== (promise = /*platformsPromise*/ ctx[11]) && handle_promise(promise, info)) ; else {
     				const child_ctx = ctx.slice();
-    				child_ctx[47] = child_ctx[51] = info.resolved;
+    				child_ctx[48] = child_ctx[52] = info.resolved;
     				info.block.p(child_ctx, dirty);
     			}
     		},
@@ -15314,14 +15314,14 @@ var app = (function () {
     		block,
     		id: create_if_block_9.name,
     		type: "if",
-    		source: "(365:4) {#if platformsPromise}",
+    		source: "(399:4) {#if platformsPromise}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (391:8) {:catch error}
+    // (425:8) {:catch error}
     function create_catch_block(ctx) {
     	let p0;
     	let t0;
@@ -15332,7 +15332,7 @@ var app = (function () {
     	let t4;
     	let p1;
     	let t5;
-    	let t6_value = /*error*/ ctx[51].message + "";
+    	let t6_value = /*error*/ ctx[52].message + "";
     	let t6;
     	let t7;
     	let button;
@@ -15354,10 +15354,10 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "Retry";
     			attr_dev(p0, "class", "error svelte-1dqar03");
-    			add_location(p0, file, 391, 12, 13044);
+    			add_location(p0, file, 425, 12, 14091);
     			attr_dev(p1, "class", "error svelte-1dqar03");
-    			add_location(p1, file, 393, 12, 13206);
-    			add_location(button, file, 394, 12, 13270);
+    			add_location(p1, file, 427, 12, 14253);
+    			add_location(button, file, 428, 12, 14317);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p0, anchor);
@@ -15380,7 +15380,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			if (dirty[0] & /*selectedMeetId*/ 4) set_data_dev(t1, /*selectedMeetId*/ ctx[2]);
     			if (dirty[0] & /*selectedMeetId*/ 4 && t3_value !== (t3_value = /*liftingCastPlatfomsUrl*/ ctx[16](/*selectedMeetId*/ ctx[2]) + "")) set_data_dev(t3, t3_value);
-    			if (dirty[0] & /*platformsPromise*/ 2048 && t6_value !== (t6_value = /*error*/ ctx[51].message + "")) set_data_dev(t6, t6_value);
+    			if (dirty[0] & /*platformsPromise*/ 2048 && t6_value !== (t6_value = /*error*/ ctx[52].message + "")) set_data_dev(t6, t6_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(p0);
@@ -15397,17 +15397,17 @@ var app = (function () {
     		block,
     		id: create_catch_block.name,
     		type: "catch",
-    		source: "(391:8) {:catch error}",
+    		source: "(425:8) {:catch error}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (370:8) {:then platforms}
+    // (404:8) {:then platforms}
     function create_then_block(ctx) {
     	let div;
-    	let t0_value = /*platforms*/ ctx[47].length + "";
+    	let t0_value = /*platforms*/ ctx[48].length + "";
     	let t0;
     	let t1;
     	let t2;
@@ -15415,7 +15415,7 @@ var app = (function () {
     	let option;
     	let mounted;
     	let dispose;
-    	let each_value = /*platforms*/ ctx[47];
+    	let each_value = /*platforms*/ ctx[48];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -15437,14 +15437,14 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			add_location(div, file, 370, 12, 12364);
+    			add_location(div, file, 404, 12, 13411);
     			option.disabled = true;
     			option.selected = true;
     			option.__value = "";
     			option.value = option.__value;
-    			add_location(option, file, 375, 16, 12562);
+    			add_location(option, file, 409, 16, 13609);
     			if (/*selectedPlatformId*/ ctx[3] === void 0) add_render_callback(() => /*select_change_handler_1*/ ctx[38].call(select));
-    			add_location(select, file, 371, 12, 12416);
+    			add_location(select, file, 405, 12, 13463);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -15470,10 +15470,10 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*platformsPromise*/ 2048 && t0_value !== (t0_value = /*platforms*/ ctx[47].length + "")) set_data_dev(t0, t0_value);
+    			if (dirty[0] & /*platformsPromise*/ 2048 && t0_value !== (t0_value = /*platforms*/ ctx[48].length + "")) set_data_dev(t0, t0_value);
 
     			if (dirty[0] & /*platformsPromise*/ 2048) {
-    				each_value = /*platforms*/ ctx[47];
+    				each_value = /*platforms*/ ctx[48];
     				validate_each_argument(each_value);
     				let i;
 
@@ -15514,17 +15514,17 @@ var app = (function () {
     		block,
     		id: create_then_block.name,
     		type: "then",
-    		source: "(370:8) {:then platforms}",
+    		source: "(404:8) {:then platforms}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (383:16) {#each platforms as platform}
+    // (417:16) {#each platforms as platform}
     function create_each_block(ctx) {
     	let option;
-    	let t0_value = /*platform*/ ctx[48].name + "";
+    	let t0_value = /*platform*/ ctx[49].name + "";
     	let t0;
     	let t1;
     	let option_value_value;
@@ -15534,9 +15534,9 @@ var app = (function () {
     			option = element("option");
     			t0 = text(t0_value);
     			t1 = space();
-    			option.__value = option_value_value = /*platform*/ ctx[48]._id;
+    			option.__value = option_value_value = /*platform*/ ctx[49]._id;
     			option.value = option.__value;
-    			add_location(option, file, 383, 20, 12814);
+    			add_location(option, file, 417, 20, 13861);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -15544,9 +15544,9 @@ var app = (function () {
     			append_dev(option, t1);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*platformsPromise*/ 2048 && t0_value !== (t0_value = /*platform*/ ctx[48].name + "")) set_data_dev(t0, t0_value);
+    			if (dirty[0] & /*platformsPromise*/ 2048 && t0_value !== (t0_value = /*platform*/ ctx[49].name + "")) set_data_dev(t0, t0_value);
 
-    			if (dirty[0] & /*platformsPromise*/ 2048 && option_value_value !== (option_value_value = /*platform*/ ctx[48]._id)) {
+    			if (dirty[0] & /*platformsPromise*/ 2048 && option_value_value !== (option_value_value = /*platform*/ ctx[49]._id)) {
     				prop_dev(option, "__value", option_value_value);
     				option.value = option.__value;
     			}
@@ -15560,14 +15560,14 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(383:16) {#each platforms as platform}",
+    		source: "(417:16) {#each platforms as platform}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (368:33)              <p>... loading platforms ...</p>         {:then platforms}
+    // (402:33)              <p>... loading platforms ...</p>         {:then platforms}
     function create_pending_block(ctx) {
     	let p;
 
@@ -15575,7 +15575,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "... loading platforms ...";
-    			add_location(p, file, 368, 12, 12293);
+    			add_location(p, file, 402, 12, 13340);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -15590,14 +15590,14 @@ var app = (function () {
     		block,
     		id: create_pending_block.name,
     		type: "pending",
-    		source: "(368:33)              <p>... loading platforms ...</p>         {:then platforms}",
+    		source: "(402:33)              <p>... loading platforms ...</p>         {:then platforms}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (403:4) {#if selectedMeetId && selectedPlatformId}
+    // (437:4) {#if selectedMeetId && selectedPlatformId}
     function create_if_block_8(ctx) {
     	let hr;
     	let t0;
@@ -15621,15 +15621,15 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "Verify meet credentials";
     			attr_dev(hr, "class", "svelte-1dqar03");
-    			add_location(hr, file, 403, 8, 13509);
+    			add_location(hr, file, 437, 8, 14556);
     			attr_dev(label, "for", "password");
-    			add_location(label, file, 405, 8, 13524);
+    			add_location(label, file, 439, 8, 14571);
     			attr_dev(input, "type", "text");
     			attr_dev(input, "id", "password");
     			set_style(input, "display", "block");
-    			add_location(input, file, 408, 8, 13610);
+    			add_location(input, file, 442, 8, 14657);
     			set_style(button, "display", "block");
-    			add_location(button, file, 415, 8, 13832);
+    			add_location(button, file, 449, 8, 14879);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, hr, anchor);
@@ -15673,14 +15673,14 @@ var app = (function () {
     		block,
     		id: create_if_block_8.name,
     		type: "if",
-    		source: "(403:4) {#if selectedMeetId && selectedPlatformId}",
+    		source: "(437:4) {#if selectedMeetId && selectedPlatformId}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (424:4) {#if completedCheckingLiftingCastCredentials}
+    // (458:4) {#if completedCheckingLiftingCastCredentials}
     function create_if_block_6(ctx) {
     	let if_block_anchor;
 
@@ -15724,14 +15724,14 @@ var app = (function () {
     		block,
     		id: create_if_block_6.name,
     		type: "if",
-    		source: "(424:4) {#if completedCheckingLiftingCastCredentials}",
+    		source: "(458:4) {#if completedCheckingLiftingCastCredentials}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (427:8) {:else}
+    // (461:8) {:else}
     function create_else_block(ctx) {
     	let p0;
     	let t0;
@@ -15751,9 +15751,9 @@ var app = (function () {
     			t3 = text("Error message: ");
     			t4 = text(/*liftingCastLoginResponse*/ ctx[7]);
     			attr_dev(p0, "class", "error svelte-1dqar03");
-    			add_location(p0, file, 427, 12, 14204);
+    			add_location(p0, file, 461, 12, 15251);
     			attr_dev(p1, "class", "error svelte-1dqar03");
-    			add_location(p1, file, 428, 12, 14309);
+    			add_location(p1, file, 462, 12, 15356);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p0, anchor);
@@ -15779,14 +15779,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(427:8) {:else}",
+    		source: "(461:8) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (425:8) {#if areLiftingCastCredentialsValid }
+    // (459:8) {#if areLiftingCastCredentialsValid }
     function create_if_block_7(ctx) {
     	let p;
 
@@ -15794,7 +15794,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "Meet credentials verified with LiftingCast server.";
-    			add_location(p, file, 425, 12, 14118);
+    			add_location(p, file, 459, 12, 15165);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -15809,14 +15809,14 @@ var app = (function () {
     		block,
     		id: create_if_block_7.name,
     		type: "if",
-    		source: "(425:8) {#if areLiftingCastCredentialsValid }",
+    		source: "(459:8) {#if areLiftingCastCredentialsValid }",
     		ctx
     	});
 
     	return block;
     }
 
-    // (444:42) 
+    // (478:42) 
     function create_if_block_5(ctx) {
     	let p;
 
@@ -15825,7 +15825,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Click button below to configure DRL with your LiftingCast meet and platform info.";
     			attr_dev(p, "class", "help svelte-1dqar03");
-    			add_location(p, file, 444, 8, 14976);
+    			add_location(p, file, 478, 8, 16023);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -15839,14 +15839,14 @@ var app = (function () {
     		block,
     		id: create_if_block_5.name,
     		type: "if",
-    		source: "(444:42) ",
+    		source: "(478:42) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (441:83) 
+    // (475:83) 
     function create_if_block_4(ctx) {
     	let p;
 
@@ -15855,7 +15855,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Enter your meet password and verify meet credentials before submitting configuration to\n            DRL.";
     			attr_dev(p, "class", "help svelte-1dqar03");
-    			add_location(p, file, 441, 8, 14800);
+    			add_location(p, file, 475, 8, 15847);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -15869,14 +15869,14 @@ var app = (function () {
     		block,
     		id: create_if_block_4.name,
     		type: "if",
-    		source: "(441:83) ",
+    		source: "(475:83) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (439:54) 
+    // (473:54) 
     function create_if_block_3(ctx) {
     	let p;
 
@@ -15885,7 +15885,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Select your platform.";
     			attr_dev(p, "class", "help svelte-1dqar03");
-    			add_location(p, file, 439, 8, 14666);
+    			add_location(p, file, 473, 8, 15713);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -15899,14 +15899,14 @@ var app = (function () {
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(439:54) ",
+    		source: "(473:54) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (437:46) 
+    // (471:46) 
     function create_if_block_2(ctx) {
     	let p;
 
@@ -15915,7 +15915,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Select your meet.";
     			attr_dev(p, "class", "help svelte-1dqar03");
-    			add_location(p, file, 437, 8, 14565);
+    			add_location(p, file, 471, 8, 15612);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -15929,14 +15929,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(437:46) ",
+    		source: "(471:46) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (435:4) {#if !meetsPromise}
+    // (469:4) {#if !meetsPromise}
     function create_if_block_1(ctx) {
     	let p;
 
@@ -15945,7 +15945,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Fetch the meets for your LiftingCast server type.";
     			attr_dev(p, "class", "help svelte-1dqar03");
-    			add_location(p, file, 435, 8, 14440);
+    			add_location(p, file, 469, 8, 15487);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -15959,14 +15959,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(435:4) {#if !meetsPromise}",
+    		source: "(469:4) {#if !meetsPromise}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (455:4) {#if isDrlConfigured}
+    // (489:4) {#if isDrlConfigured}
     function create_if_block(ctx) {
     	let div;
 
@@ -15974,7 +15974,7 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			div.textContent = "DRL has been configured";
-    			add_location(div, file, 455, 8, 15319);
+    			add_location(div, file, 489, 8, 16366);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -15988,7 +15988,7 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(455:4) {#if isDrlConfigured}",
+    		source: "(489:4) {#if isDrlConfigured}",
     		ctx
     	});
 
@@ -16079,7 +16079,7 @@ var app = (function () {
     			t15 = space();
     			if (if_block6) if_block6.c();
     			attr_dev(h1, "class", "svelte-1dqar03");
-    			add_location(h1, file, 278, 4, 9679);
+    			add_location(h1, file, 312, 4, 10726);
     			attr_dev(input0, "type", "radio");
     			attr_dev(input0, "name", "serverType");
     			attr_dev(input0, "id", "lifting-cast-server-type");
@@ -16087,26 +16087,26 @@ var app = (function () {
     			input0.value = input0.__value;
     			input0.checked = true;
     			/*$$binding_groups*/ ctx[32][0].push(input0);
-    			add_location(input0, file, 282, 12, 9802);
+    			add_location(input0, file, 316, 12, 10849);
     			attr_dev(label0, "for", "lifting-cast-server-type");
-    			add_location(label0, file, 281, 8, 9751);
+    			add_location(label0, file, 315, 8, 10798);
     			attr_dev(input1, "type", "radio");
     			attr_dev(input1, "name", "serverType");
     			attr_dev(input1, "id", "server-type-relay-server");
     			input1.__value = /*SERVER_TYPE*/ ctx[13].RELAY_SERVER;
     			input1.value = input1.__value;
     			/*$$binding_groups*/ ctx[32][0].push(input1);
-    			add_location(input1, file, 294, 12, 10175);
+    			add_location(input1, file, 328, 12, 11222);
     			attr_dev(label1, "for", "server-type-relay-server");
-    			add_location(label1, file, 293, 8, 10124);
-    			add_location(div, file, 280, 4, 9737);
-    			add_location(button0, file, 320, 4, 10966);
+    			add_location(label1, file, 327, 8, 11171);
+    			add_location(div, file, 314, 4, 10784);
+    			add_location(button0, file, 354, 4, 12013);
     			attr_dev(hr, "class", "svelte-1dqar03");
-    			add_location(hr, file, 432, 4, 14401);
+    			add_location(hr, file, 466, 4, 15448);
     			button1.disabled = button1_disabled_value = !/*canSubmitConfigurationToDrl*/ ctx[9] || undefined;
-    			add_location(button1, file, 447, 4, 15093);
+    			add_location(button1, file, 481, 4, 16140);
     			attr_dev(main, "class", "svelte-1dqar03");
-    			add_location(main, file, 277, 0, 9668);
+    			add_location(main, file, 311, 0, 10715);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -16370,12 +16370,22 @@ var app = (function () {
     	}
 
     	async function fetchMeets() {
+    		debug_log("Fetching meets");
     		const response = await fetch(liftingCastMeetsUrl());
     		const json = await response.json();
 
     		// TODO: Handle HTTP errors and response errors
     		const docs = json.docs;
 
+    		const meets = transduce(compose(filter(prop("date")), filter(propSatisfies(dateString => !isBeforeToday(dateString), "date"))), flip(append$1), [], sortBy(prop("date"))(docs));
+    		debug_log("sorted meets not in the past", meets);
+    		$$invalidate(24, meetsForDebug = meets);
+    		return meets;
+    	}
+
+    	async function fetchMeetsDebug() {
+    		debug_log("Using meets from data.json file");
+    		const docs = data.meets;
     		const meets = transduce(compose(filter(prop("date")), filter(propSatisfies(dateString => !isBeforeToday(dateString), "date"))), flip(append$1), [], sortBy(prop("date"))(docs));
     		debug_log("sorted meets not in the past", meets);
     		$$invalidate(24, meetsForDebug = meets);
@@ -16390,6 +16400,15 @@ var app = (function () {
     		// TODO: Handle HTTP errors and response errors
     		const docs = json.docs;
 
+    		const platforms = sortBy(prop("name"))(docs);
+    		debug_log("sorted platforms", JSON.stringify(platforms, undefined, 2));
+    		$$invalidate(25, platformsForDebug = platforms);
+    		return platforms;
+    	}
+
+    	async function fetchPlatformsDebug(meetId) {
+    		debug_log("Using platforms from data.json file");
+    		const docs = data.platforms;
     		const platforms = sortBy(prop("name"))(docs);
     		debug_log("sorted platforms", JSON.stringify(platforms, undefined, 2));
     		$$invalidate(25, platformsForDebug = platforms);
@@ -16470,9 +16489,9 @@ var app = (function () {
     		}
     	}
 
-    	const conditionallyAddRelayServerIpAddress = when(propEq("server_type", SERVER_TYPE.RELAY_SERVER), assoc("local_relay_server_ip_address", relayServerIpAddress));
-
     	async function sendLiftingCastInfoToDrl() {
+    		const conditionallyAddRelayServerIpAddress = when(propEq("server_type", SERVER_TYPE.RELAY_SERVER), assoc("local_relay_server_ip_address", relayServerIpAddress));
+
     		if (canSubmitConfigurationToDrl) {
     			const request = new Request(DRL_URL,
     			{
@@ -16585,14 +16604,15 @@ var app = (function () {
     		liftingCastMeetsUrl,
     		liftingCastPlatfomsUrl,
     		fetchMeets,
+    		fetchMeetsDebug,
     		fetchPlatforms,
+    		fetchPlatformsDebug,
     		handleMeetSelection,
     		handlePlatformSelection,
     		isServerError,
     		isUnauthorized,
     		checkLiftingCastCredentials,
     		handlePasswordTextFieldKeyDown,
-    		conditionallyAddRelayServerIpAddress,
     		sendLiftingCastInfoToDrl,
     		relayServerBaseUrl,
     		relayServerCredentialCheckUrl,
@@ -16706,6 +16726,7 @@ var app = (function () {
     		}
 
     		if ($$self.$$.dirty[0] & /*canSubmitConfigurationToDrl*/ 512) {
+    			// let canSubmitConfigurationToDrl = true;
     			debug_log("canSubmitConfigurationToDrl", canSubmitConfigurationToDrl);
     		}
 

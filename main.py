@@ -22,7 +22,7 @@ import requests
 
 
 
-version = "0.6"
+version = "0.7"
 
 pygame.init()  # initialize pygame
 mainClock = pygame.time.Clock()
@@ -1185,22 +1185,25 @@ def menu():
     place_text("00:00", "gray", main_timer_font, 50, 70, "mainTimer") #remove the main timer. 
     ip = display_ip_address() #check the IP. 
     stayLooped = True
-    place_text("MENU", "white",menu_font, 50,5,"mainTimer")
-    place_text("IP: " + ip,"white", menu_font, 50, 20, "mainTimer")
-    place_text("Version: " + version,"white",menu_font, 50, 40, "mainTimer")
+    place_text("MENU", "white",menu_font, 50,3,"mainTimer")
+    place_text("IP: " + ip,"white", menu_font, 50, 10, "mainTimer")
+    place_text("Attemptdometer: " + str(odometer.read_mileage()), "red", menu_font, 50, 17, "mainTimer")
+    place_text("Version: " + version,"white",menu_font, 50, 24, "mainTimer")
     
-    place_text("1 - Manual Remote Connect","white", menu_font, 50, 86, "mainTimer")
+    place_text("1 - Manual Remote Connect","white", menu_font, 50, 70, "mainTimer")
     #need to put if config is IPF, give option to remove infraction cards. 
     
+    place_text("2 - Reset Bluetooth","white", menu_font, 50, 77, "mainTimer")
+    
     if infractionCards and IPF:
-        place_text("2 - Remove Infraction Cards", "white", menu_font, 50, 95, "mainTimer")
+        place_text("3 - Remove Infraction Cards", "white", menu_font, 50, 84, "mainTimer")
     elif IPF and not infractionCards:
-        place_text("2 - Add Infraction Cards", "white", menu_font, 50, 95, "mainTimer")
+        place_text("3 - Add Infraction Cards", "white", menu_font, 50, 84, "mainTimer")
         
     #place_text("Left Remote Battery: " + str(left_soc) + "%","white", menu_font, 50, 35, "mainTimer")
     #place_text("Chief Remote Battery: " + str(chief_soc) + "%","white", menu_font, 50, 55, "mainTimer")
     #place_text("Right Remote Battery: " + str(right_soc) + "%","white", menu_font, 50, 75, "mainTimer")
-    place_text("Attemptdometer: " + str(odometer.read_mileage()), "red", menu_font, 50, 30, "mainTimer")
+  
     if IPF:
         place_image(right_remote_ipf_image, True)
         place_image(left_remote_ipf_image, True)
@@ -1212,10 +1215,10 @@ def menu():
         place_image(chief_remote_nonipf_image, True)
         place_image(spare_remote_nonipf_image, True)
     while stayLooped:
-        place_text(str(left_soc)+"%", "white", menu_font, 35,70,"mainTimer")
-        place_text(str(chief_soc)+"%", "white", menu_font, 50,70,"mainTimer")
-        place_text(str(right_soc)+"%", "white", menu_font, 65,70,"mainTimer")
-        place_text(str(spare_soc)+"%", "white", menu_font, 90, 70, "mainTimer")
+        place_text(str(left_soc)+"%", "white", menu_font, 35,55,"mainTimer")
+        place_text(str(chief_soc)+"%", "white", menu_font, 50,55,"mainTimer")
+        place_text(str(right_soc)+"%", "white", menu_font, 65,55,"mainTimer")
+        place_text(str(spare_soc)+"%", "white", menu_font, 90, 55, "mainTimer")
         for event in GAME_EVENTS.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_KP1:
@@ -1224,7 +1227,13 @@ def menu():
                     stayLooped = False
                     system_reset()
                     
-                if event.key == pygame.K_KP2 and IPF:
+                if event.key == pygame.K_KP2:
+					#resets the bluetooth controller. 
+                    os.system("sudo systemctl restart bluetooth.service") #run the autoconnect script.
+                    stayLooped = False
+                    system_reset()
+					    
+                if event.key == pygame.K_KP3 and IPF:
                     #toggle the infraction cards
                     if infractionCards:
                         infractionCards = False
@@ -1656,16 +1665,16 @@ break_mode_image = format_image("/home/pi/Desktop/DRL3/DRLimages/flightstartbox.
 # Atempt Change Images
 attempt_change_image = format_image("/home/pi/Desktop/DRL3/DRLimages/change.png", 40, 50, 50)
 small_attempt_change_image = format_image("/home/pi/Desktop/DRL3/DRLimages/change.png", 20, 50, 70)
-chief_remote_ipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/IPF_Chief.png", 35, 50, 65)
-left_remote_ipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/IPF_Left-Right.png",35, 35,65)
-right_remote_ipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/IPF_Left-Right.png",35, 65,65)
-spare_remote_ipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/IPF_Chief.png", 35, 90, 65)
+chief_remote_ipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/IPF_Chief.png", 35, 50, 50)
+left_remote_ipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/IPF_Left-Right.png",35, 35,50)
+right_remote_ipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/IPF_Left-Right.png",35, 65,50)
+spare_remote_ipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/IPF_Chief.png", 35, 90, 50)
 
 #DRL remote images used for the main menu.
-chief_remote_nonipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/non_ipf_chief.png", 35, 50, 65)
-left_remote_nonipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/non_ipf_left-right.png",35, 35,65)
-right_remote_nonipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/non_ipf_left-right.png",35, 65,65)
-spare_remote_nonipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/non_ipf_chief.png", 35, 90, 65)
+chief_remote_nonipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/non_ipf_chief.png", 35, 50, 50)
+left_remote_nonipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/non_ipf_left-right.png",35, 35,50)
+right_remote_nonipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/non_ipf_left-right.png",35, 65,50)
+spare_remote_nonipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/non_ipf_chief.png", 35, 90, 50)
 
 #DRL remote images used for the spare remote config menu
 #IPF Remotes
@@ -1714,7 +1723,7 @@ opener_change_font = pygame.font.Font(
 no_more_changes_font = pygame.font.Font(
     "/home/pi/Desktop/DRL3/TitilliumWeb-Bold.ttf", int(dimensions.current_w / 100 * 5))
 menu_font = pygame.font.Font(
-    "/home/pi/Desktop/DRL3/TitilliumWeb-Bold.ttf", int(dimensions.current_w / 100 * 4))
+    "/home/pi/Desktop/DRL3/TitilliumWeb-Bold.ttf", int(dimensions.current_w / 100 * 3))
 
 
 surface.fill((23, 23, 23))  # color the screen black

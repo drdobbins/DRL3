@@ -1665,6 +1665,7 @@ break_mode_image = format_image("/home/pi/Desktop/DRL3/DRLimages/flightstartbox.
 # Atempt Change Images
 attempt_change_image = format_image("/home/pi/Desktop/DRL3/DRLimages/change.png", 40, 50, 50)
 small_attempt_change_image = format_image("/home/pi/Desktop/DRL3/DRLimages/change.png", 20, 50, 70)
+
 chief_remote_ipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/IPF_Chief.png", 35, 50, 50)
 left_remote_ipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/IPF_Left-Right.png",35, 35,50)
 right_remote_ipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/IPF_Left-Right.png",35, 65,50)
@@ -1678,13 +1679,13 @@ spare_remote_nonipf_image = format_image("/home/pi/Desktop/DRL3/DRLimages/non_ip
 
 #DRL remote images used for the spare remote config menu
 #IPF Remotes
-left_remote_ipf_selected_image = format_image("/home/pi/Desktop/DRL3/DRLimages/IPF_Left-Right_selected.png",35, 35,65)
-chief_remote_ipf_selected_image = format_image("/home/pi/Desktop/DRL3/DRLimages/IPF_Chief_selected.png", 35, 50, 65)
-right_remote_ipf_selected_image = format_image("/home/pi/Desktop/DRL3/DRLimages/IPF_Left-Right_selected.png",35, 65,65)
+left_remote_ipf_selected_image = format_image("/home/pi/Desktop/DRL3/DRLimages/IPF_Left-Right_selected.png",35, 35,50)
+chief_remote_ipf_selected_image = format_image("/home/pi/Desktop/DRL3/DRLimages/IPF_Chief_selected.png", 35, 50, 50)
+right_remote_ipf_selected_image = format_image("/home/pi/Desktop/DRL3/DRLimages/IPF_Left-Right_selected.png",35, 65,50)
 #non IPF
-left_remote_nonipf_selected_image = format_image("/home/pi/Desktop/DRL3/DRLimages/non_ipf_left-right_selected.png",35, 35,65)
-chief_remote_nonipf_selected_image = format_image("/home/pi/Desktop/DRL3/DRLimages/non_ipf_chief_selected.png", 35, 50, 65)
-right_remote_nonipf_selected_image = format_image("/home/pi/Desktop/DRL3/DRLimages/non_ipf_left-right_selected.png",35, 65,65)
+left_remote_nonipf_selected_image = format_image("/home/pi/Desktop/DRL3/DRLimages/non_ipf_left-right_selected.png",35, 35,50)
+chief_remote_nonipf_selected_image = format_image("/home/pi/Desktop/DRL3/DRLimages/non_ipf_chief_selected.png", 35, 50, 50)
+right_remote_nonipf_selected_image = format_image("/home/pi/Desktop/DRL3/DRLimages/non_ipf_left-right_selected.png",35, 65,50)
 
 #Attempt Change Arrows
 left_arrow_image = init_arrow("/home/pi/Desktop/DRL3/DRLimages/changeicon_left.png")

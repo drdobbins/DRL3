@@ -19,20 +19,30 @@ import json
 import odometer
 import lc
 import requests
+import socket
 
-
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.bind(('localhost', 0))
+Port = sock.getsockname()[1]
+sock.close()
 
 version = "0.5"
+
+debug = False
 
 pygame.init()  # initialize pygame
 mainClock = pygame.time.Clock()
 pygame.font.init()  # initialize pygame font
+print("Initializing DRL\n")
 
 # Start the flask app to configure DRL with LiftingCast meet and platform info.
-t5 = Thread(target=lc.app.run)
+#t5 = Thread(target=lc.app.run(host='0.0.0.0',port=Port),debug=False, daemon=True) #this block the main DRL thread
+#t5 = Thread(target=lc.app.run) #this doesnt block the main DRL thread
+t5 = Thread(target=lc.run_server)
 t5.daemon = True
+print('starting the flask app')
 t5.start()
-
+print("liftingcast app is configured")
 # test minimizing a window will work while getting input.
 # pygame.display.iconify()
 # os.system('amixer cset numid=3 2')  # sets the audio output to digital
@@ -159,7 +169,8 @@ def check_bluetooth_status():
                         if isinstance(chief_init_soc,int):
                             chief_soc = chief_init_soc#update the chief remote with its actual value
                 except:
-                    print("Spare side has not been defined yet... \n\n")
+                    if debug:
+                        print("Spare side has not been defined yet... \n\n")
 
 
 
@@ -200,10 +211,12 @@ class Bluetoothctl:
         match = False
         out = subprocess.check_output(["hcitool", "con"])
         out = out.split(b'\n')
-        print("searching for address: " + mac)
+        if debug:
+            print("searching for address: " + mac)
         for device in out:
             if mac in device.decode():
-                print("Match found for address: " + mac)
+                if debug:
+                    print("Match found for address: " + mac)
                 match = True
         return match
 
@@ -292,7 +305,8 @@ def draw_background_box(textID, update):
         y = 0
         width = (dimensions.current_w / 100) * 33
         height = (dimensions.current_h / 100) * 55
-        print("Covering up the left desync")
+        if debug:
+            print("Covering up the left desync")
         pygame.draw.rect(surface, [23, 23, 23], (x, y, width, height))
         pygame.display.update(x, y, width, height)
 
@@ -301,7 +315,8 @@ def draw_background_box(textID, update):
         y = 0
         width = (dimensions.current_w / 100) * 33
         height = (dimensions.current_h / 100) * 55
-        print("Covering up the chief desync")
+        if debug:
+            print("Covering up the chief desync")
         pygame.draw.rect(surface, [23, 23, 23], (x, y, width, height))
         pygame.display.update(x, y, width, height)
 
@@ -310,7 +325,8 @@ def draw_background_box(textID, update):
         y = 0
         width = (dimensions.current_w / 100) * 33
         height = (dimensions.current_h / 100) * 55
-        print("Covering up the right desync")
+        if debug:
+            print("Covering up the right desync")
         pygame.draw.rect(surface, [23, 23, 23], (x, y, width, height))
         pygame.display.update(x, y, width, height)
 
@@ -319,7 +335,8 @@ def draw_background_box(textID, update):
         y = (dimensions.current_h / 100) * 96
         width = (dimensions.current_w / 100) * 4
         height = (dimensions.current_h / 100) * 4
-        print("Covering up the left battery")
+        if debug:
+            print("Covering up the left battery")
         pygame.draw.rect(surface, [23, 23, 23], (x, y, width, height))
         if update:
             pygame.display.update(x, y, width, height)
@@ -339,7 +356,8 @@ def draw_background_box(textID, update):
         y = (dimensions.current_h / 100) * 96
         width = (dimensions.current_w / 100) * 4
         height = (dimensions.current_h / 100) * 4
-        print("Covering up the right batter")
+        if debug:
+            print("Covering up the right battery")
         pygame.draw.rect(surface, [23, 23, 23], (x, y, width, height))
         if update:
             pygame.display.update(x, y, width, height)
@@ -348,7 +366,8 @@ def draw_background_box(textID, update):
         y = (dimensions.current_h / 100) * 15
         width = dimensions.current_w
         height = (dimensions.current_h / 100) * 30
-        print("drawing Spare Config Menu \n\n\n")
+        if debug:
+            print("drawing Spare Config Menu \n\n\n")
         pygame.draw.rect(surface, [23, 23, 23], (x, y, width, height))
         if update:
             pygame.display.update(x, y, width, height)
@@ -920,11 +939,13 @@ def break_mode():
 
 
 def get_battery_percent(mac, soc):
-    print("")
-    print("reading battery percentage")
+    if debug:
+        print("")
+        print("reading battery percentage")
     #print("Init bluetooth...")
     bl = Bluetoothctl()
-    print(("Checking battery % for device: " + mac))
+    if debug:
+        print(("Checking battery % for device: " + mac))
 
     macStr = mac.replace(":", "_")
     consoleStr = "select-attribute /org/bluez/hci0/dev_" + \
@@ -935,15 +956,19 @@ def get_battery_percent(mac, soc):
     soc = bl.get_output("")
     byteBattery = soc[0][-2:]
         # this gets the battery percentage for that device (in hex!)
-    print("Byte battery % for " + str(mac)+ " is: " + str(byteBattery))
+    if debug:
+        print("Byte battery % for " + str(mac)+ " is: " + str(byteBattery))
     strBattery = byteBattery.decode()  # forms a string
-    print("Battery Level for Device: " + mac + " is " + strBattery + "h")
+    if debug:
+        print("Battery Level for Device: " + mac + " is " + strBattery + "h")
     try:
         intBattery = int(byteBattery, 16)
-        print("Returning: " +str(intBattery) + "% as the battery value.")
+        if debug:
+            print("Returning: " +str(intBattery) + "% as the battery value.")
         return intBattery  # gets the final battery %
     except:
-        print("Error Reading battery level, returning previous reading: " +str(soc))
+        if debug:
+            print("Error Reading battery level, returning previous reading: " +str(soc))
         return soc
 
 

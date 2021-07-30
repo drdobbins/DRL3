@@ -83,7 +83,7 @@ try:
     print("Read initial config from" + LIFTING_CAST_CONFIG_FILE)
     set_lifting_cast_config_variables(LIFTING_CAST_CONFIG_DATA_AT_STARTUP)
     set_lifting_cast_urls(meet_url, password, meet_id, platform_id)
-    configured = True # configured being True means meet ID, platform ID, and password have been entered. When this is true the sync icon is drawn on the screen.
+    #configured = True # configured being True means meet ID, platform ID, and password have been entered. When this is true the sync icon is drawn on the screen.
 except OSError:
     print(LIFTING_CAST_CONFIG_FILE + " not found at startup. This file will be created when DRL is configured through the config web app and DRL will attempt to read the initial LiftingCast config from the file on next startup.")
 
@@ -258,19 +258,23 @@ app = flask.Flask(__name__)
 #     if current_app.config['JSONIFY_PRETTYPRINT_REGULAR'] and not request.is_xhr:
 # so a workaround is to short circuit that `and` as per the following:
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
+print("maybe here?")
+
+def run_server():
+		#this is called from main.py and starts the liftingcast/DRL flask app. 
+		app.run(host='0.0.0.0')
 
 
 # Endpoint for main Svelte app page
 @app.route("/")
 def base():
+    print("or here?")
     return flask.send_from_directory("lifting-cast-config-app/public", "index.html")
-
 
 # Endpoint for assets (compiled JS, CSS, etc.)
 @app.route("/<path:path>")
 def home(path):
     return flask.send_from_directory("lifting-cast-config-app/public", path)
-
 
 ACCEPTED = 202
 BAD_REQUEST = 400

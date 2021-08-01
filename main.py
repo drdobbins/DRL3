@@ -18,15 +18,12 @@ import struct
 import json
 import odometer
 import lc
+import autoconnect
 import requests
 import socket
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.bind(("localhost", 0))
-Port = sock.getsockname()[1]
-sock.close()
 
-version = "0.7"
+version = "0.8"
 
 debug = False
 
@@ -75,8 +72,8 @@ else:
     infractionCards = False
 
 
-# surface = pygame.display.set_mode((dimensions.current_w, dimensions.current_h), pygame.FULLSCREEN | pygame.DOUBLEBUF)  # creates the main window
-surface = pygame.display.set_mode((dimensions.current_w, dimensions.current_h))
+surface = pygame.display.set_mode((dimensions.current_w, dimensions.current_h), pygame.FULLSCREEN | pygame.DOUBLEBUF)  # creates the main window
+#surface = pygame.display.set_mode((dimensions.current_w, dimensions.current_h))
 
 
 pygame.mouse.set_visible(False)
@@ -523,7 +520,7 @@ def place_text(text, Color, textFont, loc_x, loc_y, textID):
     ) * loc_y  # specify where the cen
 
     if textID == "mainTimer":
-        print("Drawing Background for Main Timer")
+        #print("Drawing Background for Main Timer")
         draw_background_box(textID, True)
         # over write the exisitng stuff in that spot, and make way for the next text render.
         # I think this needs to be here to keep the left most attempt timer box on top.
@@ -538,7 +535,7 @@ def place_text(text, Color, textFont, loc_x, loc_y, textID):
         # text is.
 
     if textID == "breakTimer":
-        print("Drawing Background for break timer")
+        #print("Drawing Background for break timer")
         draw_background_box(textID, True)
         # over write the exisitng stuff in that spot, and
         # make way for the next text render.
@@ -621,7 +618,7 @@ def place_text(text, Color, textFont, loc_x, loc_y, textID):
     # surface.blit(rendered_message, text_position)  # place the text on the screen.
     # pygame.display.update(text_position) #just update the part of the screen
     # where the text is.
-    print("display updated - place_text")
+    #print("display updated - place_text")
 
 
 def resetLights():
@@ -1322,7 +1319,7 @@ def screen_reset():
 
 
 def menu():
-    global left_soc, chief_soc, right_soc, IPF, infractionCards
+    global left_soc, chief_soc, right_soc, IPF, infractionCards, leftSync, chiefSync, rightSync, spareSync
     surface.fill((23, 23, 23))  # color the screen black
     # pygame.display.update((0, 0, dimensions.current_w, (dimensions.current_h/100)*90))
     pygame.display.update()  # update the entire screen.
@@ -1332,7 +1329,7 @@ def menu():
     ip = display_ip_address()  # check the IP.
     stayLooped = True
     place_text("MENU", "white", menu_font, 50, 3, "mainTimer")
-    place_text("IP: " + ip, "white", menu_font, 50, 10, "mainTimer")
+    place_text("Liftingcast Management: " + ip + ":5000", "white", menu_font, 50, 10, "mainTimer")
     place_text(
         "Attemptdometer: " + str(odometer.read_mileage()),
         "red",
@@ -1376,15 +1373,15 @@ def menu():
         place_text(str(spare_soc) + "%", "white", menu_font, 90, 55, "mainTimer")
         for event in GAME_EVENTS.get():
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_KP1:
+                if event.key == pygame.K_KP1 or event.key == pygame.K_1:
+                    print("user requested to manually connect remotes")
                     # run the autoconnect script.
-                    os.system(
-                        "python3 /home/pi/Desktop/DRL3/autoconnect.py"
-                    )  # run the autoconnect script.
+                    #os.system("python3 /home/pi/Desktop/DRL3/autoconnect.py")  # run the autoconnect script.
+                    autoconnect.manual_connect(leftSync, chiefSync, rightSync, spareSync)
                     stayLooped = False
                     system_reset()
 
-                if event.key == pygame.K_KP2:
+                if event.key == pygame.K_KP2 or event.key == pygame.K_2:
                     # resets the bluetooth controller.
                     os.system(
                         "sudo systemctl restart bluetooth.service"
@@ -1401,7 +1398,7 @@ def menu():
                     stayLooped = False
                     system_reset()
 
-                if event.key == pygame.K_KP_ENTER:  # EXIT CONDITION
+                if event.key == pygame.K_KP_ENTER or event.key == pygame.K_RETURN:  # EXIT CONDITION
                     stayLooped = False
                     system_reset()
 
@@ -3053,7 +3050,7 @@ while True:
                 print("Attempt Change button pressed")
                 attempt_change()
 
-            if event.key == pygame.K_KP_ENTER:  # EXIT CONDITION
+            if event.key == pygame.K_KP_ENTER or event.key == pygame.K_RETURN:  # EXIT CONDITION
                 menu()  #
             if event.key == pygame.K_ESCAPE:
                 pygame.event.clear()  # remove all events from the queue.

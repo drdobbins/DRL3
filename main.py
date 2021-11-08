@@ -27,6 +27,8 @@ version = "0.8"
 
 debug = False
 
+
+show_main_timer = False
 pygame.init()  # initialize pygame
 mainClock = pygame.time.Clock()
 pygame.font.init()  # initialize pygame font
@@ -72,8 +74,8 @@ else:
     infractionCards = False
 
 
-surface = pygame.display.set_mode((dimensions.current_w, dimensions.current_h), pygame.FULLSCREEN | pygame.DOUBLEBUF)  # creates the main window
-#surface = pygame.display.set_mode((dimensions.current_w, dimensions.current_h))
+#surface = pygame.display.set_mode((dimensions.current_w, dimensions.current_h), pygame.FULLSCREEN | pygame.DOUBLEBUF)  # creates the main window
+surface = pygame.display.set_mode((dimensions.current_w, dimensions.current_h))
 
 
 pygame.mouse.set_visible(False)
@@ -1032,7 +1034,7 @@ def timer_edit():
     # first we need to color the main timer red, and have it blink to let the user know they're editing it.
     # main_timer.minutes = 0 #reset the clock for new data entry
     # main_timer.seconds = 0 #reset the clock for new data entry
-    global mainClock, main_timer, blinking_text_event, openerChange, breakMode
+    global mainClock, main_timer, blinking_text_event, openerChange, breakMode,show_main_timer
     color = "red"
     place_text("0:00:00", color, main_timer_font, 50, 70, "timerChange")
     new_time = ""
@@ -1130,7 +1132,7 @@ def timer_edit():
                                     70,
                                     "timerChange",
                                 )  # "hides" the main timer..
-                                place_text(
+                                if show_main_timer: place_text(
                                     main_timer.status(),
                                     "white",
                                     main_timer_font,
@@ -1239,7 +1241,7 @@ def system_reset():
     print("System Reset Requested...")
     global surface, breakMode, drlCorner, lifterID_image, attemptID_image, main_timer, attempt_timer1, attempt_timer2, attempt_timer3
     global leftSync, chiefSync, rightSync, left_currently_desync, chief_currently_desync, right_currently_desync
-    global input_blocked
+    global input_blocked, show_main_timer
     surface.fill((23, 23, 23))  # color the screen black
     place_image(drlCorner, False)
     place_image(lifterID_image, False)
@@ -1265,7 +1267,8 @@ def system_reset():
     # this should remove any late main timer events in the
     # queue.
     main_timer.reset()  # reset the clock to 1 minute.
-    place_text(main_timer.status(), "white", main_timer_font, 50, 70, "mainTimer")
+    if show_main_timer:
+        place_text(main_timer.status(), "white", main_timer_font, 50, 70, "mainTimer")
     # prints the main timer. #update the timerplace_text
 
     pygame.display.update()
@@ -1285,7 +1288,7 @@ def screen_reset():
     print("Screen Reset Requested...")
     global surface, breakMode, drlCorner, lifterID_image, attemptID_image, main_timer, attempt_timer1, attempt_timer2, attempt_timer3
     global leftSync, chiefSync, rightSync, left_currently_desync, chief_currently_desync, right_currently_desync
-    global input_blocked
+    global input_blocked, show_main_timer
     surface.fill((23, 23, 23))  # color the screen black
     # main_timer.reset()
     place_image(drlCorner, False)
@@ -1311,7 +1314,8 @@ def screen_reset():
     pygame.event.get(main_timer_event)
     # this should remove any late main timer events in the
     # queue.
-    place_text(main_timer.status(), "white", main_timer_font, 50, 70, "mainTimer")
+    if show_main_timer:
+        place_text(main_timer.status(), "white", main_timer_font, 50, 70, "mainTimer")
     # prints the main timer. #update the timerplace_text
 
     pygame.display.update()
@@ -1529,7 +1533,7 @@ def attempt_change():
 
 
 def clock_event():
-    global main_timer, breakMode, attempt_change_mode
+    global main_timer, breakMode, attempt_change_mode, show_main_timer
     print("Clock button pressed")
     if main_timer.running or main_timer.empty:
         if breakMode:
@@ -1552,7 +1556,8 @@ def clock_event():
                 except:
                     place_image(no_sync_image, True)  # draw the red sync
 
-            place_text(
+            if show_main_timer:
+                place_text(
                 main_timer.status(), "white", main_timer_font, 50, 70, "mainTimer"
             )  # prints the main timer. #update the timerplace_text
 
@@ -1607,7 +1612,8 @@ def clock_event():
                     "openerChange",
                 )
         else:
-            place_text(
+            if show_main_timer:
+                place_text(
                 main_timer.status(), "white", main_timer_font, 50, 70, "mainTimer"
             )  # prints the main timer. update the timerplace_text
 
@@ -2120,7 +2126,8 @@ place_image(rightDesync_image, False)
 resetLights()  # reset all the booleans associated with the control logic.
 
 
-place_text(
+if show_main_timer: 
+    place_text(
     main_timer.status(), "white", main_timer_font, 50, 70, "mainTimer"
 )  # prints the main timer.
 
@@ -2581,7 +2588,8 @@ while True:
                 (0, 0, dimensions.current_w, (dimensions.current_h / 100) * 55)
             )  # this update reveals all aspects of the lights at once!
             main_timer.reset()  # reset the timer
-            place_text(
+            if show_main_timer:
+                place_text(
                 main_timer.status(), "white", main_timer_font, 50, 70, "mainTimer"
             )  # prints the main timer. #update the timerplace_text
             if lc.configured:  # if liftingcast configuration is setup
@@ -2647,7 +2655,8 @@ while True:
         if event.type == pygame.KEYDOWN:
 
             if event.key == pygame.K_c or event.key == pygame.K_KP_MINUS:
-                clock_event()
+                if show_main_timer:
+                    clock_event()
 
             # ---------------------SPARE REMOTE INPUTS-------------------
             # -----------------------------------------------------------

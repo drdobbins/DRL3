@@ -74,8 +74,8 @@ else:
     infractionCards = False
 
 
-#surface = pygame.display.set_mode((dimensions.current_w, dimensions.current_h), pygame.FULLSCREEN | pygame.DOUBLEBUF)  # creates the main window
-surface = pygame.display.set_mode((dimensions.current_w, dimensions.current_h))
+surface = pygame.display.set_mode((dimensions.current_w, dimensions.current_h), pygame.FULLSCREEN | pygame.DOUBLEBUF)  # creates the main window
+#surface = pygame.display.set_mode((dimensions.current_w, dimensions.current_h))
 
 
 pygame.mouse.set_visible(False)

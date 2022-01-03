@@ -23,9 +23,22 @@ import requests
 import socket
 
 
-version = "0.8"
+version = "0.9"
 
 debug = False
+
+
+with open ('/etc/os-release') as f: #open OS file and check version
+	lines = f.readlines()
+OS_Version = int((lines[3][9:11]))
+
+if OS_Version >10:
+    old_OS = False
+else:
+    old_OS = True
+
+if not old_OS: #only try to import the module on newer systems that are running latest os
+    from sh import bluetoothctl
 
 
 show_main_timer = True
@@ -993,40 +1006,47 @@ def break_mode():
 
 
 def get_battery_percent(mac, soc):
-    if debug:
-        print("")
-        print("reading battery percentage")
-    # print("Init bluetooth...")
-    bl = Bluetoothctl()
-    if debug:
-        print(("Checking battery % for device: " + mac))
+    global old_OS
+    if old_OS:
+        if debug:
+            print("")
+            print("reading battery percentage")
+        # print("Init bluetooth...")
+        bl = Bluetoothctl()
+        if debug:
+            print(("Checking battery % for device: " + mac))
 
-    macStr = mac.replace(":", "_")
-    consoleStr = (
-        "select-attribute /org/bluez/hci0/dev_" + macStr + "/service005f/char0060"
-    )
-    bl.get_output(consoleStr)
-    bl.get_output("read")
-    bl.get_output("")
-    soc = bl.get_output("")
-    byteBattery = soc[0][-2:]
-    # this gets the battery percentage for that device (in hex!)
-    if debug:
-        print("Byte battery % for " + str(mac) + " is: " + str(byteBattery))
-    strBattery = byteBattery.decode()  # forms a string
-    if debug:
-        print("Battery Level for Device: " + mac + " is " + strBattery + "h")
-    try:
-        intBattery = int(byteBattery, 16)
+        macStr = mac.replace(":", "_")
+        consoleStr = (
+            "select-attribute /org/bluez/hci0/dev_" + macStr + "/service005f/char0060"
+        )
+        bl.get_output(consoleStr)
+        bl.get_output("read")
+        bl.get_output("")
+        soc = bl.get_output("")
+        byteBattery = soc[0][-2:]
+        # this gets the battery percentage for that device (in hex!)
         if debug:
-            print("Returning: " + str(intBattery) + "% as the battery value.")
-        return intBattery  # gets the final battery %
-    except:
+            print("Byte battery % for " + str(mac) + " is: " + str(byteBattery))
+        strBattery = byteBattery.decode()  # forms a string
         if debug:
-            print(
-                "Error Reading battery level, returning previous reading: " + str(soc)
-            )
-        return soc
+            print("Battery Level for Device: " + mac + " is " + strBattery + "h")
+        try:
+            intBattery = int(byteBattery, 16)
+            if debug:
+                print("Returning: " + str(intBattery) + "% as the battery value.")
+            return intBattery  # gets the final battery %
+        except:
+            if debug:
+                print(
+                    "Error Reading battery level, returning previous reading: " + str(soc)
+                )
+            return soc
+    else:
+        info = str(bluetoothctl("info",mac)) #query a sh script. 
+        soc = int(info[-4:-2]) #extract the battery % in %
+        return soc #return the State of Charge
+        
 
 
 def timer_edit():

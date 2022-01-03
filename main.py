@@ -28,7 +28,7 @@ version = "0.8"
 debug = False
 
 
-show_main_timer = False
+show_main_timer = True
 pygame.init()  # initialize pygame
 mainClock = pygame.time.Clock()
 pygame.font.init()  # initialize pygame font

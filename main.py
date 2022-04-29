@@ -1044,8 +1044,13 @@ def get_battery_percent(mac, soc):
             return soc
     else:
         info = str(bluetoothctl("info",mac)) #query a sh script. 
-        soc = int(info[-4:-2]) #extract the battery % in %
-        return soc #return the State of Charge
+        try:
+            soc = int(info[-4:-2]) #extract the battery % in %
+            return soc #return the State of Charge
+        except:
+            #single digit SOC, remove the (
+            soc = int(info[-3:-2]) #extract the battery % in %
+            return soc #return the State of Charge
         
 
 

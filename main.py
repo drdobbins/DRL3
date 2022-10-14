@@ -41,7 +41,7 @@ if not old_OS: #only try to import the module on newer systems that are running 
     from sh import bluetoothctl
 
 
-show_main_timer = False #this determines if the main timer is shown or not
+show_main_timer = True #this determines if the main timer is shown or not
 pygame.init()  # initialize pygame
 mainClock = pygame.time.Clock()
 pygame.font.init()  # initialize pygame font

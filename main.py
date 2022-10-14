@@ -23,7 +23,7 @@ import requests
 import socket
 
 
-version = "0.9"
+version = "0.10"
 
 debug = False
 
@@ -41,7 +41,7 @@ if not old_OS: #only try to import the module on newer systems that are running 
     from sh import bluetoothctl
 
 
-show_main_timer = True
+show_main_timer = False #this determines if the main timer is shown or not
 pygame.init()  # initialize pygame
 mainClock = pygame.time.Clock()
 pygame.font.init()  # initialize pygame font
@@ -1266,10 +1266,11 @@ def system_reset():
     print("System Reset Requested...")
     global surface, breakMode, drlCorner, lifterID_image, attemptID_image, main_timer, attempt_timer1, attempt_timer2, attempt_timer3
     global leftSync, chiefSync, rightSync, left_currently_desync, chief_currently_desync, right_currently_desync
-    global input_blocked, show_main_timer
+    global input_blocked, show_main_timer, show_main_timer
     surface.fill((23, 23, 23))  # color the screen black
     place_image(drlCorner, False)
-    place_image(lifterID_image, False)
+    if show_main_timer:
+        place_image(lifterID_image, False)
     place_image(attemptID_image, False)
     resetLights()  # reset all the booleans associated with the control logic.
     input_blocked = False  # this will prevent referee remotes from triggering decisions
@@ -1313,11 +1314,12 @@ def screen_reset():
     print("Screen Reset Requested...")
     global surface, breakMode, drlCorner, lifterID_image, attemptID_image, main_timer, attempt_timer1, attempt_timer2, attempt_timer3
     global leftSync, chiefSync, rightSync, left_currently_desync, chief_currently_desync, right_currently_desync
-    global input_blocked, show_main_timer
+    global input_blocked, show_main_timer, show_main_timer
     surface.fill((23, 23, 23))  # color the screen black
     # main_timer.reset()
     place_image(drlCorner, False)
-    place_image(lifterID_image, False)
+    if show_main_timer:
+        place_image(lifterID_image, False)
     place_image(attemptID_image, False)
     resetLights()  # reset all the booleans associated with the control logic.
     input_blocked = False  # this will prevent referee remotes from triggering decisions
@@ -1348,7 +1350,7 @@ def screen_reset():
 
 
 def menu():
-    global left_soc, chief_soc, right_soc, IPF, infractionCards, leftSync, chiefSync, rightSync, spareSync
+    global left_soc, chief_soc, right_soc, IPF, infractionCards, leftSync, chiefSync, rightSync, spareSync, show_main_timer
     surface.fill((23, 23, 23))  # color the screen black
     # pygame.display.update((0, 0, dimensions.current_w, (dimensions.current_h/100)*90))
     pygame.display.update()  # update the entire screen.
@@ -1373,13 +1375,18 @@ def menu():
     # need to put if config is IPF, give option to remove infraction cards.
 
     place_text("2 - Reset Bluetooth", "white", menu_font, 50, 77, "mainTimer")
+    
+    if show_main_timer:
+        place_text("3 - Remove Main Timer", "white", menu_font, 50, 84, "mainTimer")
+    else:
+        place_text("3 - Restore Main Timer", "white", menu_font, 50, 84, "mainTimer")
 
     if infractionCards and IPF:
         place_text(
-            "3 - Remove Infraction Cards", "white", menu_font, 50, 84, "mainTimer"
+            "4 - Remove Infraction Cards", "white", menu_font, 50, 91, "mainTimer"
         )
     elif IPF and not infractionCards:
-        place_text("3 - Add Infraction Cards", "white", menu_font, 50, 84, "mainTimer")
+        place_text("4 - Restore Infraction Cards", "white", menu_font, 50, 91, "mainTimer")
 
     # place_text("Left Remote Battery: " + str(left_soc) + "%","white", menu_font, 50, 35, "mainTimer")
     # place_text("Chief Remote Battery: " + str(chief_soc) + "%","white", menu_font, 50, 55, "mainTimer")
@@ -1417,8 +1424,15 @@ def menu():
                     )  # run the autoconnect script.
                     stayLooped = False
                     system_reset()
+                    
+                if event.key == pygame.K_KP3 or event.key == pygame.K_3:
+                    if show_main_timer:
+                        show_main_timer = False
+                    else:
+                        show_main_timer = True
+                    system_reset()
 
-                if event.key == pygame.K_KP3 and IPF:
+                if event.key == pygame.K_KP4 or pygame.K_4 and IPF:
                     # toggle the infraction cards
                     if infractionCards:
                         infractionCards = False
@@ -1882,6 +1896,7 @@ breakMode = False
 
 attempt_change_mode = False
 
+
 # Load in All the Images used in the display.
 drlCorner = format_image("/home/pi/Desktop/DRL3/DRLimages/DRLcorner.png", 15, 10, 93)
 
@@ -2143,7 +2158,8 @@ surface.fill((23, 23, 23))  # color the screen black
 # Battery and DRL Icons
 place_image(drlCorner, False)
 
-place_image(lifterID_image, False)
+if show_main_timer:
+    place_image(lifterID_image, False)
 place_image(attemptID_image, False)
 place_image(leftDesync_image, False)
 place_image(chiefDesync_image, False)

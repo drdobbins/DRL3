@@ -1432,13 +1432,14 @@ def menu():
                         show_main_timer = True
                     system_reset()
 
-                if event.key == pygame.K_KP4 or pygame.K_4 and IPF:
+                if event.key == pygame.K_KP4 or event.key == pygame.K_4:
                     # toggle the infraction cards
-                    if infractionCards:
-                        infractionCards = False
-                    else:
-                        infractionCards = True
-                    stayLooped = False
+                    if IPF:
+                        if infractionCards:
+                            infractionCards = False
+                        else:
+                            infractionCards = True
+                        stayLooped = False
                     system_reset()
 
                 if event.key == pygame.K_KP_ENTER or event.key == pygame.K_RETURN:  # EXIT CONDITION

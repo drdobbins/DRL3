@@ -1048,9 +1048,12 @@ def get_battery_percent(mac, soc):
             soc = int(info[-4:-2]) #extract the battery % in %
             return soc #return the State of Charge
         except:
-            #single digit SOC, remove the (
-            soc = int(info[-3:-2]) #extract the battery % in %
-            return soc #return the State of Charge
+            try:
+                #single digit SOC, remove the (
+                soc = int(info[-3:-2]) #extract the battery % in %
+                return soc #return the State of Charge
+            except:
+                return soc #just return the old value if it errors out, don't crash the thread
         
 
 

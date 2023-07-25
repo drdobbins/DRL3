@@ -87,8 +87,8 @@ else:
     infractionCards = False
 
 
-surface = pygame.display.set_mode((dimensions.current_w, dimensions.current_h), pygame.FULLSCREEN | pygame.DOUBLEBUF)  # creates the main window
-#surface = pygame.display.set_mode((dimensions.current_w, dimensions.current_h))
+#surface = pygame.display.set_mode((dimensions.current_w, dimensions.current_h), pygame.FULLSCREEN | pygame.DOUBLEBUF)  # creates the main window
+surface = pygame.display.set_mode((dimensions.current_w, dimensions.current_h))
 
 
 pygame.mouse.set_visible(False)
@@ -244,16 +244,16 @@ def get_color_from_time(time):
     # The purpose of this function is to map 60->30->0 in the RGB spectrum
     # depending on time.
     rgb = [0, 0, 0]
-    time = int(time)
+    time = round(time)
     if time <= 60 and time > 30:  # transition from green to yellow
-        rgb[0] = int((-61 / 15) * (time) + 345)
+        rgb[0] = round((-61 / 15) * (time) + 345)
         # equation to translate green to yellow for red.
-        rgb[1] = int((-23 / 15) * (time) + 276)
-        rgb[2] = int((29 / 30) * (time) + 12)
+        rgb[1] = round((-23 / 15) * (time) + 276)
+        rgb[2] = round((29 / 30) * (time) + 12)
     if time <= 30 and time > 0:
-        rgb[0] = int((1 / 5) * (time) + 217)
-        rgb[1] = int((33 / 5) * (time) + 32)
-        rgb[2] = int((1 / 30) * (time) + 40)
+        rgb[0] = round((1 / 5) * (time) + 217)
+        rgb[1] = round((33 / 5) * (time) + 32)
+        rgb[2] = round((1 / 30) * (time) + 40)
     if time == 0:
         rgb = [23, 23, 23]
     return rgb
@@ -266,10 +266,10 @@ def draw_background_box(textID, update):
     # pygame.draw.rect(surface, [255,23,23],position,1) #used for debugging
     if textID == "mainTimer":
         # this draws the background behind the main timer for each tick.
-        x = (dimensions.current_w / 100) * 25
-        y = (dimensions.current_h / 100) * 55
-        width = (dimensions.current_w / 100) * 50
-        height = (dimensions.current_h / 100) * 34
+        x = round((dimensions.current_w / 100) * 25)
+        y = round((dimensions.current_h / 100) * 55)
+        width = round((dimensions.current_w / 100) * 50)
+        height = round((dimensions.current_h / 100) * 34)
         pygame.draw.rect(surface, [23, 23, 23], (x, y, width, height))
         # pygame.display.update((x, y, width, height))
         # print("display updated - draw_background_box")
@@ -278,19 +278,19 @@ def draw_background_box(textID, update):
         x = 0
         y = 0
         width = dimensions.current_w
-        height = (
+        height = round((
             dimensions.current_h / 100
-        ) * 30  # just color the top quarter of the screen.
+        ) * 30)  # just color the top quarter of the screen.
         pygame.draw.rect(surface, [25, 23, 23], (x, y, width, height))
         # pygame.display.update((x, y, width, height)) #immeadetly update the
         # screen.
 
     if textID == "breakTimer":
         print("drawing backgound box for breakTimer")
-        x = (dimensions.current_w / 100) * 25.5
-        y = (dimensions.current_h / 100) * 26
-        width = (dimensions.current_w / 100) * 52
-        height = (dimensions.current_h / 100) * 30
+        x = round((dimensions.current_w / 100) * 25.5)
+        y = round((dimensions.current_h / 100) * 26)
+        width = round((dimensions.current_w / 100) * 52)
+        height = round((dimensions.current_h / 100) * 30)
         pygame.draw.rect(surface, [23, 23, 23], (x, y, width, height))
         # pygame.display.update((x, y, width, height))
 
@@ -298,8 +298,8 @@ def draw_background_box(textID, update):
         print("drawing backgound box for openerChange")
         x = (dimensions.current_w / 100) * 20
         y = (dimensions.current_h / 100) * 66
-        width = (dimensions.current_w / 100) * 53
-        height = (dimensions.current_h / 100) * 16.5
+        width = round((dimensions.current_w / 100) * 53)
+        height = round((dimensions.current_h / 100) * 16.5)
         pygame.draw.rect(surface, [23, 23, 23], (x, y, width, height))
         # pygame.display.update((x, y, width, height))
 
@@ -308,14 +308,14 @@ def draw_background_box(textID, update):
         x = (dimensions.current_w / 100) * 8
         y = (dimensions.current_h / 100) * 55
         width = dimensions.current_w
-        height = (dimensions.current_h / 100) * 36
+        height = round((dimensions.current_h / 100) * 36)
         pygame.draw.rect(surface, [23, 23, 23], (x, y, width, height))
 
     if textID == "lights":
         x = 0
         y = 0
-        width = dimensions.current_w
-        height = (dimensions.current_h / 100) * 55
+        width = round(dimensions.current_w)
+        height = round((dimensions.current_h / 100) * 55)
         print("Covering up the lights")
         pygame.draw.rect(surface, [23, 23, 23], (x, y, width, height))
         pygame.display.update(x, y, width, height)
@@ -323,38 +323,38 @@ def draw_background_box(textID, update):
     if textID == "left":
         x = 0
         y = 0
-        width = (dimensions.current_w / 100) * 33
-        height = (dimensions.current_h / 100) * 55
+        width = round((dimensions.current_w / 100) * 33)
+        height = round((dimensions.current_h / 100) * 55)
         if debug:
             print("Covering up the left desync")
         pygame.draw.rect(surface, [23, 23, 23], (x, y, width, height))
         pygame.display.update(x, y, width, height)
 
     if textID == "chief":
-        x = (dimensions.current_w / 100) * 33
+        x = round((dimensions.current_w / 100) * 33)
         y = 0
-        width = (dimensions.current_w / 100) * 33
-        height = (dimensions.current_h / 100) * 55
+        width = round((dimensions.current_w / 100) * 33)
+        height = round((dimensions.current_h / 100) * 55)
         if debug:
             print("Covering up the chief desync")
         pygame.draw.rect(surface, [23, 23, 23], (x, y, width, height))
         pygame.display.update(x, y, width, height)
 
     if textID == "right":
-        x = (dimensions.current_w / 100) * 66
+        x = round((dimensions.current_w / 100) * 66)
         y = 0
-        width = (dimensions.current_w / 100) * 33
-        height = (dimensions.current_h / 100) * 55
+        width = round((dimensions.current_w / 100) * 33)
+        height = round((dimensions.current_h / 100) * 55)
         if debug:
             print("Covering up the right desync")
         pygame.draw.rect(surface, [23, 23, 23], (x, y, width, height))
         pygame.display.update(x, y, width, height)
 
     if textID == "leftBatt":
-        x = (dimensions.current_w / 100) * 6
-        y = (dimensions.current_h / 100) * 96
-        width = (dimensions.current_w / 100) * 4
-        height = (dimensions.current_h / 100) * 4
+        x = round((dimensions.current_w / 100) * 6)
+        y = round((dimensions.current_h / 100) * 96)
+        width = round((dimensions.current_w / 100) * 4)
+        height = round((dimensions.current_h / 100) * 4)
         if debug:
             print("Covering up the left battery")
         pygame.draw.rect(surface, [23, 23, 23], (x, y, width, height))
@@ -362,30 +362,30 @@ def draw_background_box(textID, update):
             pygame.display.update(x, y, width, height)
 
     if textID == "chiefBatt":
-        x = (dimensions.current_w / 100) * 10
-        y = (dimensions.current_h / 100) * 96
-        width = (dimensions.current_w / 100) * 4
-        height = (dimensions.current_h / 100) * 4
+        x = round((dimensions.current_w / 100) * 10)
+        y = round((dimensions.current_h / 100) * 96)
+        width = round((dimensions.current_w / 100) * 4)
+        height = round((dimensions.current_h / 100) * 4)
         print("Covering up the chief battery")
         pygame.draw.rect(surface, [23, 23, 23], (x, y, width, height))
         if update:
             pygame.display.update(x, y, width, height)
 
     if textID == "rightBatt":
-        x = (dimensions.current_w / 100) * 14
-        y = (dimensions.current_h / 100) * 96
-        width = (dimensions.current_w / 100) * 4
-        height = (dimensions.current_h / 100) * 4
+        x = round((dimensions.current_w / 100) * 14)
+        y = round((dimensions.current_h / 100) * 96)
+        width = round((dimensions.current_w / 100) * 4)
+        height = round((dimensions.current_h / 100) * 4)
         if debug:
             print("Covering up the right battery")
         pygame.draw.rect(surface, [23, 23, 23], (x, y, width, height))
         if update:
             pygame.display.update(x, y, width, height)
     if textID == "spareMenu":
-        x = (dimensions.current_w / 100) * 0
-        y = (dimensions.current_h / 100) * 15
+        x = round((dimensions.current_w / 100) * 0)
+        y = round((dimensions.current_h / 100) * 15)
         width = dimensions.current_w
-        height = (dimensions.current_h / 100) * 30
+        height = round((dimensions.current_h / 100) * 30)
         if debug:
             print("drawing Spare Config Menu \n\n\n")
         pygame.draw.rect(surface, [23, 23, 23], (x, y, width, height))
@@ -419,13 +419,13 @@ def format_image(logo, scaling_factor, x, y):
         * float(image_dimensions[0])
     ) / (float(image_dimensions[1]))
     scaled_logo_main = pygame.transform.scale(
-        raw_logo, ((int(x_scale)), int((dimensions.current_h / 100) * scaling_factor))
+        raw_logo, ((round(x_scale)), round((dimensions.current_h / 100) * scaling_factor))
     )
     logo_position = scaled_logo_main.get_rect()
-    logo_position.centerx = (
+    logo_position.centerx = round((
         dimensions.current_w / 100
-    ) * x  # this should be the middle of the screen
-    logo_position.centery = (dimensions.current_h / 100) * y
+    ) * x)  # this should be the middle of the screen
+    logo_position.centery = round((dimensions.current_h / 100) * y)
     return scaled_logo_main, logo_position
     # surface.blit(scaled_logo_main, logo_position)  # put the image on the
     # screen.
@@ -447,7 +447,7 @@ def init_arrow(image):
         * float(image_dimensions[0])
     ) / (float(image_dimensions[1]))
     scaled_logo_main = pygame.transform.scale(
-        raw_logo, ((int(x_scale)), int((dimensions.current_h / 100) * scaling_factor))
+        raw_logo, ((round(x_scale)), round((dimensions.current_h / 100) * scaling_factor))
     )  # scale the image to fit
     logo_position = scaled_logo_main.get_rect()
     return scaled_logo_main, logo_position
@@ -527,12 +527,12 @@ def place_text(text, Color, textFont, loc_x, loc_y, textID):
     text_position = (
         rendered_message.get_rect()
     )  # get the size of the rendered text (regular
-    text_position.centerx = (
+    text_position.centerx = round((
         dimensions.current_w / 100
-    ) * loc_x  # specify where the center of the message should be on the x axis
-    text_position.centery = (
+    ) * loc_x)  # specify where the center of the message should be on the x axis
+    text_position.centery = round((
         dimensions.current_h / 100
-    ) * loc_y  # specify where the cen
+    ) * loc_y)  # specify where the cen
 
     if textID == "mainTimer":
         #print("Drawing Background for Main Timer")
@@ -731,24 +731,12 @@ class clock:
     def start(self):
         # start the clock
         self.running = True
-        if (
-            self == main_timer
-        ):  # we only want to toggle the caps lock value if the main timer is one being started, not attempt timers.
-            capsLockOn = get_caps_lock()
-            if capsLockOn:  # if caps lock is currently on, turn it off.
-                os.system("xte 'key Caps_Lock' -x:0")  # turn off the LED
-                print("TURNING OFF ATTEMPT LED")
 
     def pause(self):
         self.running = False
 
     def reset(self):
         # reset the clock to 1 minute
-        if self == main_timer:
-            capsLockOn = get_caps_lock()
-            if not capsLockOn:  # if the LED is off
-                os.system("xte 'key Caps_Lock' -x:0")  # turn on the LED
-                print("Turning ON ATTEMPT CHANGE LED")
 
         print("Clock has been reset to 1:00")
         self.minutes = 1
@@ -2198,9 +2186,6 @@ pygame.event.post(
 )  # check for remote connections at the very beginning!
 
 
-capsLockOn = get_caps_lock()  # used for the attempt change button illumination.
-if not capsLockOn:  # if caps lock is off, turn it on.
-    os.system("xte 'key Caps_Lock' -x:0")
 
 while True:
     # print("we are in the main loop")
@@ -2631,7 +2616,7 @@ while True:
                     place_image(rightYellow_image, False)
 
             pygame.display.update(
-                (0, 0, dimensions.current_w, (dimensions.current_h / 100) * 55)
+                (0, 0, dimensions.current_w, round((dimensions.current_h / 100) * 55))
             )  # this update reveals all aspects of the lights at once!
             main_timer.reset()  # reset the timer
             if show_main_timer:

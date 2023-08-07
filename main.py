@@ -21,12 +21,14 @@ import lc
 import autoconnect
 import requests
 import socket
+import haptic
 
 
-version = "0.10"
+version = "0.12"
 
 debug = False
 
+remoteBuzz = haptic.haptic_feedback() #initialize the haptic feedback class
 
 with open ('/etc/os-release') as f: #open OS file and check version
 	lines = f.readlines()
@@ -582,7 +584,7 @@ def place_text(text, Color, textFont, loc_x, loc_y, textID):
         # text is.
 
     if textID == "timerChange":
-        print("Drawing Background for Main Timer in edit mode")
+        #print("Drawing Background for Main Timer in edit mode")
         draw_background_box(textID, True)
         # over write the exisitng stuff in that spot, and
         # make way for the next text render.
@@ -593,7 +595,7 @@ def place_text(text, Color, textFont, loc_x, loc_y, textID):
         # text is.
 
     if textID == "attempt1":
-        print("Drawing Attempt box for attempt1")
+        #print("Drawing Attempt box for attempt1")
         draw_attempt_box(
             attempt_timer1.seconds, attempt1_image[1]
         )  # place the pretty frame over the box
@@ -605,7 +607,7 @@ def place_text(text, Color, textFont, loc_x, loc_y, textID):
         )  # just update the part of the screen where the text is.
 
     if textID == "attempt2":
-        print("Drawing Attempt box for attempt2")
+        #print("Drawing Attempt box for attempt2")
         draw_attempt_box(
             attempt_timer2.seconds, attempt2_image[1]
         )  # place the pretty frame over the box
@@ -617,7 +619,7 @@ def place_text(text, Color, textFont, loc_x, loc_y, textID):
         )  # just update the part of the screen where the text is.
 
     if textID == "attempt3":
-        print("Drawing Attempt box for attempt3")
+        #print("Drawing Attempt box for attempt3")
         draw_attempt_box(
             attempt_timer3.seconds, attempt3_image[1]
         )  # place the pretty frame over the box
@@ -672,6 +674,7 @@ def reset_leftLights():
     leftRed = False
     leftBlue = False
     leftYellow = False
+    leftDecision = False
     global revealDecision
     revealDecision = False
 
@@ -682,6 +685,7 @@ def reset_chiefLights():
     chiefRed = False
     chiefBlue = False
     chiefYellow = False
+    chiefDecision = False
     global revealDecision
     revealDecision = False
 
@@ -692,6 +696,7 @@ def reset_rightLights():
     rightRed = False
     rightBlue = False
     rightYellow = False
+    rightDecision = False
     global revealDecision
     revealDecision = False
 
@@ -846,9 +851,9 @@ def start_attempt_timer1():
 def start_attempt_timer2():
     global e, offset, yoffset
     pygame.time.set_timer(attempt_timer2_event, 1000)  # Begin the tick.
-    print("Starting the Attempt2 Timer")
+    #print("Starting the Attempt2 Timer")
     attempt_timer2.start()
-    print("Attempt Timer 2 Should be ticking now")
+    #print("Attempt Timer 2 Should be ticking now")
     if attempt_timer2.seconds > 0:
         place_text(
             attempt_timer2.seconds,
@@ -863,9 +868,9 @@ def start_attempt_timer2():
 def start_attempt_timer3():
     global e, offset, yoffset
     pygame.time.set_timer(attempt_timer3_event, 1000)  # Begin the tick.
-    print("Starting the Attempt3 Timer")
+    #print("Starting the Attempt3 Timer")
     attempt_timer3.start()
-    print("Attempt Timer 3 Should be ticking now")
+    #print("Attempt Timer 3 Should be ticking now")
     if attempt_timer3.seconds > 0:
         place_text(
             attempt_timer3.seconds,
@@ -880,7 +885,7 @@ def start_attempt_timer3():
 def assign_timer_spot():
     # this will be called every time the lights come on, to determine what clock values are shuffled around where.
     # check if timer 1 is empty.
-    print("Assigning Attempt Selection Spot")
+    #print("Assigning Attempt Selection Spot")
     if attempt_timer1.seconds == 0:
         print("Assigning to First Spot")
         attempt_timer1.reset60()
@@ -1650,19 +1655,6 @@ def clock_event():
             )  # prints the main timer. update the timerplace_text
 
 
-def get_caps_lock():
-    out = subprocess.run(
-        ["xset", "-q"], stdout=subprocess.PIPE
-    )  # query the OS for the state of the keys
-    out_text = out.stdout.decode("utf-8")  # get the result and convert to a string
-    match = re.search(
-        "Caps Lock:\s*(off|on)", out_text
-    )  # use a regex to search for the status (on/off)
-    if match.group(1) == "on":
-        capsLockOn = True
-    else:
-        capsLockOn = False
-    return capsLockOn
 
 
 def spare_config():
@@ -2190,7 +2182,19 @@ pygame.event.post(
 while True:
     # print("we are in the main loop")
     # we should constantly check for a spare remote connection event.
-
+    remoteBuzz.left = leftDecision
+    remoteBuzz.chief = chiefDecision
+    remoteBuzz.right = rightDecision
+    remoteBuzz.startFeedback() #try and buzz the remote
+    #print("remote values are: \n" + "left Decision: " + str(remoteBuzz.left) + "\n" + "chief Decision: " + str(remoteBuzz.chief) + "\n" + "right Decision: " + str(remoteBuzz.chief) + "\n" + "Running status: " + str(remoteBuzz.running))
+    '''if leftDecision:
+        print("left raw status: " + str(leftDecision))
+    if chiefDecision:
+        print("chief raw status: " + str(chiefDecision))
+    if rightDecision:
+        print("right raw status: " + str(rightDecision))'''
+    
+    
     if lc.good_sync and lc.configured:
         print("Drawing Green LC Sync from the Main Thread")
         place_image(good_sync_image, True)  # draw the green sync#draw the green icon.
@@ -2356,7 +2360,7 @@ while True:
                         print("drawing right 50% battery icon")
                         place_image(rightbatt50_image, True)
                     elif right_soc <= 25 and right_soc > 0:
-                        print("drawing right 25% battery icon")
+                        #print("drawing right 25% battery icon")
                         place_image(rightbatt25_image, True)
             print("")
             # rightSync = False
@@ -2370,7 +2374,7 @@ while True:
             # rightSync = False
 
         if event.type == attempt_timer1_event:
-            print("attempt timer1_event")
+            #print("attempt timer1_event")
             attempt_timer1.tick()
             place_text(
                 attempt_timer1.seconds,
@@ -2400,9 +2404,9 @@ while True:
                 # we need to clear the textt
 
         if event.type == attempt_timer2_event:
-            print("attempt timer2_event")
+            #print("attempt timer2_event")
             attempt_timer2.tick()
-            print("attempt timer 2 just ticked")
+            #print("attempt timer 2 just ticked")
             place_text(
                 attempt_timer2.seconds,
                 "black",
@@ -2665,6 +2669,7 @@ while True:
             # queue.
             input_blocked = False  # enable remote input again.
             resetLights()
+            remoteBuzz.haptic_reset() #reset the led Status for haptic feedback
             # now we need to clean the top half of the screen.
             draw_background_box("lights", True)
             print("Clearing Lights, posting sync check event")
@@ -3093,9 +3098,15 @@ while True:
             if event.key == pygame.K_KP_ENTER or event.key == pygame.K_RETURN:  # EXIT CONDITION
                 menu()  #
             if event.key == pygame.K_ESCAPE:
+                print("escape key pressed, quitting program")
                 pygame.event.clear()  # remove all events from the queue.
+                print("pygame events cleared")
+                pygame.display.quit()
+                print("quitting display")
                 pygame.quit()
+                print("pygame quit")
                 sys.exit()
+                print("system exited")
 
     if leftGoodlift or leftRed or leftBlue or leftYellow:
         if chiefGoodlift or chiefRed or chiefBlue or chiefYellow:
